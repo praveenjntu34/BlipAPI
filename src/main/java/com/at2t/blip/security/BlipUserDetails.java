@@ -1,32 +1,38 @@
 package com.at2t.blip.security;
 
+import com.at2t.blip.model.LoginCredential;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public class BlipUserDetails implements UserDetails {
 
     private String userName;
+    private String password;
+    private boolean active;
+    private List<GrantedAuthority> authorities;
 
-    public BlipUserDetails(String userName) {
-        this.userName = userName;
-    }
 
-    public BlipUserDetails() {
+    public BlipUserDetails(LoginCredential loginCredential) {
+        this.userName = loginCredential.getEmail();
+        this.password = loginCredential.getPasscode();
+        this.active = true;
+        this.authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return "pass";
+        return password;
     }
 
     @Override
@@ -51,6 +57,6 @@ public class BlipUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return active;
     }
 }
