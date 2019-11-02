@@ -5,13 +5,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/api/v1/institution")
-@Api(value = "blip")
+@RestController@Api(value = "blip")
 public class InstitutionController {
 
-    @GetMapping("/list")
-    public String getAllInstitutions(){
-        return "Returned response";
+    @GetMapping("/")
+    public String home(){
+        return "Home screen";
     }
+
+    @GetMapping("/admin")
+    public String admin(){
+        return "Hello Admin";
+    }
+    @GetMapping("/user")
+    public String user(){
+        return "Hello User";
+    }
+
 }
