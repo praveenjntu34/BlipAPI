@@ -3,12 +3,11 @@ package com.at2t.blip.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "LoginCredential")
 public class LoginCredential {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int LoginCredentialId;
-
-    private int pid;
 
     private String email;
 
@@ -20,10 +19,20 @@ public class LoginCredential {
 
     private String PasswordSalt;
 
+
     @OneToOne
     @JoinColumn(name = "personId")
     @MapsId
     private Person person;
+
+//    public LoginCredential(String email, String phoneNumber, String passcode, String passwordHash, String passwordSalt, Person person) {
+//        this.email = email;
+//        PhoneNumber = phoneNumber;
+//        Passcode = passcode;
+//        PasswordHash = passwordHash;
+//        PasswordSalt = passwordSalt;
+//        this.person = person;
+//    }
 
     public int getLoginCredentialId() {
         return LoginCredentialId;
@@ -33,20 +42,12 @@ public class LoginCredential {
         LoginCredentialId = loginCredentialId;
     }
 
-    public int getPersonId() {
-        return pid;
-    }
-
-    public void setPersonId(int personId) {
-        pid = personId;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
-        email = email;
+        this.email = email;
     }
 
     public String getPhoneNumber() {
@@ -81,11 +82,11 @@ public class LoginCredential {
         PasswordSalt = passwordSalt;
     }
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
+//    public Person getPerson() {
+//        return person;
+//    }
+//
+//    public void setPerson(Person person) {
+//        this.person = person;
+//    }
 }
