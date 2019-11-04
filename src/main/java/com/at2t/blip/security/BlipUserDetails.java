@@ -1,6 +1,6 @@
 package com.at2t.blip.security;
 
-import com.at2t.blip.model.LoginCredential;
+import com.at2t.blip.dao.LoginCredential;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

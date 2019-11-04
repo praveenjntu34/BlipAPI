@@ -1,9 +1,8 @@
-package com.at2t.blip.model;
+package com.at2t.blip.dao;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "LoginCredential")
 public class LoginCredential {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

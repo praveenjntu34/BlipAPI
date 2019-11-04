@@ -1,7 +1,6 @@
 package com.at2t.blip.security;
 
-import com.at2t.blip.model.InstitutionType;
-import com.at2t.blip.model.LoginCredential;
+import com.at2t.blip.dao.LoginCredential;
 import com.at2t.blip.repository.InstitutionTypeRepository;
 import com.at2t.blip.repository.LoginCredentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
