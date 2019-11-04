@@ -1,9 +1,8 @@
 package com.at2t.blip.repository;
 
-import com.at2t.blip.model.LoginCredential;
+import com.at2t.blip.dao.LoginCredential;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.Optional;
 
