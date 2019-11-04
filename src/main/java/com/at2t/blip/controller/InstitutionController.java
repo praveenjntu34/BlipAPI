@@ -8,11 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController@Api(value = "blip")
 public class InstitutionController {
 
-    @GetMapping("/")
-    public String home(){
-        return "Home screen";
-    }
-
     @GetMapping("/admin")
     public String admin(){
         return "Hello Admin";
