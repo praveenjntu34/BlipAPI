@@ -7,7 +7,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.at2t.blip.repository")
-@EnableSwagger2
 public class BlipApplication {
 
 	public static void main(String[] args) {
