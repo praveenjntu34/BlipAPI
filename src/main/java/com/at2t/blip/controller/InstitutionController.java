@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.at2t.blip.dao.Address;
 import com.at2t.blip.dao.Institution;
 import com.at2t.blip.dao.RelTenantInstitution;
+import com.at2t.blip.dao.RelTenantInstitutionAddress;
 import com.at2t.blip.dao.Tenant;
 import com.at2t.blip.service.InstituitionService;
+import com.at2t.blip.service.RelTenantInstitutionAddressService;
 import com.at2t.blip.service.RelTenantInstitutionService;
 
 import io.swagger.annotations.Api;
@@ -24,8 +27,10 @@ public class InstitutionController {
 
 	@Autowired
 	RelTenantInstitutionService relTenantInstitutionService;
-	
-	
+
+	@Autowired
+	RelTenantInstitutionAddressService relTenantInstitutionAddressService;
+
 	@GetMapping("/admin")
 	public String admin() {
 		return "Hello Admin";
@@ -50,6 +55,7 @@ public class InstitutionController {
 		instituitionService.addInstituition(instituition);
 		return "Hello User test";
 	}
+
 	@RequestMapping(value = "/createRelTenantInstitution", method = RequestMethod.POST)
 	public String createRelTenantInstitution(@RequestBody RelTenantInstitution relTenantInstitution) {
 		/*
@@ -62,7 +68,15 @@ public class InstitutionController {
 		 * relTenantInstitution.setInstitution(instituition);
 		 * relTenantInstitution.setTenant(tenant);
 		 */
-		relTenantInstitutionService.addInstituition(relTenantInstitution);
+
+		RelTenantInstitution relTenantInstitutionObj = relTenantInstitutionService
+				.addInstituition(relTenantInstitution);
+		System.out.println("RelTenantInstitutionId ID --- " + relTenantInstitutionObj.getRelTenantInstitutionId());
+		RelTenantInstitutionAddress relTenantInstitutionAddress=new RelTenantInstitutionAddress();
+		relTenantInstitutionAddress.setRelTenantInstitutionId(relTenantInstitutionObj.getRelTenantInstitutionId());
+		Address address=new Address();
+		relTenantInstitutionAddress.setAddress(address);
+		relTenantInstitutionAddressService.addRelTenantInstitutionAddress(relTenantInstitutionAddress);
 		return "RelTenantInstitution created";
 	}
 

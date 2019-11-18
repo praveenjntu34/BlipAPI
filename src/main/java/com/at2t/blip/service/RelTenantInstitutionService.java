@@ -14,7 +14,7 @@ public class RelTenantInstitutionService {
 	RelTenantInstitutionRepository relTenantInstitutionRepository;
 
 	@Transactional
-	public boolean addInstituition(RelTenantInstitution relTenantInstitution) {
-		return relTenantInstitutionRepository.save(relTenantInstitution) != null;
+	public RelTenantInstitution addInstituition(RelTenantInstitution relTenantInstitution) {
+		return relTenantInstitutionRepository.save(relTenantInstitution) ;
 	}
 }
