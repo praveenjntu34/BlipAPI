@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.at2t.blip.dao.Address;
 import com.at2t.blip.dao.Institution;
+import com.at2t.blip.dao.InstitutionData;
 import com.at2t.blip.dao.RelTenantInstitution;
 import com.at2t.blip.dao.RelTenantInstitutionAddress;
 import com.at2t.blip.dao.Tenant;
@@ -57,25 +58,13 @@ public class InstitutionController {
 	}
 
 	@RequestMapping(value = "/createRelTenantInstitution", method = RequestMethod.POST)
-	public String createRelTenantInstitution(@RequestBody RelTenantInstitution relTenantInstitution) {
-		/*
-		 * Institution instituition = new Institution();
-		 * instituition.setInstitutionName("test"); instituition.setRemarks("Remarks");
-		 * instituition.setStatus("s");
-		 * 
-		 * Tenant tenant=new Tenant(); tenant.setTenantName("Tenant test");
-		 * RelTenantInstitution relTenantInstitution=new RelTenantInstitution();
-		 * relTenantInstitution.setInstitution(instituition);
-		 * relTenantInstitution.setTenant(tenant);
-		 */
-
+	public String createRelTenantInstitution(@RequestBody InstitutionData institutionData) {
 		RelTenantInstitution relTenantInstitutionObj = relTenantInstitutionService
-				.addInstituition(relTenantInstitution);
+				.addInstituition(institutionData.getRelTenantInstitution());
 		System.out.println("RelTenantInstitutionId ID --- " + relTenantInstitutionObj.getRelTenantInstitutionId());
-		RelTenantInstitutionAddress relTenantInstitutionAddress=new RelTenantInstitutionAddress();
+		RelTenantInstitutionAddress relTenantInstitutionAddress = new RelTenantInstitutionAddress();
 		relTenantInstitutionAddress.setRelTenantInstitutionId(relTenantInstitutionObj.getRelTenantInstitutionId());
-		Address address=new Address();
-		relTenantInstitutionAddress.setAddress(address);
+		relTenantInstitutionAddress.setAddress(institutionData.getAddress());
 		relTenantInstitutionAddressService.addRelTenantInstitutionAddress(relTenantInstitutionAddress);
 		return "RelTenantInstitution created";
 	}
