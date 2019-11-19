@@ -69,4 +69,16 @@ public class InstitutionController {
 		return "RelTenantInstitution created";
 	}
 
+	@RequestMapping(value = "/updateRelTenantInstitution", method = RequestMethod.POST)
+	public String updateRelTenantInstitution(@RequestBody InstitutionData institutionData) {
+		RelTenantInstitution relTenantInstitutionObj = relTenantInstitutionService
+				.addInstituition(institutionData.getRelTenantInstitution());
+		System.out.println("Update RelTenantInstitutionId ID --- " + relTenantInstitutionObj.getRelTenantInstitutionId());
+		RelTenantInstitutionAddress relTenantInstitutionAddress = new RelTenantInstitutionAddress();
+		relTenantInstitutionAddress.setRelTenantInstitutionId(relTenantInstitutionObj.getRelTenantInstitutionId());
+		relTenantInstitutionAddress.setAddress(institutionData.getAddress());
+		relTenantInstitutionAddressService.updateRelTenantInstitutionAddress(relTenantInstitutionAddress);
+		return "RelTenantInstitution updated";
+	}
+
 }

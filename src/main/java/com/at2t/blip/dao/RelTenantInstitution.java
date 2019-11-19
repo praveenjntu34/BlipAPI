@@ -27,9 +27,8 @@ public class RelTenantInstitution {
 	@JoinColumn(name = "TenantId", referencedColumnName = "TenantId")
 	private Tenant tenant;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "InstitutionTypeId", referencedColumnName = "InstitutionTypeId")
-	private InstitutionType institutionType;
+	@Column(name = "InstitutionTypeId")
+	private int institutionTypeId;
 
 	public int getRelTenantInstitutionId() {
 		return relTenantInstitutionId;
@@ -47,19 +46,19 @@ public class RelTenantInstitution {
 		this.institution = institution;
 	}
 
-	public InstitutionType getInstitutionType() {
-		return institutionType;
-	}
-
-	public void setInstitutionType(InstitutionType institutionType) {
-		this.institutionType = institutionType;
-	}
-
 	public Tenant getTenant() {
 		return tenant;
 	}
 
 	public void setTenant(Tenant tenant) {
 		this.tenant = tenant;
+	}
+
+	public int getInstitutionTypeId() {
+		return institutionTypeId;
+	}
+
+	public void setInstitutionTypeId(int institutionTypeId) {
+		this.institutionTypeId = institutionTypeId;
 	}
 }

@@ -21,7 +21,7 @@ public class State {
 	@Column(name = "StateName")
 	private String stateName;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
+	@ManyToOne(cascade = { CascadeType.ALL})
 	@JoinColumn(name = "countryId", referencedColumnName = "countryId")
 	private Country country;
 
