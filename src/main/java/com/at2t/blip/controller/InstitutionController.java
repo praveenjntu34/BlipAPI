@@ -1,5 +1,8 @@
 package com.at2t.blip.controller;
 
+import com.at2t.blip.dto.InstitutionDto;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -7,12 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.at2t.blip.dao.Address;
 import com.at2t.blip.dao.Institution;
 import com.at2t.blip.dao.InstitutionData;
 import com.at2t.blip.dao.RelTenantInstitution;
 import com.at2t.blip.dao.RelTenantInstitutionAddress;
-import com.at2t.blip.dao.Tenant;
 import com.at2t.blip.service.InstituitionService;
 import com.at2t.blip.service.RelTenantInstitutionAddressService;
 import com.at2t.blip.service.RelTenantInstitutionService;
@@ -31,6 +32,9 @@ public class InstitutionController {
 
 	@Autowired
 	RelTenantInstitutionAddressService relTenantInstitutionAddressService;
+
+	@Autowired
+	ModelMapper modelMapper;
 
 	@GetMapping("/admin")
 	public String admin() {
@@ -57,6 +61,11 @@ public class InstitutionController {
 		return "Hello User test";
 	}
 
+//	@RequestMapping(value = "/institutions/details")
+//	public String addInstitution(@RequestBody InstitutionDto institutionDto) {
+//
+//	}
+
 	@RequestMapping(value = "/createRelTenantInstitution", method = RequestMethod.POST)
 	public String createRelTenantInstitution(@RequestBody InstitutionData institutionData) {
 		RelTenantInstitution relTenantInstitutionObj = relTenantInstitutionService
@@ -80,5 +89,19 @@ public class InstitutionController {
 		relTenantInstitutionAddressService.updateRelTenantInstitutionAddress(relTenantInstitutionAddress);
 		return "RelTenantInstitution updated";
 	}
+
+	private Institution convertToInstitutionEntity(InstitutionDto institutionDto){
+
+//		modelMapper.map(institutionDto, Institution.class);
+//		PropertyMap<Institution, InstitutionDto> institutionMap new PropertyMap<Institution,InstitutionDto>() {
+//
+//			protected void configure(){
+//				map().set
+//			}
+//		}
+		return new Institution();
+	}
+
+
 
 }
