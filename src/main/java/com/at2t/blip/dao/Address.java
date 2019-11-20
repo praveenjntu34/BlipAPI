@@ -1,11 +1,6 @@
 package com.at2t.blip.dao;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Address")
@@ -13,7 +8,7 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "AddressId")
-	private int addressId;
+	public int addressId;
 	
 	@Column(name = "Address1")
 	private String address1;
@@ -32,6 +27,17 @@ public class Address {
 
 	@Column(name = "Pincode")
 	private String pincode;
+
+//	public RelTenantInstitution getRelTenantInstitution() {
+//		return relTenantInstitution;
+//	}
+//
+//	public void setRelTenantInstitution(RelTenantInstitution relTenantInstitution) {
+//		this.relTenantInstitution = relTenantInstitution;
+//	}
+//
+//	@OneToOne(mappedBy="address")
+//	private RelTenantInstitution relTenantInstitution;
 
 	public int getAddressId() {
 		return addressId;

@@ -1,11 +1,7 @@
 package com.at2t.blip.dao;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 @Entity
 @Table(name = "Institution")
 public class Institution {
@@ -13,13 +9,47 @@ public class Institution {
 	@Id
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
 	@Column(name = "InstitutionId")
-	private int institutionId;
+	public int institutionId;
 	@Column(name = "InstitutionName")
 	private String institutionName;
+	@Column(name = "Email")
+	private String email;
+	@Column(name = "Website")
+	private String website;
+
+//	public RelTenantInstitution getRelTenantInstitution() {
+//		return relTenantInstitution2;
+//	}
+//
+//	public void setRelTenantInstitution(RelTenantInstitution relTenantInstitution) {
+//		this.relTenantInstitution2 = relTenantInstitution;
+//	}
+
+//	@OneToOne(mappedBy="institution",cascade = CascadeType.ALL,
+//			fetch = FetchType.LAZY, optional = false)
+//	private RelTenantInstitution relTenantInstitution2;
+
 	@Column(name = "Status")
-	private String status;
+	private Boolean status;
+
 	@Column(name = "Remarks")
 	private String remarks;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
 
 	public int getInstitutionId() {
 		return institutionId;
@@ -37,11 +67,11 @@ public class Institution {
 		this.institutionName = institutionName;
 	}
 
-	public String getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 
@@ -52,4 +82,5 @@ public class Institution {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+
 }

@@ -12,7 +12,7 @@ public class InstitutionType {
 	private int institutionTypeId;
 	@Column(name = "InstitutionTypeName")
 	private String institutionTypeName;
-	
+
 	public int getInstitutionTypeId() {
 		return institutionTypeId;
 	}

@@ -1,14 +1,32 @@
 package com.at2t.blip.dto;
 
+import com.at2t.blip.dao.Address;
+import com.at2t.blip.dao.InstitutionType;
+
 public class InstitutionDto {
     private String institutionName;
     private String email;
     private String website;
     private int institutionTypeId;
-    private String address1;
-    private String address2;
-    private String countryId;
-    private String stateId;
+    private Address address;
+    private String remarks;
+    private Boolean status;
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public String getInstitutionName() {
         return institutionName;
@@ -42,54 +60,11 @@ public class InstitutionDto {
         this.institutionTypeId = institutionTypeId;
     }
 
-    public String getAddress1() {
-        return address1;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
+    public void setAddress(Address address) {
+        this.address = address;
     }
-
-    public String getAddress2() {
-        return address2;
-    }
-
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
-
-    public String getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(String countryId) {
-        this.countryId = countryId;
-    }
-
-    public String getStateId() {
-        return stateId;
-    }
-
-    public void setStateId(String stateId) {
-        this.stateId = stateId;
-    }
-
-    public String getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    private String cityId;
-    private String remarks;
 }
