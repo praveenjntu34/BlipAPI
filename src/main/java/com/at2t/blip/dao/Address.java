@@ -8,7 +8,7 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "AddressId")
-	public int addressId;
+	private int addressId;
 	
 	@Column(name = "Address1")
 	private String address1;
@@ -22,22 +22,34 @@ public class Address {
 	@Column(name = "StateId")
 	private int stateId;
 
+	public Address() {
+	}
+
 	@Column(name = "CountryId")
 	private int countryId;
+
+	public Address(String address1, String address2, int cityId, int stateId, int countryId, String pincode) {
+		this.address1 = address1;
+		this.address2 = address2;
+		this.cityId = cityId;
+		this.stateId = stateId;
+		this.countryId = countryId;
+		this.pincode = pincode;
+	}
 
 	@Column(name = "Pincode")
 	private String pincode;
 
-//	public RelTenantInstitution getRelTenantInstitution() {
-//		return relTenantInstitution;
-//	}
-//
-//	public void setRelTenantInstitution(RelTenantInstitution relTenantInstitution) {
-//		this.relTenantInstitution = relTenantInstitution;
-//	}
-//
-//	@OneToOne(mappedBy="address")
-//	private RelTenantInstitution relTenantInstitution;
+	public RelTenantInstitution getRelTenantInstitution() {
+		return relTenantInstitution;
+	}
+
+	public void setRelTenantInstitution(RelTenantInstitution relTenantInstitution) {
+		this.relTenantInstitution = relTenantInstitution;
+	}
+
+	@OneToOne(mappedBy="address")
+	private RelTenantInstitution relTenantInstitution;
 
 	public int getAddressId() {
 		return addressId;

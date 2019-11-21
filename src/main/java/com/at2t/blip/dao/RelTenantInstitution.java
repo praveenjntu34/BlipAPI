@@ -21,7 +21,7 @@ public class RelTenantInstitution {
 	}
 
 	@OneToOne
-	@JoinColumn(name = "institutionId")
+	@JoinColumn(name = "InstitutionId", referencedColumnName = "InstitutionId")
 	@MapsId
 	private Institution institution;
 
@@ -59,7 +59,7 @@ public class RelTenantInstitution {
 	}
 
 	public RelTenantInstitution(Institution institution, Tenant tenant, int institutionTypeID, Address address) {
-		//this.institution = institution;
+		this.institution = institution;
 		this.tenant = tenant;
 		this.institutionTypeID = institutionTypeID;
 		this.address = address;
@@ -73,13 +73,6 @@ public class RelTenantInstitution {
 		this.relTenantInstitutionId = relTenantInstitutionId;
 	}
 
-//	public Institution getInstitution() {
-//		return institution;
-//	}
-//
-//	public void setInstitution(Institution institution) {
-//		this.institution = institution;
-//	}
 
 	public Tenant getTenant() {
 		return tenant;

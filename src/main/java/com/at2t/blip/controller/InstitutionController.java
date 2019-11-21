@@ -4,7 +4,6 @@ import com.at2t.blip.dao.*;
 import com.at2t.blip.dto.InstitutionDto;
 import com.at2t.blip.service.AddressService;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,27 +45,22 @@ public class InstitutionController {
 	public Institution addInstitution(@RequestBody InstitutionDto institutionDto) {
 
 		Institution institution = convertToInstitutionEntity(institutionDto);
-		instituitionService.addInstituition(institution);
-
-
 		Tenant tenant = new Tenant(institutionDto.getInstitutionName());
+
+		instituitionService.addInstituition(institution);
 		instituitionService.addTenant(tenant);
-
-		Address address = addressService.setAddress(institutionDto.getAddress());
-
-        Institution inst = instituitionService.findInstitution(institution.getInstitutionId()).get();
-        Tenant t = instituitionService.findTenant(tenant.getTenantId()).get();
-        Address addr = addressService.findAddress(address.getAddressId()).get();
+		Address address = addressService.setAddress(convertToAddressEntity(institutionDto));
 
 
-		RelTenantInstitution relTenantInstitution = new RelTenantInstitution();
-		relTenantInstitution.setInstitution(inst);
-		relTenantInstitution.setTenant(t);
-		relTenantInstitution.setAddress(addr);
-		relTenantInstitution.setInstitutionTypeID(institutionDto.getInstitutionTypeId());
-
+		RelTenantInstitution relTenantInstitution = new RelTenantInstitution(institution,tenant,institutionDto.getInstitutionTypeId(),address);
+        System.out.println(relTenantInstitution);
 		relTenantInstitutionService.addInstituition(relTenantInstitution);
 		return institution;
+	}
+
+	@RequestMapping(value = "institution/poc", method = RequestMethod.POST)
+	public void addPOC(){
+
 	}
 
 	@RequestMapping(value = "/createRelTenantInstitution", method = RequestMethod.POST)
@@ -98,15 +92,12 @@ public class InstitutionController {
 		Institution institution = modelMapper.map(institutionDto, Institution.class);
 		institution.setInstitutionId(0);
 		return institution;
-//		TypeMap<InstitutionDto, Institution> typeMap = modelMapper.createTypeMap(InstitutionDto.class, Institution.class);
-//		typeMap.addMappings(mapper -> {
-//			mapper.map(src -> src.getInstitutionName(),Institution::setInstitutionName);
-//			mapper.map(src -> src.getEmail(), Institution::setEmail);
-//			mapper.map(src -> src.getWebsite(), Institution::setWebsite);
-//			mapper.map(src -> src.getAddress().getAddress1(), Institution::);
-//		});
 	}
+	private Address convertToAddressEntity(InstitutionDto institutionDto){
 
-
+		Address address = institutionDto.getAddress();
+		Address addr = new Address(address.getAddress1(),address.getAddress2(),address.getCityId(),address.getStateId(),address.getCountryId(),address.getPincode());
+		return addr;
+	}
 
 }

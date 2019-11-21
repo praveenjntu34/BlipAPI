@@ -14,7 +14,8 @@ public class RelTenantInstitutionService {
 	RelTenantInstitutionRepository relTenantInstitutionRepository;
 
 	@Transactional
-	public RelTenantInstitution addInstituition(RelTenantInstitution relTenantInstitution) {
-		return relTenantInstitutionRepository.save(relTenantInstitution) ;
+	public void addInstituition(RelTenantInstitution relTenantInstitution) {
+
+		 relTenantInstitutionRepository.insertData(relTenantInstitution.getTenant().getTenantId(), relTenantInstitution.getInstitutionTypeID(), relTenantInstitution.getAddress().getAddressId(), relTenantInstitution.getInstitution().getInstitutionId());
 	}
 }

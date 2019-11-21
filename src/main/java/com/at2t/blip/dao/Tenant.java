@@ -9,7 +9,7 @@ public class Tenant {
 	@Id
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
 	@Column(name = "TenantId")
-	public int tenantId;
+	private int tenantId;
 
 	@Column(name = "TenantName")
 	private String tenantName;

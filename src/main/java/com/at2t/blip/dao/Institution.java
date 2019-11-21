@@ -9,7 +9,7 @@ public class Institution {
 	@Id
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
 	@Column(name = "InstitutionId")
-	public int institutionId;
+	private int institutionId;
 	@Column(name = "InstitutionName")
 	private String institutionName;
 	@Column(name = "Email")
@@ -17,17 +17,16 @@ public class Institution {
 	@Column(name = "Website")
 	private String website;
 
-//	public RelTenantInstitution getRelTenantInstitution() {
-//		return relTenantInstitution2;
-//	}
-//
-//	public void setRelTenantInstitution(RelTenantInstitution relTenantInstitution) {
-//		this.relTenantInstitution2 = relTenantInstitution;
-//	}
+	public RelTenantInstitution getRelTenantInstitution() {
+		return relTenantInstitution;
+	}
 
-//	@OneToOne(mappedBy="institution",cascade = CascadeType.ALL,
-//			fetch = FetchType.LAZY, optional = false)
-//	private RelTenantInstitution relTenantInstitution2;
+	public void setRelTenantInstitution(RelTenantInstitution relTenantInstitution) {
+		this.relTenantInstitution = relTenantInstitution;
+	}
+
+	@OneToOne(mappedBy="institution")
+	private RelTenantInstitution relTenantInstitution;
 
 	@Column(name = "Status")
 	private Boolean status;
@@ -83,4 +82,6 @@ public class Institution {
 		this.remarks = remarks;
 	}
 
+	public Institution() {
+	}
 }
