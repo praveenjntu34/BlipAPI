@@ -1,7 +1,11 @@
 package com.at2t.blip.controller;
 
 import com.at2t.blip.dao.*;
+import com.at2t.blip.dto.BranchDto;
+import com.at2t.blip.dto.InstitutionAdminDto;
 import com.at2t.blip.dto.InstitutionDto;
+import com.at2t.blip.dto.PersonDto;
+import com.at2t.blip.dto.SectionDto;
 import com.at2t.blip.service.AddressService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,15 +55,15 @@ public class InstitutionController {
 		instituitionService.addTenant(tenant);
 		Address address = addressService.setAddress(convertToAddressEntity(institutionDto));
 
-
-		RelTenantInstitution relTenantInstitution = new RelTenantInstitution(institution,tenant,institutionDto.getInstitutionTypeId(),address);
-        System.out.println(relTenantInstitution);
+		RelTenantInstitution relTenantInstitution = new RelTenantInstitution(institution, tenant,
+				institutionDto.getInstitutionTypeId(), address);
+		System.out.println(relTenantInstitution);
 		relTenantInstitutionService.addInstituition(relTenantInstitution);
 		return institution;
 	}
 
 	@RequestMapping(value = "institution/poc", method = RequestMethod.POST)
-	public void addPOC(){
+	public void addPOC() {
 
 	}
 
@@ -87,17 +91,45 @@ public class InstitutionController {
 		return "RelTenantInstitution updated";
 	}
 
-	private Institution convertToInstitutionEntity(InstitutionDto institutionDto){
+	private Institution convertToInstitutionEntity(InstitutionDto institutionDto) {
 
 		Institution institution = modelMapper.map(institutionDto, Institution.class);
 		institution.setInstitutionId(0);
 		return institution;
 	}
-	private Address convertToAddressEntity(InstitutionDto institutionDto){
+
+	private Address convertToAddressEntity(InstitutionDto institutionDto) {
 
 		Address address = institutionDto.getAddress();
-		Address addr = new Address(address.getAddress1(),address.getAddress2(),address.getCityId(),address.getStateId(),address.getCountryId(),address.getPincode());
+		Address addr = new Address(address.getAddress1(), address.getAddress2(), address.getCityId(),
+				address.getStateId(), address.getCountryId(), address.getPincode());
 		return addr;
 	}
 
+	@RequestMapping(value = "/addPOCDetails", method = RequestMethod.POST)
+	public String addPOCDetails(@RequestBody InstitutionAdminDto institutionAdminDto) {
+
+		PersonDto personDto = institutionAdminDto.getPersonDto();
+		Person person = new Person();
+		person.setFirstName(personDto.getFirstName());
+		person.setLastName(personDto.getLastName());
+		
+		Person personObj = instituitionService.addPerson(person);
+		institutionAdminDto.setPersonId(personObj.getPersonId());
+		
+		instituitionService.addPOCDetail(institutionAdminDto);
+		return "POC Details Added";
+	}
+
+	@RequestMapping(value = "/addBranch", method = RequestMethod.POST)
+	public String addBranch(@RequestBody BranchDto branchDto) {
+		instituitionService.addBranch(branchDto);
+		return "Branch Added";
+	}
+
+	@RequestMapping(value = "/addSection", method = RequestMethod.POST)
+	public String addSection(@RequestBody SectionDto sectionDto) {
+		instituitionService.addBranch(sectionDto.getSectionName(), sectionDto.getBranchId());
+		return "Section Added";
+	}
 }

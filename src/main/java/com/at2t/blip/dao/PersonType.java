@@ -1,11 +1,11 @@
 package com.at2t.blip.dao;
 
 import javax.persistence.*;
-
+@Entity
 public class PersonType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="PersonTypeId")
     private int personTypeId;
 
