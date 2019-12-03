@@ -8,6 +8,9 @@ import com.at2t.blip.dto.LoginCredentialDto;
 import com.at2t.blip.dto.PersonDto;
 import com.at2t.blip.dto.SectionDto;
 import com.at2t.blip.service.AddressService;
+
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -106,25 +109,14 @@ public class InstitutionController {
 				address.getStateId(), address.getCountryId(), address.getPincode());
 		return addr;
 	}
-/*
- * Sample AddPOC details request
- * {
-  "personDto": {
-    "auditCreatedBy": 0,
-    "auditModifiedBy": 0,
-    "dateOfBirth": "2019-12-03T18:04:11.499Z",
-    "firstName": "string",
-    "gender": "s",
-    "lastName": "string",
-    "personTypeId": 0
-  },
-  "personId": 0,
-  "relInstitutionId": 3,
-  "secondaryPOCEmail": "string",
-  "secondaryPOCName": "string",
-  "secondaryPOCPhoneNumber": "string"
-}
- */
+
+	/*
+	 * Sample AddPOC details request { "personDto": { "auditCreatedBy": 0,
+	 * "auditModifiedBy": 0, "dateOfBirth": "2019-12-03T18:04:11.499Z", "firstName":
+	 * "string", "gender": "s", "lastName": "string", "personTypeId": 0 },
+	 * "personId": 0, "relInstitutionId": 3, "secondaryPOCEmail": "string",
+	 * "secondaryPOCName": "string", "secondaryPOCPhoneNumber": "string" }
+	 */
 	@RequestMapping(value = "/addPOCDetails", method = RequestMethod.POST)
 	public String addPOCDetails(@RequestBody InstitutionAdminDto institutionAdminDto) {
 
@@ -132,17 +124,16 @@ public class InstitutionController {
 		Person person = new Person();
 		person.setFirstName(personDto.getFirstName());
 		person.setLastName(personDto.getLastName());
-		
-		
+
 		Person personObj = instituitionService.addPerson(person);
-		LoginCredentialDto loginCredentialDto=new LoginCredentialDto();
-		
+		LoginCredentialDto loginCredentialDto = new LoginCredentialDto();
+
 		loginCredentialDto.setPersonId(personObj.getPersonId());
 		instituitionService.addLoginCredential(loginCredentialDto);
-		
+
 		institutionAdminDto.setPersonId(personObj.getPersonId());
 		instituitionService.addPOCDetail(institutionAdminDto);
-		
+
 		return "POC Details Added";
 	}
 
@@ -157,4 +148,16 @@ public class InstitutionController {
 		instituitionService.addBranch(sectionDto.getSectionName(), sectionDto.getBranchId());
 		return "Section Added";
 	}
+
+	@RequestMapping(value = "/getBranches", method = RequestMethod.POST)
+	public List<Branch> getBranches(@RequestBody int relTenantInstitutionId) {
+
+		return instituitionService.getBranch(relTenantInstitutionId);
+	}
+
+	@RequestMapping(value = "/getSections", method = RequestMethod.POST)
+	public List<Section> getSections(@RequestBody int branchId) {
+		return instituitionService.getSections(branchId);
+	}
+
 }
