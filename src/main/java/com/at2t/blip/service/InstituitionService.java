@@ -14,6 +14,7 @@ import com.at2t.blip.dao.Person;
 import com.at2t.blip.dao.Tenant;
 import com.at2t.blip.dto.BranchDto;
 import com.at2t.blip.dto.InstitutionAdminDto;
+import com.at2t.blip.dto.LoginCredentialDto;
 import com.at2t.blip.dto.SectionDto;
 import com.at2t.blip.repository.InstituitionRepository;
 import com.at2t.blip.repository.InstitutionAdminRepository;
@@ -73,4 +74,11 @@ public class InstituitionService {
 	public Person addPerson(Person person) {
 		return personRepository.save(person);
 	}
+	@Transactional
+	public void addLoginCredential(LoginCredentialDto loginCredentialDto) {
+		 loginCredentialRepository.addLoginCrendentials(loginCredentialDto.getPersonId(), loginCredentialDto.getEmail(),
+				loginCredentialDto.getPhoneNumber());
+	}
+	
+	
 }

@@ -4,6 +4,7 @@ import com.at2t.blip.dao.*;
 import com.at2t.blip.dto.BranchDto;
 import com.at2t.blip.dto.InstitutionAdminDto;
 import com.at2t.blip.dto.InstitutionDto;
+import com.at2t.blip.dto.LoginCredentialDto;
 import com.at2t.blip.dto.PersonDto;
 import com.at2t.blip.dto.SectionDto;
 import com.at2t.blip.service.AddressService;
@@ -105,7 +106,25 @@ public class InstitutionController {
 				address.getStateId(), address.getCountryId(), address.getPincode());
 		return addr;
 	}
-
+/*
+ * Sample AddPOC details request
+ * {
+  "personDto": {
+    "auditCreatedBy": 0,
+    "auditModifiedBy": 0,
+    "dateOfBirth": "2019-12-03T18:04:11.499Z",
+    "firstName": "string",
+    "gender": "s",
+    "lastName": "string",
+    "personTypeId": 0
+  },
+  "personId": 0,
+  "relInstitutionId": 3,
+  "secondaryPOCEmail": "string",
+  "secondaryPOCName": "string",
+  "secondaryPOCPhoneNumber": "string"
+}
+ */
 	@RequestMapping(value = "/addPOCDetails", method = RequestMethod.POST)
 	public String addPOCDetails(@RequestBody InstitutionAdminDto institutionAdminDto) {
 
@@ -114,10 +133,16 @@ public class InstitutionController {
 		person.setFirstName(personDto.getFirstName());
 		person.setLastName(personDto.getLastName());
 		
-		Person personObj = instituitionService.addPerson(person);
-		institutionAdminDto.setPersonId(personObj.getPersonId());
 		
+		Person personObj = instituitionService.addPerson(person);
+		LoginCredentialDto loginCredentialDto=new LoginCredentialDto();
+		
+		loginCredentialDto.setPersonId(personObj.getPersonId());
+		instituitionService.addLoginCredential(loginCredentialDto);
+		
+		institutionAdminDto.setPersonId(personObj.getPersonId());
 		instituitionService.addPOCDetail(institutionAdminDto);
+		
 		return "POC Details Added";
 	}
 
