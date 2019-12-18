@@ -3,15 +3,11 @@ package com.at2t.blip.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.at2t.blip.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.at2t.blip.dao.Branch;
-import com.at2t.blip.dao.Institution;
-import com.at2t.blip.dao.Person;
-import com.at2t.blip.dao.Section;
-import com.at2t.blip.dao.Tenant;
 import com.at2t.blip.dto.BranchDto;
 import com.at2t.blip.dto.InstitutionAdminDto;
 import com.at2t.blip.dto.LoginCredentialDto;
@@ -61,7 +57,7 @@ public class InstituitionService {
 
 	@Transactional
 	public void addPOCDetail(InstitutionAdminDto institutionAdminDto) {
-		institutionAdminRepository.addInstitutionData(institutionAdminDto.getSecondaryPOCName(),
+		 institutionAdminRepository.addInstitutionData(institutionAdminDto.getSecondaryPOCName(),
 				institutionAdminDto.getRelInstitutionId(), institutionAdminDto.getPersonId(),
 				institutionAdminDto.getSecondaryPOCEmail(), institutionAdminDto.getSecondaryPOCPhoneNumber());
 	}

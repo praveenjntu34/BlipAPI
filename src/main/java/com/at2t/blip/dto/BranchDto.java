@@ -1,6 +1,6 @@
 package com.at2t.blip.dto;
 
-public class BranchDto {
+public class  BranchDto {
 
 	private String branchName;
 
