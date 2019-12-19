@@ -19,7 +19,7 @@ public class SectionController {
 
     @PostMapping
     public String addSection(@RequestBody SectionDto sectionDto) {
-        instituitionService.addBranch(sectionDto.getSectionName(), sectionDto.getBranchId());
+        instituitionService.addSection(sectionDto.getSectionName(), sectionDto.getBranchId());
         return "Section Added";
     }
 

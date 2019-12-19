@@ -68,7 +68,7 @@ public class InstituitionService {
 	}
 
 	@Transactional
-	public void addBranch(String sectionName, int branchId) {
+	public void addSection(String sectionName, int branchId) {
 		institutionAdminRepository.addSection(sectionName, branchId);
 	}
 
