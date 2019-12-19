@@ -7,5 +7,4 @@ import com.at2t.blip.dao.Institution;
 
 public interface InstituitionRepository extends CrudRepository<Institution, Integer> {
 
-
 }

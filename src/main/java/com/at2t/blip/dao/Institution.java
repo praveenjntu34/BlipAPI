@@ -28,6 +28,11 @@ public class Institution {
 	@OneToOne(mappedBy="institution")
 	private RelTenantInstitution relTenantInstitution;
 
+//	@OneToOne
+//	@JoinColumn(name = "PictureId", referencedColumnName = "PictureId")
+//	@MapsId
+//	private InstitutionDisplayPicture institutionDisplayPicture;
+
 	@Column(name = "Status")
 	private Boolean status;
 

@@ -27,6 +27,8 @@ public class InstitutionDto {
     private String remarks;
     @ApiModelProperty(position = 11)
     private Boolean status;
+    @ApiModelProperty(position = 12)
+    private int pictureId;
 
     public String getInstitutionName() {
         return institutionName;

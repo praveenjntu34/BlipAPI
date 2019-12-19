@@ -55,6 +55,11 @@ public class InstitutionController {
 		return institution;
 	}
 
+	@GetMapping
+	public void getInstitutions() {
+
+	}
+
 	private Institution convertToInstitutionEntity(InstitutionDto institutionDto) {
 
 		Institution institution = modelMapper.map(institutionDto, Institution.class);
