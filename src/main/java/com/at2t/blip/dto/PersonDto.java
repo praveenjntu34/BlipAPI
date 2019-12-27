@@ -15,14 +15,6 @@ public class PersonDto {
 
 	private String photoStreamId;
 
-	private int auditCreatedBy;
-
-	private Timestamp auditCreatedDate;
-
-	private int auditModifiedBy;
-
-	private Timestamp auditModifiedDate;
-
 	private int personTypeId;
 
 	public String getFirstName() {
@@ -45,21 +37,7 @@ public class PersonDto {
 		return photoStreamId;
 	}
 
-	public int getAuditCreatedBy() {
-		return auditCreatedBy;
-	}
 
-	public Timestamp getAuditCreatedDate() {
-		return auditCreatedDate;
-	}
-
-	public int getAuditModifiedBy() {
-		return auditModifiedBy;
-	}
-
-	public Timestamp getAuditModifiedDate() {
-		return auditModifiedDate;
-	}
 
 	public int getPersonTypeId() {
 		return personTypeId;
@@ -85,21 +63,6 @@ public class PersonDto {
 		this.photoStreamId = photoStreamId;
 	}
 
-	public void setAuditCreatedBy(int auditCreatedBy) {
-		this.auditCreatedBy = auditCreatedBy;
-	}
-
-	public void setAuditCreatedDate(Timestamp auditCreatedDate) {
-		this.auditCreatedDate = auditCreatedDate;
-	}
-
-	public void setAuditModifiedBy(int auditModifiedBy) {
-		this.auditModifiedBy = auditModifiedBy;
-	}
-
-	public void setAuditModifiedDate(Timestamp auditModifiedDate) {
-		this.auditModifiedDate = auditModifiedDate;
-	}
 
 	public void setPersonTypeId(int personTypeId) {
 		this.personTypeId = personTypeId;

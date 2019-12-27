@@ -3,25 +3,16 @@ package com.at2t.blip.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.at2t.blip.dao.*;
+import com.at2t.blip.dto.InstitutionResponse;
+import com.at2t.blip.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.at2t.blip.dao.Branch;
-import com.at2t.blip.dao.Institution;
-import com.at2t.blip.dao.Person;
-import com.at2t.blip.dao.Section;
-import com.at2t.blip.dao.Tenant;
 import com.at2t.blip.dto.BranchDto;
 import com.at2t.blip.dto.InstitutionAdminDto;
 import com.at2t.blip.dto.LoginCredentialDto;
-import com.at2t.blip.repository.BranchRepository;
-import com.at2t.blip.repository.InstituitionRepository;
-import com.at2t.blip.repository.InstitutionAdminRepository;
-import com.at2t.blip.repository.LoginCredentialRepository;
-import com.at2t.blip.repository.PersonRepository;
-import com.at2t.blip.repository.SectionRepository;
-import com.at2t.blip.repository.TenantRepository;
 
 @Service
 public class InstituitionService {
@@ -40,6 +31,9 @@ public class InstituitionService {
 	BranchRepository branchRepository;
 	@Autowired
 	SectionRepository sectionRepository;
+
+	@Autowired
+	RelTenantInstitutionRepository relTenantInstitutionRepository;
 
 	@Transactional
 	public Institution addInstituition(Institution instituition) {
@@ -62,8 +56,8 @@ public class InstituitionService {
 	@Transactional
 	public void addPOCDetail(InstitutionAdminDto institutionAdminDto) {
 		institutionAdminRepository.addInstitutionData(institutionAdminDto.getSecondaryPOCName(),
-				institutionAdminDto.getRelInstitutionId(), institutionAdminDto.getPersonId(),
-				institutionAdminDto.getSecondaryPOCEmail(), institutionAdminDto.getSecondaryPOCPhoneNumber());
+		institutionAdminDto.getRelInstitutionId(), institutionAdminDto.getPersonId(),
+		institutionAdminDto.getSecondaryPOCEmail(), institutionAdminDto.getSecondaryPOCPhoneNumber());
 	}
 
 	@Transactional
@@ -72,7 +66,7 @@ public class InstituitionService {
 	}
 
 	@Transactional
-	public void addBranch(String sectionName, int branchId) {
+	public void addSection(String sectionName, int branchId) {
 		institutionAdminRepository.addSection(sectionName, branchId);
 	}
 
@@ -87,6 +81,10 @@ public class InstituitionService {
 				loginCredentialDto.getPhoneNumber());
 	}
 
+	@Transactional
+	public List<InstitutionResponse> getAlInstitutions() {
+		return instituitionRepository.getAllInstitutions();
+	}
 	@Transactional
 	public List<Branch> getBranch(int relTenantInstitutionId) {
 		return branchRepository.findById(relTenantInstitutionId);

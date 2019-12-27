@@ -14,4 +14,7 @@ public interface RelTenantInstitutionRepository extends JpaRepository<RelTenantI
     @Modifying
     @Query(value = "INSERT INTO ReltenantInstitution VALUES(:TenantId, :InstitutionId,:InstitutionTypeId, :AddressId)", nativeQuery = true)
     public void insertData(@Param("TenantId") int tenantId, @Param("InstitutionTypeId") int institutionTypeId, @Param("AddressId") int addressId, @Param("InstitutionId") int institutionId);
+
+
+//    public void getAllInstitutions();
 }

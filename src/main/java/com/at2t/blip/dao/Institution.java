@@ -10,8 +10,10 @@ public class Institution {
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
 	@Column(name = "InstitutionId")
 	private int institutionId;
+
 	@Column(name = "InstitutionName")
 	private String institutionName;
+
 	@Column(name = "Email")
 	private String email;
 	@Column(name = "Website")
@@ -27,6 +29,10 @@ public class Institution {
 
 	@OneToOne(mappedBy="institution")
 	private RelTenantInstitution relTenantInstitution;
+
+	@OneToOne
+	@JoinColumn(name = "PictureId")
+	private InstitutionDisplayPicture institutionDisplayPicture;
 
 	@Column(name = "Status")
 	private Boolean status;
