@@ -27,6 +27,15 @@ public class InstitutionDto {
     private String remarks;
     @ApiModelProperty(position = 11)
     private Boolean status;
+
+    public int getPictureId() {
+        return pictureId;
+    }
+
+    public void setPictureId(int pictureId) {
+        this.pictureId = pictureId;
+    }
+
     @ApiModelProperty(position = 12)
     private int pictureId;
 

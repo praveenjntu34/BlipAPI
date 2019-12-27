@@ -40,9 +40,6 @@ public class InstituitionService {
 		return instituitionRepository.save(instituition);
 	}
 
-	public void getAllInstitutions() {
-//		 relTenantInstitutionRepository.getAllInstitutions();
-	}
 	@Transactional
 	public Tenant addTenant(Tenant tenant) {
 		return tenantRepository.save(tenant);
@@ -84,6 +81,10 @@ public class InstituitionService {
 				loginCredentialDto.getPhoneNumber());
 	}
 
+	@Transactional
+	public List<InstitutionResponse> getAlInstitutions() {
+		return instituitionRepository.getAllInstitutions();
+	}
 	@Transactional
 	public List<Branch> getBranch(int relTenantInstitutionId) {
 		return branchRepository.findById(relTenantInstitutionId);

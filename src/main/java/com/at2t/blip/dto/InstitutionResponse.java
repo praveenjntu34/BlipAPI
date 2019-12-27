@@ -2,8 +2,16 @@ package com.at2t.blip.dto;
 
 public class InstitutionResponse {
     private int institutionId;
+    private String institutionName;
+
+    public InstitutionResponse(String institutionName, byte[] pictureStream) {
+        this.institutionName = institutionName;
+        this.pictureStream = pictureStream;
+    }
+
     private byte[] pictureStream;
-    private String recentStatus;
+    private String cityName;
+    private String stateName;
 
     public int getInstitutionId() {
         return institutionId;
@@ -11,6 +19,14 @@ public class InstitutionResponse {
 
     public void setInstitutionId(int institutionId) {
         this.institutionId = institutionId;
+    }
+
+    public String getInstitutionName() {
+        return institutionName;
+    }
+
+    public void setInstitutionName(String institutionName) {
+        this.institutionName = institutionName;
     }
 
     public byte[] getPictureStream() {
@@ -21,6 +37,30 @@ public class InstitutionResponse {
         this.pictureStream = pictureStream;
     }
 
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
     public String getRecentStatus() {
         return recentStatus;
     }
@@ -29,65 +69,16 @@ public class InstitutionResponse {
         this.recentStatus = recentStatus;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    private Address address;
+    private String countryName;
+    private String recentStatus;
 
 
-
-    public class Address {
-        private String address1;
-        private String address2;
-        private String cityName;
-
-        public String getAddress1() {
-            return address1;
-        }
-
-        public void setAddress1(String address1) {
-            this.address1 = address1;
-        }
-
-        public String getAddress2() {
-            return address2;
-        }
-
-        public void setAddress2(String address2) {
-            this.address2 = address2;
-        }
-
-        public String getCityName() {
-            return cityName;
-        }
-
-        public void setCityName(String cityName) {
-            this.cityName = cityName;
-        }
-
-        public String getStateName() {
-            return stateName;
-        }
-
-        public void setStateName(String stateName) {
-            this.stateName = stateName;
-        }
-
-        public String getCountryName() {
-            return countryName;
-        }
-
-        public void setCountryName(String countryName) {
-            this.countryName = countryName;
-        }
-
-        private String stateName;
-        private String countryName;
+    public InstitutionResponse(int institutionId, byte[] pictureStream, String cityName, String stateName, String countryName) {
+        this.institutionId = institutionId;
+        this.pictureStream = pictureStream;
+        this.cityName = cityName;
+        this.stateName = stateName;
+        this.countryName = countryName;
     }
 }
 

@@ -1,12 +1,7 @@
 package com.at2t.blip.controller;
 
 import com.at2t.blip.dao.*;
-import com.at2t.blip.dto.BranchDto;
-import com.at2t.blip.dto.InstitutionAdminDto;
-import com.at2t.blip.dto.InstitutionDto;
-import com.at2t.blip.dto.LoginCredentialDto;
-import com.at2t.blip.dto.PersonDto;
-import com.at2t.blip.dto.SectionDto;
+import com.at2t.blip.dto.*;
 import com.at2t.blip.service.AddressService;
 
 import java.util.List;
@@ -56,8 +51,8 @@ public class InstitutionController {
 	}
 
 	@GetMapping
-	public void getInstitutions() {
-
+	public List<InstitutionResponse> getInstitutions() {
+		return instituitionService.getAlInstitutions();
 	}
 
 	private Institution convertToInstitutionEntity(InstitutionDto institutionDto) {

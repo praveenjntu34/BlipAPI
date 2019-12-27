@@ -19,8 +19,8 @@ public class InstitutionDisplayPicture {
     @Column(name = "PictureStream")
     private byte[] pictureStream;
 
-//    @OneToOne(mappedBy="institutionDisplayPicture")
-//    private Institution institution;
+    @OneToOne(mappedBy="institutionDisplayPicture")
+    private Institution institution;
 
     public InstitutionDisplayPicture(String fileType, byte[] pictureStream) {
         this.fileType = fileType;
