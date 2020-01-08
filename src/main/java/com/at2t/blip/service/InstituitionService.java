@@ -31,6 +31,8 @@ public class InstituitionService {
 	BranchRepository branchRepository;
 	@Autowired
 	SectionRepository sectionRepository;
+	@Autowired
+	InstitutionDisplayPictureRepository displayPictureRepository;
 
 	@Autowired
 	RelTenantInstitutionRepository relTenantInstitutionRepository;
@@ -81,6 +83,10 @@ public class InstituitionService {
 				loginCredentialDto.getPhoneNumber());
 	}
 
+	@Transactional
+	public  Optional<InstitutionDisplayPicture> getPicture(int pictureId) {
+		return displayPictureRepository.findById(pictureId);
+	}
 	@Transactional
 	public List<InstitutionResponse> getAlInstitutions() {
 		return instituitionRepository.getAllInstitutions();

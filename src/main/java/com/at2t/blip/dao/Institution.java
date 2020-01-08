@@ -16,6 +16,15 @@ public class Institution {
 
 	@Column(name = "Email")
 	private String email;
+
+	public InstitutionDisplayPicture getInstitutionDisplayPicture() {
+		return institutionDisplayPicture;
+	}
+
+	public void setInstitutionDisplayPicture(InstitutionDisplayPicture institutionDisplayPicture) {
+		this.institutionDisplayPicture = institutionDisplayPicture;
+	}
+
 	@Column(name = "Website")
 	private String website;
 

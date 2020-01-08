@@ -39,6 +39,9 @@ public class InstitutionController {
 		Institution institution = convertToInstitutionEntity(institutionDto);
 		Tenant tenant = new Tenant(institutionDto.getInstitutionName());
 
+		InstitutionDisplayPicture picture = instituitionService.getPicture(institutionDto.getPictureId()).get();
+		institution.setInstitutionDisplayPicture(picture);
+
 		instituitionService.addInstituition(institution);
 		instituitionService.addTenant(tenant);
 		Address address = addressService.setAddress(convertToAddressEntity(institutionDto));

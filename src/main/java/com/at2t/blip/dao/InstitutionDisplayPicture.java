@@ -47,6 +47,9 @@ public class InstitutionDisplayPicture {
         this.institution = institution;
     }
 
+    public InstitutionDisplayPicture() {
+    }
+
     @Lob
     @Column(name = "PictureStream")
     private byte[] pictureStream;
