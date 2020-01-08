@@ -19,9 +19,12 @@ public class InstitutionFileController {
     DBfileUtils dBfileUtils;
 
     @PostMapping
-    public InstitutionDisplayPicture uploadFile(@RequestParam("file") MultipartFile file) {
+    public Object uploadFile(@RequestParam("file") MultipartFile file) {
         InstitutionDisplayPicture displayPicture = dBfileUtils.storeFile(file);
-        return displayPicture;
+        Object object = new Object() {
+            public int pictureId = displayPicture.getPictureId();
+        };
+        return object;
     }
 
 }

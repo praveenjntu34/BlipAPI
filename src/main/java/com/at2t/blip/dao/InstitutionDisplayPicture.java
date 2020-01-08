@@ -15,6 +15,38 @@ public class InstitutionDisplayPicture {
     @Column(name = "FileType")
     private String fileType;
 
+    public int getPictureId() {
+        return pictureId;
+    }
+
+    public void setPictureId(int pictureId) {
+        this.pictureId = pictureId;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public byte[] getPictureStream() {
+        return pictureStream;
+    }
+
+    public void setPictureStream(byte[] pictureStream) {
+        this.pictureStream = pictureStream;
+    }
+
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
+
     @Lob
     @Column(name = "PictureStream")
     private byte[] pictureStream;
