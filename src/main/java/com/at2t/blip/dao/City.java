@@ -23,7 +23,7 @@ public class City {
 
 	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "StateId", referencedColumnName = "StateId")
-	private State stateId;
+	private State state;
 
 	public int getCityId() {
 		return cityId;
@@ -34,7 +34,7 @@ public class City {
 	}
 
 	public State getStateId() {
-		return stateId;
+		return state;
 	}
 
 	public void setCityId(int cityId) {
@@ -45,8 +45,8 @@ public class City {
 		this.cityName = cityName;
 	}
 
-	public void setStateId(State stateId) {
-		this.stateId = stateId;
+	public void setStateId(State state) {
+		this.state = state;
 	}
 
 }
