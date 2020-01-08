@@ -50,7 +50,8 @@ public class InstitutionController {
 				institutionDto.getInstitutionTypeId(), address);
 		System.out.println(relTenantInstitution);
 		relTenantInstitutionService.addInstituition(relTenantInstitution);
-		InstitutionDetailsResponse response = new InstitutionDetailsResponse(institution.getInstitutionId(), relTenantInstitution.getRelTenantInstitutionId(),institution.getStatus(), institution.getInstitutionName());
+		RelTenantInstitution rel = relTenantInstitutionService.getRelTenantInstitution(institution.getInstitutionId());
+		InstitutionDetailsResponse response = new InstitutionDetailsResponse(institution.getInstitutionId(), rel.getRelTenantInstitutionId(),institution.getStatus(), institution.getInstitutionName());
 		return response;
 	}
 

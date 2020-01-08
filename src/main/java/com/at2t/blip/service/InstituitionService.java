@@ -57,6 +57,7 @@ public class InstituitionService {
 
 	@Transactional
 	public void addPOCDetail(InstitutionAdminDto institutionAdminDto) {
+		System.out.println(institutionAdminDto.toString());
 		institutionAdminRepository.addInstitutionData(institutionAdminDto.getSecondaryPOCName(),
 		institutionAdminDto.getRelInstitutionId(), institutionAdminDto.getPersonId(),
 		institutionAdminDto.getSecondaryPOCEmail(), institutionAdminDto.getSecondaryPOCPhoneNumber());
