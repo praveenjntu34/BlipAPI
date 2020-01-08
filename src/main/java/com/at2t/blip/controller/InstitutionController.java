@@ -34,7 +34,7 @@ public class InstitutionController {
 
 
 	@PostMapping
-	public Institution addInstitution(@RequestBody InstitutionDto institutionDto) {
+	public InstitutionDetailsResponse addInstitution(@RequestBody InstitutionDto institutionDto) {
 
 		Institution institution = convertToInstitutionEntity(institutionDto);
 		Tenant tenant = new Tenant(institutionDto.getInstitutionName());
@@ -50,7 +50,8 @@ public class InstitutionController {
 				institutionDto.getInstitutionTypeId(), address);
 		System.out.println(relTenantInstitution);
 		relTenantInstitutionService.addInstituition(relTenantInstitution);
-		return institution;
+		InstitutionDetailsResponse response = new InstitutionDetailsResponse(institution.getInstitutionId(), relTenantInstitution.getRelTenantInstitutionId(),institution.getStatus(), institution.getInstitutionName());
+		return response;
 	}
 
 	@GetMapping
