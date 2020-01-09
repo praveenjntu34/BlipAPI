@@ -23,8 +23,9 @@ public class PointOfContactController {
 
     @Autowired
     PersonService personService;
+
     @PostMapping
-    public String addPOCDetails(@RequestBody InstitutionAdminDto institutionAdminDto) {
+    public Object addPOCDetails(@RequestBody InstitutionAdminDto institutionAdminDto) {
 
         PersonDto personDto = institutionAdminDto.getPersonDto();
         Person person = new Person();
@@ -42,7 +43,10 @@ public class PointOfContactController {
         institutionAdminDto.setPersonId(personObj.getPersonId());
          instituitionService.addPOCDetail(institutionAdminDto);
 
-         return "Added POC succesfully";
+        Object object = new Object() {
+            public String response = "Added POC succesfully\"";
+        };
+        return object;
 
     }
 
