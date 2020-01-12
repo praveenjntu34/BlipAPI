@@ -18,9 +18,14 @@ public class BranchController {
 
 
     @PostMapping
-    public String addBranch(@RequestBody BranchDto branchDto) {
+    public Object addBranch(@RequestBody BranchDto branchDto) {
         instituitionService.addBranch(branchDto);
-        return "Branch Added";
+
+        Object object = new Object() {
+            public String response = "Branch Added";
+        };
+        return object;
+
     }
 
     @GetMapping

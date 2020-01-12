@@ -63,4 +63,15 @@ public class InstitutionAdminDto {
 		this.personDto = personDto;
 	}
 
+	@Override
+	public String toString() {
+		return "InstitutionAdminDto{" +
+				"secondaryPOCName='" + secondaryPOCName + '\'' +
+				", relInstitutionId=" + relInstitutionId +
+				", personId=" + personId +
+				", secondaryPOCEmail='" + secondaryPOCEmail + '\'' +
+				", SecondaryPOCPhoneNumber='" + SecondaryPOCPhoneNumber + '\'' +
+				", personDto=" + personDto +
+				'}';
+	}
 }

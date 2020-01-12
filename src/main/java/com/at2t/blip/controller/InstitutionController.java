@@ -34,10 +34,13 @@ public class InstitutionController {
 
 
 	@PostMapping
-	public Institution addInstitution(@RequestBody InstitutionDto institutionDto) {
+	public InstitutionDetailsResponse addInstitution(@RequestBody InstitutionDto institutionDto) {
 
 		Institution institution = convertToInstitutionEntity(institutionDto);
 		Tenant tenant = new Tenant(institutionDto.getInstitutionName());
+
+		InstitutionDisplayPicture picture = instituitionService.getPicture(institutionDto.getPictureId()).get();
+		institution.setInstitutionDisplayPicture(picture);
 
 		instituitionService.addInstituition(institution);
 		instituitionService.addTenant(tenant);
@@ -47,7 +50,9 @@ public class InstitutionController {
 				institutionDto.getInstitutionTypeId(), address);
 		System.out.println(relTenantInstitution);
 		relTenantInstitutionService.addInstituition(relTenantInstitution);
-		return institution;
+		RelTenantInstitution rel = relTenantInstitutionService.getRelTenantInstitution(institution.getInstitutionId());
+		InstitutionDetailsResponse response = new InstitutionDetailsResponse(institution.getInstitutionId(), rel.getRelTenantInstitutionId(),institution.getStatus(), institution.getInstitutionName());
+		return response;
 	}
 
 	@GetMapping

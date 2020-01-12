@@ -18,4 +18,9 @@ public class RelTenantInstitutionService {
 
 		 relTenantInstitutionRepository.insertData(relTenantInstitution.getTenant().getTenantId(), relTenantInstitution.getInstitutionTypeID(), relTenantInstitution.getAddress().getAddressId(), relTenantInstitution.getInstitution().getInstitutionId());
 	}
+
+	@Transactional
+	public RelTenantInstitution getRelTenantInstitution(int institutionId) {
+		return relTenantInstitutionRepository.findByTenantId(institutionId);
+	}
 }
