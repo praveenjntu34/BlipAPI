@@ -4,7 +4,8 @@ public class InstitutionResponse {
     private int institutionId;
     private String institutionName;
 
-    public InstitutionResponse(String institutionName, byte[] pictureStream) {
+    public InstitutionResponse(int institutionId, String institutionName, byte[] pictureStream) {
+        this.institutionId = institutionId;
         this.institutionName = institutionName;
         this.pictureStream = pictureStream;
     }

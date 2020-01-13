@@ -18,6 +18,9 @@ public class Branch {
 	@JsonIgnore
 	private RelTenantInstitution relTenantInstitution;
 
+	public Branch() {
+	}
+
 	private String branchName;
 
 	

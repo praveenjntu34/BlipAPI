@@ -1,5 +1,6 @@
 package com.at2t.blip.repository;
 
+import com.at2t.blip.dto.BranchDto;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,10 +17,9 @@ public interface InstitutionAdminRepository extends CrudRepository<InstitutionAd
 			@Param("SecondaryPOCEmail") String secondaryPOCEmail,
 			@Param("SecondaryPOCPhoneNumber") String secondaryPOCPhoneNumber);
 
-	@Modifying
-	@Query(value = "INSERT INTO Branch(BranchName,RelTenantInstitutionId) VALUES(:BranchName,:RelTenantInstitutionId)", nativeQuery = true)
-	public void addBranch(@Param("BranchName") String branchName,
-			@Param("RelTenantInstitutionId") int relTenantInstitutionId);
+	@Query(value = "INSERT INTO Branch(BranchName,RelTenantInstitutionId) OUTPUT inserted.BranchId VALUES(:BranchName,:RelTenantInstitutionId)", nativeQuery = true)
+	public int addBranch(@Param("BranchName") String branchName,
+							   @Param("RelTenantInstitutionId") int relTenantInstitutionId);
 
 	@Modifying
 	@Query(value = "INSERT INTO Section(SectionName,BranchId) VALUES(:SectionName,:BranchId)", nativeQuery = true)

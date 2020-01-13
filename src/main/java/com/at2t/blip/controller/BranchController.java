@@ -1,9 +1,13 @@
 package com.at2t.blip.controller;
 
 import com.at2t.blip.dao.Branch;
+import com.at2t.blip.dao.Institution;
+import com.at2t.blip.dao.RelTenantInstitution;
 import com.at2t.blip.dto.BranchDto;
+import com.at2t.blip.dto.InstitutionDto;
 import com.at2t.blip.service.InstituitionService;
 import io.swagger.annotations.Api;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +21,17 @@ public class BranchController {
     InstituitionService instituitionService;
 
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @PostMapping
     public Object addBranch(@RequestBody BranchDto branchDto) {
-        instituitionService.addBranch(branchDto);
 
+
+        int response = instituitionService.addBranch(branchDto);
         Object object = new Object() {
-            public String response = "Branch Added";
+            public int branchId = response;
+            public String branchName = branchDto.getBranchName();
         };
         return object;
 
@@ -32,5 +41,14 @@ public class BranchController {
     public List<Branch> getBranches(@PathVariable int relTenantInstitutionId) {
 
         return instituitionService.getBranch(relTenantInstitutionId);
+
+    }
+
+    private Branch convertToBranchEntity(BranchDto branchDto) {
+
+//        Branch branch = modelMapper.map(branchDto, Branch.class);
+        Branch branch = new Branch();
+        branch.setBranchName(branchDto.getBranchName());
+        return branch;
     }
 }

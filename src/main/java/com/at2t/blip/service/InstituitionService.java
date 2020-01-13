@@ -64,8 +64,8 @@ public class InstituitionService {
 	}
 
 	@Transactional
-	public void addBranch(BranchDto branchDto) {
-		institutionAdminRepository.addBranch(branchDto.getBranchName(), branchDto.getRelTenantInstitutionId());
+	public int addBranch(BranchDto branchDto) {
+		return institutionAdminRepository.addBranch(branchDto.getBranchName(), branchDto.getRelTenantInstitutionId());
 	}
 
 	@Transactional
@@ -92,6 +92,12 @@ public class InstituitionService {
 	public List<InstitutionResponse> getAlInstitutions() {
 		return instituitionRepository.getAllInstitutions();
 	}
+
+	@Transactional
+	public List<InstitutionResponse> getAlInstitutionsDetails() {
+		return instituitionRepository.getAllInstitutions();
+	}
+
 	@Transactional
 	public List<Branch> getBranch(int relTenantInstitutionId) {
 		return branchRepository.findById(relTenantInstitutionId);
@@ -102,4 +108,8 @@ public class InstituitionService {
 		return sectionRepository.getSection(branchId);
 	}
 
+	@Transactional
+	public Optional<RelTenantInstitution> getReltenantInstitution(int relTenantInstitutionId){
+		return relTenantInstitutionRepository.findById(relTenantInstitutionId);
+	}
 }
