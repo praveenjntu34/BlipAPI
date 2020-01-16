@@ -33,7 +33,7 @@ public class City {
 		return cityName;
 	}
 
-	public State getStateId() {
+	public State getState() {
 		return state;
 	}
 
@@ -45,7 +45,7 @@ public class City {
 		this.cityName = cityName;
 	}
 
-	public void setStateId(State state) {
+	public void setState(State state) {
 		this.state = state;
 	}
 

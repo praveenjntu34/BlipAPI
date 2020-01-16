@@ -12,5 +12,13 @@ import java.util.List;
 public interface CityRepository extends CrudRepository<City,Integer> {
     @Query(value = "SELECT * FROM City  WHERE StateId = :stateId", nativeQuery = true)
     List<City> getAllCitiesByState(@Param("stateId") int stateId);
+
+    @Query(value = "select CT from City CT\n" +
+            "JOIN CT.state ST\n" +
+            "WHERE CityId =125")
+    List<City> findCityAndState(@Param("cityId") int cityId);
+
+
+
 }
 

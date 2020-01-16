@@ -13,6 +13,7 @@ public interface LoginCredentialRepository extends CrudRepository<LoginCredentia
 	@Query("SELECT lc FROM LoginCredential lc WHERE Email= :email")
 	Optional<LoginCredential> findByEmail(String email);
 
+
 	@Modifying
 	@Query(value = "INSERT INTO LoginCredential(PersonId,Email,PhoneNumber) VALUES(:PersonId,:Email,:PhoneNumber)", nativeQuery = true)
 	public void addLoginCrendentials(@Param("PersonId") int personId, @Param("Email") String email,

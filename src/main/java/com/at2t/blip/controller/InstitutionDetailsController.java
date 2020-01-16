@@ -2,16 +2,13 @@ package com.at2t.blip.controller;
 
 import com.at2t.blip.dao.*;
 import com.at2t.blip.dto.*;
-import com.at2t.blip.service.AddressService;
+import com.at2t.blip.service.*;
 
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import com.at2t.blip.service.InstituitionService;
-import com.at2t.blip.service.RelTenantInstitutionService;
 
 import io.swagger.annotations.Api;
 
@@ -24,6 +21,8 @@ public class InstitutionDetailsController {
     InstituitionService instituitionService;
 
     @Autowired
+    InstitutionAdminService institutionAdminService;
+    @Autowired
     RelTenantInstitutionService relTenantInstitutionService;
 
     @Autowired
@@ -31,12 +30,20 @@ public class InstitutionDetailsController {
 
     @Autowired
     ModelMapper modelMapper;
-
+    @Autowired
+    StateService stateService;
 
 
     @GetMapping
-    public List<InstitutionResponse> getInstitutionsDetails() {
-        return instituitionService.getAlInstitutions();
+    public InstitutionResponseDto getInstitutionsDetails() {
+
+        InstitutionResponseDto obj = instituitionService.getInstitutionDetails(2);
+        List<City> cities = stateService.getCity(2);
+        obj.setCityName(cities.get(0).getCityName());
+        obj.setStateName(cities.get(0).getState().getStateName());
+
+        InstitutionAdmin ia = institutionAdminService.getAdmin(obj.getRelTenantInstitutionId()).get();
+        return obj;
     }
 
     private Institution convertToInstitutionEntity(InstitutionDto institutionDto) {

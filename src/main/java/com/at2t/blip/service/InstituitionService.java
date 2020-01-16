@@ -4,15 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.at2t.blip.dao.*;
-import com.at2t.blip.dto.InstitutionResponse;
+import com.at2t.blip.dto.*;
 import com.at2t.blip.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.at2t.blip.dto.BranchDto;
-import com.at2t.blip.dto.InstitutionAdminDto;
-import com.at2t.blip.dto.LoginCredentialDto;
 
 @Service
 public class InstituitionService {
@@ -33,7 +29,6 @@ public class InstituitionService {
 	SectionRepository sectionRepository;
 	@Autowired
 	InstitutionDisplayPictureRepository displayPictureRepository;
-
 	@Autowired
 	RelTenantInstitutionRepository relTenantInstitutionRepository;
 
@@ -92,6 +87,12 @@ public class InstituitionService {
 	public List<InstitutionResponse> getAlInstitutions() {
 		return instituitionRepository.getAllInstitutions();
 	}
+
+	@Transactional
+	public InstitutionResponseDto getInstitutionDetails(int id) {
+		return instituitionRepository.getInstitutionalDetails(id);
+	}
+
 
 	@Transactional
 	public List<InstitutionResponse> getAlInstitutionsDetails() {

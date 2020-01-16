@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at2t.blip.dao.InstitutionAdmin;
 
+import java.util.Optional;
+
 public interface InstitutionAdminRepository extends CrudRepository<InstitutionAdmin, Integer> {
 	@Modifying
 	@Query(value = "INSERT INTO InstitutionAdmin(SecondaryPOCName,RelTenantInstitutionId,PersonId,SecondaryPOCEmail,SecondaryPOCPhoneNumber) VALUES(:SecondaryPOCName,:RelTenantInstitutionId,:PersonId,:SecondaryPOCEmail,:SecondaryPOCPhoneNumber)", nativeQuery = true)
@@ -25,6 +27,6 @@ public interface InstitutionAdminRepository extends CrudRepository<InstitutionAd
 	@Query(value = "INSERT INTO Section(SectionName,BranchId) VALUES(:SectionName,:BranchId)", nativeQuery = true)
 	public void addSection(@Param("SectionName") String sectionName, @Param("BranchId") int branchId);
 
-	
-	
+	@Query(value = "SELECT ia FROM InstitutionAdmin ia WHERE relTenantInstitutionId = :relTenantInstitutionId")
+	Optional<InstitutionAdmin> findByRelTenantInstitutionId(int relTenantInstitutionId);
 }
