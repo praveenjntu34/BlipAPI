@@ -15,7 +15,7 @@ public interface CityRepository extends CrudRepository<City,Integer> {
 
     @Query(value = "select CT from City CT\n" +
             "JOIN CT.state ST\n" +
-            "WHERE CityId =125")
+            "WHERE CityId =:cityId")
     List<City> findCityAndState(@Param("cityId") int cityId);
 
 

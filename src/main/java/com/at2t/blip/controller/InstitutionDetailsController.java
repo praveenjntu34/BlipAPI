@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping("/institution/ins-details")
+@RequestMapping("/institution/ins-details/{institutionId}")
 @Api(value = "blip")
 public class InstitutionDetailsController {
 
@@ -35,26 +35,24 @@ public class InstitutionDetailsController {
 
 
     @GetMapping
-    public InstitutionResponseDto getInstitutionsDetails() {
+    public InstitutionResponseDto getInstitutionsDetails(@PathVariable int institutionId) {
 
-        InstitutionResponseDto obj = instituitionService.getInstitutionDetails(2);
-        List<City> cities = stateService.getCity(2);
+        InstitutionResponseDto obj = instituitionService.getInstitutionDetails(institutionId);
+        List<City> cities = stateService.getCity(obj.getCityId());
         obj.setCityName(cities.get(0).getCityName());
         obj.setStateName(cities.get(0).getState().getStateName());
 
-        InstitutionAdmin ia = institutionAdminService.getAdmin(obj.getRelTenantInstitutionId()).get();
+
         return obj;
     }
 
     private Institution convertToInstitutionEntity(InstitutionDto institutionDto) {
-
         Institution institution = modelMapper.map(institutionDto, Institution.class);
         institution.setInstitutionId(0);
         return institution;
     }
 
     private Address convertToAddressEntity(InstitutionDto institutionDto) {
-
         Address address = modelMapper.map(institutionDto, Address.class);
         return address;
     }

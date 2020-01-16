@@ -95,6 +95,11 @@ public class InstituitionService {
 
 
 	@Transactional
+	public Optional<LoginCredential> getPersonDetails(int personId) {
+		return loginCredentialRepository.getPersonDetails(personId);
+	}
+
+	@Transactional
 	public List<InstitutionResponse> getAlInstitutionsDetails() {
 		return instituitionRepository.getAllInstitutions();
 	}
