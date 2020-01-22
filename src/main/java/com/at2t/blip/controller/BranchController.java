@@ -3,6 +3,7 @@ package com.at2t.blip.controller;
 import com.at2t.blip.dao.Branch;
 import com.at2t.blip.dao.Institution;
 import com.at2t.blip.dao.RelTenantInstitution;
+import com.at2t.blip.dao.Section;
 import com.at2t.blip.dto.BranchDto;
 import com.at2t.blip.dto.BranchResponseDto;
 import com.at2t.blip.dto.InstitutionDto;
@@ -12,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -40,8 +42,16 @@ public class BranchController {
     @RequestMapping(method = RequestMethod.GET, value = "/institution/branch/{relTenantInstitutionId}")
     public List<BranchResponseDto> getBranches(@PathVariable int relTenantInstitutionId) {
 
-        List<BranchResponseDto> branches = instituitionService.getBranch(relTenantInstitutionId);
-        return branches;
+        List<Branch> branches = instituitionService.getBranch(relTenantInstitutionId);
+        List<BranchResponseDto> responseDto = new ArrayList<BranchResponseDto>();
+
+        for(Branch branch : branches) {
+            List<Section> sections = instituitionService.getSections(branch.getBranchId());
+            BranchResponseDto dto = new BranchResponseDto(branch.getBranchId(), branch.getBranchName(), sections);
+            responseDto.add(dto);
+        }
+
+        return responseDto;
 
     }
 

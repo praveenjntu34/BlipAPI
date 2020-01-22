@@ -22,21 +22,22 @@ public class Section {
 	@Column(name = "SectionId")
 	private int sectionId;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "branchId", referencedColumnName = "BranchId")
-	@MapsId
-	@JsonIgnore
-	private Branch branch;
+	@Column(name = "BranchId")
+	private int branchId;
 	
 	@Column(name = "SectionName")
 	private String sectionName;
 
-	public int getSectionId() {
-		return sectionId;
+	public int getBranchId() {
+		return branchId;
 	}
 
-	public Branch getBranch() {
-		return branch;
+	public void setBranchId(int branchId) {
+		this.branchId = branchId;
+	}
+
+	public int getSectionId() {
+		return sectionId;
 	}
 
 	public String getSectionName() {
@@ -45,10 +46,6 @@ public class Section {
 
 	public void setSectionId(int sectionId) {
 		this.sectionId = sectionId;
-	}
-
-	public void setBranch(Branch branch) {
-		this.branch = branch;
 	}
 
 	public void setSectionName(String sectionName) {

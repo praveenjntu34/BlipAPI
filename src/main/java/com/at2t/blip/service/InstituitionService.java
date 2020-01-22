@@ -105,7 +105,7 @@ public class InstituitionService {
 	}
 
 	@Transactional
-	public List<BranchResponseDto> getBranch(int relTenantInstitutionId) {
+	public List<Branch> getBranch(int relTenantInstitutionId) {
 //		return branchRepository.findAll();
 		return branchRepository.findBranches(relTenantInstitutionId);
 	}

@@ -13,7 +13,7 @@ public interface SectionRepository extends CrudRepository<Section, Integer> {
 	List<Section> getSection(int branchId);
 
 	@Query("SELECT new com.at2t.blip.dto.BranchResponseDto(B.branchId, B.branchName)" +
-			" FROM Section S  " +
-			"JOIN S.branch B WHERE B.relTenantInstitution.relTenantInstitutionId = :relTenantInstitutionId")
+			" FROM Branch B" +
+			" WHERE B.relTenantInstitutionId = :relTenantInstitutionId")
 	List<Section> GetSections(int relTenantInstitutionId);
 }
