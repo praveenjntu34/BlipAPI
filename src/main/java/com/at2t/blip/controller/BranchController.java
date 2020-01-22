@@ -4,6 +4,7 @@ import com.at2t.blip.dao.Branch;
 import com.at2t.blip.dao.Institution;
 import com.at2t.blip.dao.RelTenantInstitution;
 import com.at2t.blip.dto.BranchDto;
+import com.at2t.blip.dto.BranchResponseDto;
 import com.at2t.blip.dto.InstitutionDto;
 import com.at2t.blip.service.InstituitionService;
 import io.swagger.annotations.Api;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/institution/branch")
 @Api(value = "blip")
 public class BranchController {
     @Autowired
@@ -24,7 +24,7 @@ public class BranchController {
     @Autowired
     ModelMapper modelMapper;
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST, value = "/institution/branch")
     public Object addBranch(@RequestBody BranchDto branchDto) {
 
 
@@ -37,10 +37,11 @@ public class BranchController {
 
     }
 
-    @GetMapping
-    public List<Branch> getBranches(@PathVariable int relTenantInstitutionId) {
+    @RequestMapping(method = RequestMethod.GET, value = "/institution/branch/{relTenantInstitutionId}")
+    public List<BranchResponseDto> getBranches(@PathVariable int relTenantInstitutionId) {
 
-        return instituitionService.getBranch(relTenantInstitutionId);
+        List<BranchResponseDto> branches = instituitionService.getBranch(relTenantInstitutionId);
+        return branches;
 
     }
 

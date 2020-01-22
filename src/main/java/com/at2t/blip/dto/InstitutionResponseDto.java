@@ -8,6 +8,16 @@ public class InstitutionResponseDto {
     private String email;
     private String website;
     private String address1;
+    private String remarks;
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
     private int cityId;
     public int getRelTenantInstitutionId() {
         return relTenantInstitutionId;
@@ -115,7 +125,7 @@ public class InstitutionResponseDto {
 
 
 
-    public InstitutionResponseDto( int institutionId,int institutionTypeId,int relTenantInstitutionId, String institutionName, String email, String website, String address1, String address2,int cityId,  byte[] pictureStream
+    public InstitutionResponseDto( int institutionId,int institutionTypeId,int relTenantInstitutionId, String institutionName, String email, String website, String address1, String address2,int cityId,String remarks,  byte[] pictureStream
                                  ) {
         this.institutionId = institutionId;
         this.institutionName = institutionName;
@@ -126,6 +136,7 @@ public class InstitutionResponseDto {
         this.address1 = address1;
         this.address2 = address2;
         this.cityId = cityId;
+        this.remarks = remarks;
         this.pictureStream = pictureStream;
     }
 

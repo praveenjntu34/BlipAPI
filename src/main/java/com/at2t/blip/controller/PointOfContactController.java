@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/institution/poc")
 @Api(value = "blip")
 public class PointOfContactController {
     @Autowired
@@ -41,6 +40,8 @@ public class PointOfContactController {
         LoginCredentialDto loginCredentialDto = new LoginCredentialDto();
 
         loginCredentialDto.setPersonId(personObj.getPersonId());
+        loginCredentialDto.setEmail(personDto.getEmail());
+        loginCredentialDto.setPhoneNumber(personDto.getPhoneNumber());
         instituitionService.addLoginCredential(loginCredentialDto);
 
         institutionAdminDto.setPersonId(personObj.getPersonId());

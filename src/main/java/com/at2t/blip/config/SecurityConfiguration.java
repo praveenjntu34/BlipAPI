@@ -75,6 +75,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/institution/section").permitAll()
                 .antMatchers("/states").permitAll()
                 .antMatchers("/institution/ins-details/**").permitAll()
+                .antMatchers("/institution/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

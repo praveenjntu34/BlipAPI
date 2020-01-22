@@ -12,10 +12,9 @@ public class Branch {
 	@Column(name = "BranchId")
 	private int branchId;
 
-	@OneToOne
-	@JoinColumn(name = "relTenantInstitutionId", referencedColumnName = "RelTenantInstitutionId")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "relTenantInstitutionId")
 	@MapsId
-	@JsonIgnore
 	private RelTenantInstitution relTenantInstitution;
 
 	public Branch() {
