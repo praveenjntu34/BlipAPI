@@ -25,16 +25,30 @@ public class Instructor {
 
 	@JoinColumn(name = "personId", referencedColumnName = "PersonId")
 	@MapsId
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Person personId;
+
+	@Column(name = "Designation")
+	private String designation;
+
+	@Column(name = "RelTenantInstitutionId")
+	private int relTenantInstitutionId;
+
 
 	@JoinColumn(name = "sectionId", referencedColumnName = "SectionId")
 	@MapsId
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Section sectionId;
 
+
+
+	public int getRelTenantInstitutionId() {
+		return relTenantInstitutionId;
+	}
+
+	public void setRelTenantInstitutionId(int relTenantInstitutionId) {
+		this.relTenantInstitutionId = relTenantInstitutionId;
+	}
 	public int getInstructorId() {
 		return instructorId;
 	}
@@ -58,5 +72,11 @@ public class Instructor {
 	public void setSectionId(Section sectionId) {
 		this.sectionId = sectionId;
 	}
+	public String getDesignation() {
+		return designation;
+	}
 
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
 }

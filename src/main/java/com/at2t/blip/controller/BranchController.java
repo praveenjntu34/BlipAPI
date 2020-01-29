@@ -47,7 +47,7 @@ public class BranchController {
 
         for(Branch branch : branches) {
             List<Section> sections = instituitionService.getSections(branch.getBranchId());
-            BranchResponseDto dto = new BranchResponseDto(branch.getBranchId(), branch.getBranchName(), sections);
+            BranchResponseDto dto = new BranchResponseDto(branch.getBranchId(),relTenantInstitutionId, branch.getBranchName(), sections);
             responseDto.add(dto);
         }
 

@@ -50,8 +50,9 @@ public class BranchResponseDto {
         this.branchName = branchName;
     }
 
-    public BranchResponseDto(int branchId, String branchName, List<Section> sections) {
+    public BranchResponseDto(int branchId,int relTenantInstitutionId, String branchName, List<Section> sections) {
         this.branchId = branchId;
+        this.relTenantInstitutionId = relTenantInstitutionId;
         this.branchName = branchName;
         this.sections = sections;
     }
