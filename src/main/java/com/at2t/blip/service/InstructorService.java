@@ -26,8 +26,8 @@ public class InstructorService {
 		 instructorRepository.addInstructor(instructorDto.getPersonId(),instructorDto.getDesignation(),instructorDto.getRelTenantInstitutionId(), instructorDto.getSectionId());
 	}
 
-	@org.springframework.transaction.annotation.Transactional
-	public List<Instructor> getInstructorDetails(int relTenantInstitutionId) {
+	@Transactional
+	public List<Object[]> getInstructorDetails(int relTenantInstitutionId) {
 		return instructorRepository.getInstructorDetails(relTenantInstitutionId);
 	}
 	@Transactional

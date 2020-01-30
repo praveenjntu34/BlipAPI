@@ -41,8 +41,8 @@ public class Person {
 	private Timestamp auditModifiedDate;
 
 
-//	@OneToOne(mappedBy = "person")
-//	private LoginCredential loginCredential;
+	@OneToOne(mappedBy = "person")
+	private LoginCredential loginCredential;
 	
 	@Column(name = "PersonTypeId")
 	private int personTypeId;

@@ -21,7 +21,6 @@ public class LoginCredential {
 
     @OneToOne
     @JoinColumn(name = "personId")
-    @MapsId
     private Person person;
 
 //    public LoginCredential(String email, String phoneNumber, String passcode, String passwordHash, String passwordSalt, Person person) {

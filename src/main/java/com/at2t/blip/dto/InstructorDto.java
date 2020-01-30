@@ -1,5 +1,7 @@
 package com.at2t.blip.dto;
 
+import com.at2t.blip.dao.Person;
+
 public class InstructorDto {
 
 	private int instructorId;
@@ -11,8 +13,6 @@ public class InstructorDto {
 	private String phoneNumber;
 	private int sectionId;
 	private int relTenantInstitutionId;
-
-
 
 	public void setPersonId(int personId) {
 		this.personId = personId;

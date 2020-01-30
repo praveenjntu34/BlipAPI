@@ -24,9 +24,8 @@ public class Instructor {
 	private int instructorId;
 
 	@JoinColumn(name = "personId", referencedColumnName = "PersonId")
-	@MapsId
-	@OneToOne(fetch = FetchType.EAGER)
-	private Person personId;
+	@OneToOne
+	private Person person;
 
 	@Column(name = "Designation")
 	private String designation;
@@ -36,9 +35,8 @@ public class Instructor {
 
 
 	@JoinColumn(name = "sectionId", referencedColumnName = "SectionId")
-	@MapsId
-	@OneToOne(fetch = FetchType.EAGER)
-	private Section sectionId;
+	@OneToOne
+	private Section section;
 
 
 
@@ -53,25 +51,26 @@ public class Instructor {
 		return instructorId;
 	}
 
-	public Person getPersonId() {
-		return personId;
+	public Person getPerson() {
+		return person;
 	}
 
-	public Section getSectionId() {
-		return sectionId;
+	public Section getSection() {
+		return section;
+	}
+
+	public void setSection(Section section) {
+		this.section = section;
 	}
 
 	public void setInstructorId(int instructorId) {
 		this.instructorId = instructorId;
 	}
 
-	public void setPersonId(Person personId) {
-		this.personId = personId;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
-	public void setSectionId(Section sectionId) {
-		this.sectionId = sectionId;
-	}
 	public String getDesignation() {
 		return designation;
 	}
