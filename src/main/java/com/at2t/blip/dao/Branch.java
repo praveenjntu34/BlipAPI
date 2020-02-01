@@ -12,18 +12,20 @@ public class Branch {
 	@Column(name = "BranchId")
 	private int branchId;
 
-	@OneToOne
-	@JoinColumn(name = "relTenantInstitutionId", referencedColumnName = "RelTenantInstitutionId")
-	@MapsId
-	@JsonIgnore
-	private RelTenantInstitution relTenantInstitution;
+
+	private int relTenantInstitutionId;
+
+	public Branch() {
+	}
 
 	private String branchName;
 
-	
+	public int getRelTenantInstitutionId() {
+		return relTenantInstitutionId;
+	}
 
-	public RelTenantInstitution getRelTenantInstitution() {
-		return relTenantInstitution;
+	public void setRelTenantInstitutionId(int relTenantInstitutionId) {
+		this.relTenantInstitutionId = relTenantInstitutionId;
 	}
 
 	public String getBranchName() {
@@ -31,10 +33,6 @@ public class Branch {
 	}
 
 	
-
-	public void setRelTenantInstitution(RelTenantInstitution relTenantInstitution) {
-		this.relTenantInstitution = relTenantInstitution;
-	}
 
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;

@@ -1,5 +1,6 @@
 package com.at2t.blip.repository;
 
+import com.at2t.blip.dto.BranchDto;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -7,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at2t.blip.dao.InstitutionAdmin;
+
+import java.util.Optional;
 
 public interface InstitutionAdminRepository extends CrudRepository<InstitutionAdmin, Integer> {
 	@Modifying
@@ -16,15 +19,14 @@ public interface InstitutionAdminRepository extends CrudRepository<InstitutionAd
 			@Param("SecondaryPOCEmail") String secondaryPOCEmail,
 			@Param("SecondaryPOCPhoneNumber") String secondaryPOCPhoneNumber);
 
-	@Modifying
-	@Query(value = "INSERT INTO Branch(BranchName,RelTenantInstitutionId) VALUES(:BranchName,:RelTenantInstitutionId)", nativeQuery = true)
-	public void addBranch(@Param("BranchName") String branchName,
-			@Param("RelTenantInstitutionId") int relTenantInstitutionId);
+	@Query(value = "INSERT INTO Branch(BranchName,RelTenantInstitutionId) OUTPUT inserted.BranchId VALUES(:BranchName,:RelTenantInstitutionId)", nativeQuery = true)
+	public int addBranch(@Param("BranchName") String branchName,
+							   @Param("RelTenantInstitutionId") int relTenantInstitutionId);
 
 	@Modifying
 	@Query(value = "INSERT INTO Section(SectionName,BranchId) VALUES(:SectionName,:BranchId)", nativeQuery = true)
 	public void addSection(@Param("SectionName") String sectionName, @Param("BranchId") int branchId);
 
-	
-	
+	@Query(value = "SELECT ia FROM InstitutionAdmin ia WHERE relTenantInstitutionId = :relTenantInstitutionId")
+	Optional<InstitutionAdmin> findByRelTenantInstitutionId(int relTenantInstitutionId);
 }

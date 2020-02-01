@@ -24,39 +24,58 @@ public class Instructor {
 	private int instructorId;
 
 	@JoinColumn(name = "personId", referencedColumnName = "PersonId")
-	@MapsId
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
-	private Person personId;
+	@OneToOne
+	private Person person;
+
+	@Column(name = "Designation")
+	private String designation;
+
+	@Column(name = "RelTenantInstitutionId")
+	private int relTenantInstitutionId;
+
 
 	@JoinColumn(name = "sectionId", referencedColumnName = "SectionId")
-	@MapsId
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
-	private Section sectionId;
+	@OneToOne
+	private Section section;
 
+
+
+	public int getRelTenantInstitutionId() {
+		return relTenantInstitutionId;
+	}
+
+	public void setRelTenantInstitutionId(int relTenantInstitutionId) {
+		this.relTenantInstitutionId = relTenantInstitutionId;
+	}
 	public int getInstructorId() {
 		return instructorId;
 	}
 
-	public Person getPersonId() {
-		return personId;
+	public Person getPerson() {
+		return person;
 	}
 
-	public Section getSectionId() {
-		return sectionId;
+	public Section getSection() {
+		return section;
+	}
+
+	public void setSection(Section section) {
+		this.section = section;
 	}
 
 	public void setInstructorId(int instructorId) {
 		this.instructorId = instructorId;
 	}
 
-	public void setPersonId(Person personId) {
-		this.personId = personId;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
-	public void setSectionId(Section sectionId) {
-		this.sectionId = sectionId;
+	public String getDesignation() {
+		return designation;
 	}
 
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
 }

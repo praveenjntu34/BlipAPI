@@ -18,9 +18,12 @@ public class SectionController {
 
 
     @PostMapping
-    public String addSection(@RequestBody SectionDto sectionDto) {
+    public Object addSection(@RequestBody SectionDto sectionDto) {
         instituitionService.addSection(sectionDto.getSectionName(), sectionDto.getBranchId());
-        return "Section Added";
+        Object object = new Object() {
+            public String response = "Section Added";
+        };
+        return object;
     }
 
     @GetMapping

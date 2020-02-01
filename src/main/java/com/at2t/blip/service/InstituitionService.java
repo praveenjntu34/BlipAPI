@@ -4,15 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.at2t.blip.dao.*;
-import com.at2t.blip.dto.InstitutionResponse;
+import com.at2t.blip.dto.*;
 import com.at2t.blip.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.at2t.blip.dto.BranchDto;
-import com.at2t.blip.dto.InstitutionAdminDto;
-import com.at2t.blip.dto.LoginCredentialDto;
 
 @Service
 public class InstituitionService {
@@ -33,7 +29,6 @@ public class InstituitionService {
 	SectionRepository sectionRepository;
 	@Autowired
 	InstitutionDisplayPictureRepository displayPictureRepository;
-
 	@Autowired
 	RelTenantInstitutionRepository relTenantInstitutionRepository;
 
@@ -64,8 +59,8 @@ public class InstituitionService {
 	}
 
 	@Transactional
-	public void addBranch(BranchDto branchDto) {
-		institutionAdminRepository.addBranch(branchDto.getBranchName(), branchDto.getRelTenantInstitutionId());
+	public int addBranch(BranchDto branchDto) {
+		return institutionAdminRepository.addBranch(branchDto.getBranchName(), branchDto.getRelTenantInstitutionId());
 	}
 
 	@Transactional
@@ -92,14 +87,37 @@ public class InstituitionService {
 	public List<InstitutionResponse> getAlInstitutions() {
 		return instituitionRepository.getAllInstitutions();
 	}
+
+	@Transactional
+	public InstitutionResponseDto getInstitutionDetails(int id) {
+		return instituitionRepository.getInstitutionalDetails(id);
+	}
+
+
+	@Transactional
+	public Optional<LoginCredential> getPersonDetails(int personId) {
+		return loginCredentialRepository.getPersonDetails(personId);
+	}
+
+	@Transactional
+	public List<InstitutionResponse> getAlInstitutionsDetails() {
+		return instituitionRepository.getAllInstitutions();
+	}
+
 	@Transactional
 	public List<Branch> getBranch(int relTenantInstitutionId) {
-		return branchRepository.findById(relTenantInstitutionId);
+//		return branchRepository.findAll();
+		return branchRepository.findBranches(relTenantInstitutionId);
 	}
+
 	
 	@Transactional
 	public List<Section> getSections(int branchId) {
 		return sectionRepository.getSection(branchId);
 	}
 
+	@Transactional
+	public Optional<RelTenantInstitution> getReltenantInstitution(int relTenantInstitutionId){
+		return relTenantInstitutionRepository.findById(relTenantInstitutionId);
+	}
 }

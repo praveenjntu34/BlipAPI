@@ -74,6 +74,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/institution/upload-file").permitAll()
                 .antMatchers("/institution/section").permitAll()
                 .antMatchers("/states").permitAll()
+                .antMatchers("/institution/ins-details/**").permitAll()
+                .antMatchers("/institution/**").permitAll()
+                .antMatchers("/instructor/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
