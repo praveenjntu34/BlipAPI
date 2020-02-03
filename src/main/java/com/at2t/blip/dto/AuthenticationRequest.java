@@ -1,6 +1,6 @@
 package com.at2t.blip.dto;
 
-public clasgs AuthenticationRequest {
+public class AuthenticationRequest {
 
     private String username;
     private String password;
