@@ -10,12 +10,29 @@ public class InstitutionResponse {
         this.pictureStream = pictureStream;
     }
 
+
+    public InstitutionResponse(int institutionId, String institutionName, byte[] pictureStream, int addressId) {
+        this.institutionId = institutionId;
+        this.institutionName = institutionName;
+        this.pictureStream = pictureStream;
+        this.addressId = addressId;
+    }
+
     private byte[] pictureStream;
     private String cityName;
     private String stateName;
+    private int addressId;
 
     public int getInstitutionId() {
         return institutionId;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public void setInstitutionId(int institutionId) {

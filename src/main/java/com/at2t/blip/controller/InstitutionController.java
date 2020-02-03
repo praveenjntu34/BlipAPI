@@ -5,6 +5,7 @@ import com.at2t.blip.dto.*;
 import com.at2t.blip.service.AddressService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,19 @@ public class InstitutionController {
 
 	@GetMapping
 	public List<InstitutionResponse> getInstitutions() {
-		return instituitionService.getAlInstitutions();
+		List<InstitutionResponse> response = instituitionService.getAlInstitutions();
+		for(int i = 0; i < response.size(); i++) {
+			List<Object[]> instructors = addressService.getAddressDetails(response.get(i).getAddressId());
+			List<AddressSetDto> exp = instructors.stream()
+					.map(o -> new AddressSetDto((String) o[0], (String) o[1]))
+					.collect(Collectors.toList());
+			response.get(i).setStateName(exp.get(0).getStateName());
+			response.get(i).setCityName(exp.get(0).getCityName());
+
+		}
+
+		return response;
+
 	}
 
 	private Institution convertToInstitutionEntity(InstitutionDto institutionDto) {
