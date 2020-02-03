@@ -21,7 +21,7 @@ public interface InstituitionRepository extends CrudRepository<Institution, Inte
             "JOIN RI.address AD")
     List<InstitutionResponse> getAllInstitutions();
 
-    @Query("SELECT new com.at2t.blip.dto.InstitutionResponseDto(I.institutionId,RI.institutionTypeID,RI.relTenantInstitutionId, I.institutionName,  I.email, I.website,  AD.address1,  AD.address2,AD.cityId,I.remarks,  IDP.pictureStream) \n" +
+    @Query("SELECT new com.at2t.blip.dto.InstitutionResponseDto(I.institutionId,RI.institutionTypeID,RI.relTenantInstitutionId, I.institutionName,  I.email, I.website,  AD.address1,  AD.address2,AD.cityId,AD.stateId,I.remarks,  IDP.pictureStream) \n" +
             "FROM RelTenantInstitution RI\n" +
             "JOIN RI.institution I\n" +
             "JOIN RI.address AD\n" +

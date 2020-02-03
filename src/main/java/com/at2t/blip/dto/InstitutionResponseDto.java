@@ -9,7 +9,7 @@ public class InstitutionResponseDto {
     private String website;
     private String address1;
     private String remarks;
-
+    private  int stateId;
     public String getRemarks() {
         return remarks;
     }
@@ -25,6 +25,14 @@ public class InstitutionResponseDto {
 
     public void setRelTenantInstitutionId(int relTenantInstitutionId) {
         this.relTenantInstitutionId = relTenantInstitutionId;
+    }
+
+    public int getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(int stateId) {
+        this.stateId = stateId;
     }
 
     private String address2;
@@ -52,6 +60,14 @@ public class InstitutionResponseDto {
 
     public int getInstitutionTypeName() {
         return institutionTypeId;
+    }
+
+    public int getInstitutionTypeId() {
+        return institutionTypeId;
+    }
+
+    public void setInstitutionTypeId(int institutionTypeId) {
+        this.institutionTypeId = institutionTypeId;
     }
 
     public void setInstitutionTypeName(int institutionTypeName) {
@@ -125,7 +141,7 @@ public class InstitutionResponseDto {
 
 
 
-    public InstitutionResponseDto( int institutionId,int institutionTypeId,int relTenantInstitutionId, String institutionName, String email, String website, String address1, String address2,int cityId,String remarks,  byte[] pictureStream
+    public InstitutionResponseDto( int institutionId,int institutionTypeId,int relTenantInstitutionId, String institutionName, String email, String website, String address1, String address2,int cityId,int stateId, String remarks,  byte[] pictureStream
                                  ) {
         this.institutionId = institutionId;
         this.institutionName = institutionName;
@@ -136,6 +152,7 @@ public class InstitutionResponseDto {
         this.address1 = address1;
         this.address2 = address2;
         this.cityId = cityId;
+        this.stateId = stateId;
         this.remarks = remarks;
         this.pictureStream = pictureStream;
     }
