@@ -16,6 +16,7 @@ import com.at2t.blip.service.RelTenantInstitutionService;
 
 import io.swagger.annotations.Api;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/institution/details")
 @Api(value = "blip")
@@ -71,6 +72,36 @@ public class InstitutionController {
 
 		return response;
 
+	}
+
+	@PutMapping
+	public InstitutionDetailsResponse updateInstitution(@RequestBody InstitutionDto institutionDto) {
+		Institution institutionObject = convertToInstitutionEntity(institutionDto);
+		institutionObject.setInstitutionId(institutionDto.getInstitutionId());
+
+
+		InstitutionDisplayPicture picture = instituitionService.getPicture(institutionDto.getPictureId()).get();
+		institutionObject.setInstitutionDisplayPicture(picture);
+
+		Tenant tenant = new Tenant(institutionDto.getInstitutionName());
+		tenant.setTenantId(institutionDto.getInstitutionId());
+		instituitionService.addTenant(tenant);
+
+		instituitionService.updateInstituition(institutionObject);
+
+		Address address = convertToAddressEntity(institutionDto);
+		address.setAddressId(institutionDto.getAddressId());
+		addressService.setAddress(address);
+
+
+		RelTenantInstitution relTenantInstitution = new RelTenantInstitution(institutionObject, tenant,
+				institutionDto.getInstitutionTypeId(), address);
+		relTenantInstitution.setRelTenantInstitutionId(institutionDto.getInstitutionId());
+		RelTenantInstitution rel = relTenantInstitutionService.getRelTenantInstitution(institutionObject.getInstitutionId());
+
+
+		InstitutionDetailsResponse response = new InstitutionDetailsResponse(institutionObject.getInstitutionId(), 0,institutionObject.getStatus(), institutionObject.getInstitutionName());
+		return response;
 	}
 
 	private Institution convertToInstitutionEntity(InstitutionDto institutionDto) {

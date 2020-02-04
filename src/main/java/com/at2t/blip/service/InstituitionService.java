@@ -38,6 +38,11 @@ public class InstituitionService {
 	}
 
 	@Transactional
+	public Institution updateInstituition(Institution instituition) {
+		return instituitionRepository.save(instituition);
+	}
+
+	@Transactional
 	public Tenant addTenant(Tenant tenant) {
 		return tenantRepository.save(tenant);
 	}

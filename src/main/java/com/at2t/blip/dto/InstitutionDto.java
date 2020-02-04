@@ -27,6 +27,17 @@ public class InstitutionDto {
     private String remarks;
     @ApiModelProperty(position = 11)
     private Boolean status;
+    @ApiModelProperty(position = 12)
+    private int institutionId;
+    @ApiModelProperty(position = 13)
+    private int addressId;
+    public int getInstitutionId() {
+        return institutionId;
+    }
+
+    public void setInstitutionId(int institutionId) {
+        this.institutionId = institutionId;
+    }
 
     public int getPictureId() {
         return pictureId;
@@ -61,6 +72,14 @@ public class InstitutionDto {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public int getInstitutionTypeId() {
