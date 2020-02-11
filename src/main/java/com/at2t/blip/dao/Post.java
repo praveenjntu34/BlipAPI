@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "Post")
@@ -15,18 +16,19 @@ public class Post {
 	@Column(name = "PostId")
 	private int postId;
 
-	@Column(name = "PostTypeId")
-	private int postTypeId;
+	@Column(name = "Title")
+	private String title;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "SectionId", referencedColumnName = "SectionId")
-	@MapsId
 	@JsonIgnore
 	private Section section;
 
 	@Column(name = "PostText")
 	private String postText;
 
+	@Column(name = "RelTenantInstitutionId")
+	private int relTenantInstitutionId;
 
 	@Lob
 	@Column(name = "AttachmentStreamId")
@@ -37,6 +39,8 @@ public class Post {
 	private int auditCreatedBy;
 
 
+	public Post() {
+	}
 
 	public byte[] getAttachmentStreamId() {
 		return AttachmentStreamId;
@@ -55,10 +59,14 @@ public class Post {
 	@Column(name = "AuditModifiedDate")
 	Timestamp auditModifiedDate;
 
-	public Post(int postTypeId, Section section, String postText, byte[] attachmentStreamId) {
-		this.postTypeId = postTypeId;
+	public Post(String title, Section section, String postText, int relTenantInstitutionId) {
+		this.title = title;
 		this.section = section;
 		this.postText = postText;
+		this.relTenantInstitutionId = relTenantInstitutionId;
+	}
+
+	public Post(byte[] attachmentStreamId) {
 		AttachmentStreamId = attachmentStreamId;
 	}
 
@@ -121,4 +129,11 @@ public class Post {
 		this.auditModifiedDate = auditModifiedDate;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }
