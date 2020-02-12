@@ -1,5 +1,6 @@
 package com.at2t.blip.util;
 
+import com.at2t.blip.dto.LoginDetailsDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -36,8 +37,9 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails, LoginDetailsDto loginDetailsDto) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("role", loginDetailsDto.getPersonTypeName());
         return createToken(claims, userDetails.getUsername());
     }
 

@@ -36,31 +36,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
-
-
-
-        //For custom schema
-        /*    .usersByUsernameQuery("select Email as username, PassCode as password, 1 as enabled"
-                    + "from LoginCredential"
-                    + "where Email = ?" )
-            .authoritiesByUsernameQuery(" select lc.Email as username, pt.PersonTypeName as authority"
-                    + "from LoginCredential lc"
-                    + "join Person p on lc.PersonId = p.PersonId"
-                    + "join PersonType pt on p.PersonId = pr.PersonId"
-                    + "where Email = ?");*/
-
-        //For Default H2 Schema
-                /*.withDefaultSchema()
-                .withUser(
-                        User.withUsername("admin")
-                        .password("pass")
-                        .roles("ADMIN")
-                )
-                .withUser(
-                        User.withUsername("user")
-                                .password("pass")
-                                .roles("USER")
-                );*/
     }
 
     @Override

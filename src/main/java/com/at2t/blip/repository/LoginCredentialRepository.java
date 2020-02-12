@@ -23,4 +23,10 @@ public interface LoginCredentialRepository extends CrudRepository<LoginCredentia
 
 	@Query("SELECT lc FROM LoginCredential lc WHERE PersonId= :personId")
 	Optional<LoginCredential> getPersonDetails(int personId);
+
+	@Query(value = "SELECT LC.Email, LC.PhoneNumber, P.PersonId, P.FirstName, P.LastName, PT.PersonTypeId, PT.PersonTypeName FROM LoginCredential LC\n" +
+			"JOIN Person P ON P.PersonId = LC.PersonId\n" +
+			"JOIN PersonType PT ON PT.PersonTypeId = P.PersonTypeId\n" +
+			"WHERE LC.Email= :email", nativeQuery = true)
+	List<Object[]>  getLogin(String email);
 }
