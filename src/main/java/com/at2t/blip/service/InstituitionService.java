@@ -79,9 +79,13 @@ public class InstituitionService {
 	}
 
 	@Transactional
-	public void addLoginCredential(LoginCredentialDto loginCredentialDto) {
-		loginCredentialRepository.addLoginCrendentials(loginCredentialDto.getPersonId(), loginCredentialDto.getEmail(),
-				loginCredentialDto.getPhoneNumber());
+	public LoginCredential addLoginCredential(LoginCredentialDto loginCredentialDto) {
+//		return loginResponse;
+
+		int id = loginCredentialRepository.addLoginCrendentials(loginCredentialDto.getPersonId(), loginCredentialDto.getEmail(),
+				loginCredentialDto.getPasscode(),loginCredentialDto.getPhoneNumber());
+		LoginCredential lc = loginCredentialRepository.findById(id).get();
+		return lc;
 	}
 
 	@Transactional

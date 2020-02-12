@@ -8,6 +8,7 @@ import com.at2t.blip.dto.*;
 import com.at2t.blip.service.InstituitionService;
 import com.at2t.blip.service.InstitutionAdminService;
 import com.at2t.blip.service.PersonService;
+import com.at2t.blip.util.RandomPasswordGenerator;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,11 @@ public class PointOfContactController {
     @Autowired
     PersonService personService;
 
+    @Autowired
+    RandomPasswordGenerator randomPasswordGenerator;
+
     @RequestMapping(method = RequestMethod.POST, value = "/institution/poc")
-    public Object addPOCDetails(@RequestBody InstitutionAdminDto institutionAdminDto) {
+    public LoginCredential addPOCDetails(@RequestBody InstitutionAdminDto institutionAdminDto) {
 
         PersonDto personDto = institutionAdminDto.getPersonDto();
         Person person = new Person();
@@ -42,16 +46,17 @@ public class PointOfContactController {
 
         loginCredentialDto.setPersonId(personObj.getPersonId());
         loginCredentialDto.setEmail(personDto.getEmail());
+        loginCredentialDto.setPasscode(randomPasswordGenerator.getAlphaNumericString(12));
         loginCredentialDto.setPhoneNumber(personDto.getPhoneNumber());
-        instituitionService.addLoginCredential(loginCredentialDto);
+        LoginCredential lc = instituitionService.addLoginCredential(loginCredentialDto);
 
         institutionAdminDto.setPersonId(personObj.getPersonId());
          instituitionService.addPOCDetail(institutionAdminDto);
 
         Object object = new Object() {
-            public String response = "Added POC succesfully\"";
+            public String response = "Added POC successfully";
         };
-        return object;
+        return lc;
 
     }
 

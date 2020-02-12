@@ -9,6 +9,7 @@ import com.at2t.blip.repository.LoginCredentialRepository;
 import com.at2t.blip.security.BlipUserDetails;
 import com.at2t.blip.security.BlipUserDetailsService;
 import com.at2t.blip.util.JwtUtil;
+import com.at2t.blip.util.RandomPasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -54,7 +55,6 @@ public class Authentication {
                 .map(o -> new LoginDetailsDto((String) o[0], (String) o[1], (int) o[2], (String) o[3], (String) o[4],
                         (int) o[5], (String) o[6]))
                 .collect(Collectors.toList());
-
 
         final String jwt = jwtUtil.generateToken(userDetails, exp.get(0));
         LoginDetailsDto loginResponse = exp.get(0);
