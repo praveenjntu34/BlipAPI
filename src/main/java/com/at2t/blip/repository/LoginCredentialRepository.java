@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,13 @@ public interface LoginCredentialRepository extends CrudRepository<LoginCredentia
 	@Query(value = "INSERT INTO LoginCredential(PersonId,Email,PhoneNumber, Passcode) OUTPUT inserted.LoginCredentialId VALUES(:PersonId,:Email,:PhoneNumber, :Passcode)", nativeQuery = true)
 	public int addLoginCrendentials(@Param("PersonId") int personId, @Param("Email") String email, @Param("Passcode") String passcode,
 			@Param("PhoneNumber") String phoneNumber);
+
+
+	@Modifying
+	@Transactional
+	@Query(value = "update LoginCredential set email=:email,phoneNumber=:phoneNumber where LoginCredentialId=:loginCredentialId", nativeQuery = true)
+	public void updateLoginCrendentials(@Param("email") String email, @Param("phoneNumber") String phoneNumber, @Param("loginCredentialId") int loginCredentialId);
+
 
 	@Query("SELECT lc FROM LoginCredential lc WHERE PersonId= :personId")
 	Optional<LoginCredential> getPersonDetails(int personId);

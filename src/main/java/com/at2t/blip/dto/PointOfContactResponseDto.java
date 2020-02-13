@@ -6,6 +6,10 @@ public class PointOfContactResponseDto {
     private String primaryPOCPhoneNumber;
     private String primaryPOCFirstName;
     private String email;
+    private int personId;
+    private int institutionAdminId;
+    private int loginCredentialId;
+
 
     public String getEmail() {
         return email;
@@ -37,6 +41,30 @@ public class PointOfContactResponseDto {
     }
 
     public PointOfContactResponseDto() {
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
+
+    public int getInstitutionAdminId() {
+        return institutionAdminId;
+    }
+
+    public void setInstitutionAdminId(int institutionAdminId) {
+        this.institutionAdminId = institutionAdminId;
+    }
+
+    public int getLoginCredentialId() {
+        return loginCredentialId;
+    }
+
+    public void setLoginCredentialId(int loginCredentialId) {
+        this.loginCredentialId = loginCredentialId;
     }
 
     public String getPrimaryPOCLastName() {

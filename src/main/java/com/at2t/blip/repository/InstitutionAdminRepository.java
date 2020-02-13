@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at2t.blip.dao.InstitutionAdmin;
@@ -18,6 +19,12 @@ public interface InstitutionAdminRepository extends CrudRepository<InstitutionAd
 			@Param("RelTenantInstitutionId") int relTenantInstitutionId, @Param("PersonId") int personId,
 			@Param("SecondaryPOCEmail") String secondaryPOCEmail,
 			@Param("SecondaryPOCPhoneNumber") String secondaryPOCPhoneNumber);
+
+	@Modifying
+	@Transactional
+	@Query(value = "update InstitutionAdmin set secondaryPOCName=:secondaryPOCName,secondaryPOCEmail=:secondaryPOCEmail, secondaryPOCPhoneNumber=:secondaryPOCPhoneNumber where InstitutionAdminId=:institutionAdminId", nativeQuery = true)
+	public void updateAdmin(@Param("secondaryPOCName") String secondaryPOCName, @Param("secondaryPOCEmail") String secondaryPOCEmail, @Param("secondaryPOCPhoneNumber") String secondaryPOCPhoneNumber,  @Param("institutionAdminId") int InstitutionAdminId);
+
 
 	@Query(value = "INSERT INTO Branch(BranchName,RelTenantInstitutionId) OUTPUT inserted.BranchId VALUES(:BranchName,:RelTenantInstitutionId)", nativeQuery = true)
 	public int addBranch(@Param("BranchName") String branchName,

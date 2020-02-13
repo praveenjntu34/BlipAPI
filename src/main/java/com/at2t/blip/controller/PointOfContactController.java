@@ -1,9 +1,6 @@
 package com.at2t.blip.controller;
 
-import com.at2t.blip.dao.InstitutionAdmin;
-import com.at2t.blip.dao.LoginCredential;
-import com.at2t.blip.dao.Person;
-import com.at2t.blip.dao.PersonType;
+import com.at2t.blip.dao.*;
 import com.at2t.blip.dto.*;
 import com.at2t.blip.service.InstituitionService;
 import com.at2t.blip.service.InstitutionAdminService;
@@ -74,8 +71,38 @@ public class PointOfContactController {
         poc.setSecondaryPOCName(ia.getSecondaryPOCName());
         poc.setSecondaryPOCEmail(ia.getSecondaryPOCEmail());
         poc.setSecondaryPOCPhoneNumber(ia.getSecondaryPOCPhoneNumber());
-
+        poc.setPersonId(ia.getPerson().getPersonId());
+        poc.setInstitutionAdminId(ia.getInstitutionAdminId());
+        poc.setLoginCredentialId(lc.getLoginCredentialId());
         return poc;
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/institution/pc")
+    public Object updateIPOC(@RequestBody POCRequestDto pocRequestDto) {
+
+        Person person = new Person();
+        person.setFirstName(pocRequestDto.getPrimaryPOCFirstName());
+        person.setLastName(pocRequestDto.getPrimaryPOCLastName());
+        person.setGender('M');
+        person.setPersonTypeId(2);
+        person.setPersonId(pocRequestDto.getPersonId());
+        Person personObj = instituitionService.addPerson(person);
+
+        LoginCredentialDto loginCredentialDto = new LoginCredentialDto();
+
+        loginCredentialDto.setLoginCredentialId(pocRequestDto.getLoginCredentialId());
+        loginCredentialDto.setEmail(pocRequestDto.getPrimaryPOCEmail());
+        loginCredentialDto.setPhoneNumber(pocRequestDto.getPrimaryPOCPhoneNumber());
+         instituitionService.updateLoginCredential(loginCredentialDto);
+
+        pocRequestDto.setPersonId(personObj.getPersonId());
+
+        instituitionService.addPOCDetail(pocRequestDto);
+
+        Object object = new Object() {
+            public String response = "Updated POC successfully";
+        };
+
+        return object;
+    }
 }

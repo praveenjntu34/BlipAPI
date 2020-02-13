@@ -14,6 +14,16 @@ public class LoginCredentialDto {
 
 	private int personId;
 
+	private int loginCredentialId;
+
+	public int getLoginCredentialId() {
+		return loginCredentialId;
+	}
+
+	public void setLoginCredentialId(int loginCredentialId) {
+		this.loginCredentialId = loginCredentialId;
+	}
+
 	public String getEmail() {
 		return email;
 	}

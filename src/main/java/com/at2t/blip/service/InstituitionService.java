@@ -57,10 +57,17 @@ public class InstituitionService {
 
 	@Transactional
 	public void addPOCDetail(InstitutionAdminDto institutionAdminDto) {
+
 		System.out.println(institutionAdminDto.toString());
 		institutionAdminRepository.addInstitutionData(institutionAdminDto.getSecondaryPOCName(),
-		institutionAdminDto.getRelInstitutionId(), institutionAdminDto.getPersonId(),
-		institutionAdminDto.getSecondaryPOCEmail(), institutionAdminDto.getSecondaryPOCPhoneNumber());
+				institutionAdminDto.getRelInstitutionId(), institutionAdminDto.getPersonId(),
+				institutionAdminDto.getSecondaryPOCEmail(), institutionAdminDto.getSecondaryPOCPhoneNumber());
+	}
+	@Transactional
+	public void addPOCDetail(POCRequestDto pocRequestDto) {
+
+		institutionAdminRepository.updateAdmin(pocRequestDto.getSecondaryPOCFirstName() + " " + pocRequestDto.getSecondaryPOCLastName(),
+				pocRequestDto.getSecondaryPOCEmail(), pocRequestDto.getSecondaryPOCPhoneNumber(), pocRequestDto.getInstitutionAdminId());
 	}
 
 	@Transactional
@@ -86,6 +93,12 @@ public class InstituitionService {
 				loginCredentialDto.getPasscode(),loginCredentialDto.getPhoneNumber());
 		LoginCredential lc = loginCredentialRepository.findById(id).get();
 		return lc;
+	}
+
+	@Transactional
+	public void updateLoginCredential(LoginCredentialDto loginCredential) {
+		loginCredentialRepository.updateLoginCrendentials(loginCredential.getEmail(), loginCredential.getPhoneNumber(), loginCredential.getLoginCredentialId());
+
 	}
 
 	@Transactional

@@ -7,7 +7,8 @@ public class InstitutionAdminDto {
 	private String secondaryPOCName;
 	private int relInstitutionId;
 	private int personId;
-	
+	private int institutionAdminId;
+	private int loginCredentialId;
 	private String secondaryPOCEmail;
 
 	private String SecondaryPOCPhoneNumber;
@@ -54,6 +55,21 @@ public class InstitutionAdminDto {
 		SecondaryPOCPhoneNumber = secondaryPOCPhoneNumber;
 	}
 
+	public int getInstitutionAdminId() {
+		return institutionAdminId;
+	}
+
+	public void setInstitutionAdminId(int institutionAdminId) {
+		this.institutionAdminId = institutionAdminId;
+	}
+
+	public int getLoginCredentialId() {
+		return loginCredentialId;
+	}
+
+	public void setLoginCredentialId(int loginCredentialId) {
+		this.loginCredentialId = loginCredentialId;
+	}
 
 	public PersonDto getPersonDto() {
 		return personDto;
