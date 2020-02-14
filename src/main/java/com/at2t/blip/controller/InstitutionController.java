@@ -18,7 +18,6 @@ import io.swagger.annotations.Api;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/institution/details")
 @Api(value = "blip")
 public class InstitutionController {
 
@@ -34,8 +33,7 @@ public class InstitutionController {
 	@Autowired
 	ModelMapper modelMapper;
 
-
-	@PostMapping
+	@RequestMapping(method = RequestMethod.POST, value = "/institution/details")
 	public InstitutionDetailsResponse addInstitution(@RequestBody InstitutionDto institutionDto) {
 
 		Institution institution = convertToInstitutionEntity(institutionDto);
@@ -58,7 +56,10 @@ public class InstitutionController {
 	}
 
 	@GetMapping
-	public List<InstitutionResponse> getInstitutions() {
+	@RequestMapping(method = RequestMethod.GET, value = "/institution/details")
+	public List<InstitutionResponse> getInstitutions(@@RequestParam("stateId") int stateId, @RequestParam("cityId") int cityId) {
+
+
 		List<InstitutionResponse> response = instituitionService.getAlInstitutions();
 		for(int i = 0; i < response.size(); i++) {
 			List<Object[]> instructors = addressService.getAddressDetails(response.get(i).getAddressId());
@@ -74,7 +75,7 @@ public class InstitutionController {
 
 	}
 
-	@PutMapping
+	@RequestMapping(method = RequestMethod.PUT, value = "/institution/details")
 	public InstitutionDetailsResponse updateInstitution(@RequestBody InstitutionDto institutionDto) {
 		Institution institutionObject = convertToInstitutionEntity(institutionDto);
 		institutionObject.setInstitutionId(institutionDto.getInstitutionId());
