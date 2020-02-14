@@ -2,6 +2,7 @@ package com.at2t.blip.repository;
 
 import com.at2t.blip.dao.LoginCredential;
 
+import com.at2t.blip.dao.RelTenantInstitution;
 import com.at2t.blip.dto.InstitutionResponse;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,6 +30,9 @@ public interface LoginCredentialRepository extends CrudRepository<LoginCredentia
 
 	@Query("SELECT lc FROM LoginCredential lc WHERE PersonId= :personId")
 	Optional<LoginCredential> getPersonDetails(int personId);
+
+	@Query(value = "SELECT lc FROM LoginCredential lc WHERE Email=:email")
+	public LoginCredential checkWhetherEmailExists(@Param("email") String email);
 
 	@Query(value = "SELECT LC.Email, LC.PhoneNumber, P.PersonId, P.FirstName, P.LastName, PT.PersonTypeId, PT.PersonTypeName FROM LoginCredential LC\n" +
 			"JOIN Person P ON P.PersonId = LC.PersonId\n" +
