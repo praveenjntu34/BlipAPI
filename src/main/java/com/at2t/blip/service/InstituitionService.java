@@ -7,6 +7,9 @@ import com.at2t.blip.dao.*;
 import com.at2t.blip.dto.*;
 import com.at2t.blip.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -106,8 +109,17 @@ public class InstituitionService {
 		return displayPictureRepository.findById(pictureId);
 	}
 	@Transactional
-	public List<InstitutionResponse> getAlInstitutions() {
-		return instituitionRepository.getAllInstitutions();
+	public List<InstitutionResponse> getAlInstitutions(Integer page, Integer size, Integer cityId) {
+
+		if(cityId == null) {
+			double count = instituitionRepository.getCount();
+			Page<InstitutionResponse> res = instituitionRepository.getAllInstitutions(PageRequest.of(page, size));
+			res.getContent().get(0).setCount(count);
+			return res.getContent();
+		} else {
+			Page<InstitutionResponse> res = instituitionRepository.getAllInstitutionsByCity(PageRequest.of(page, size), cityId);
+			return res.getContent();
+		}
 	}
 
 	@Transactional
@@ -121,10 +133,10 @@ public class InstituitionService {
 		return loginCredentialRepository.getPersonDetails(personId);
 	}
 
-	@Transactional
-	public List<InstitutionResponse> getAlInstitutionsDetails() {
-		return instituitionRepository.getAllInstitutions();
-	}
+//	@Transactional
+//	public List<InstitutionResponse> getAlInstitutionsDetails() {
+//		return instituitionRepository.getAllInstitutions();
+//	}
 
 	@Transactional
 	public List<Branch> getBranch(int relTenantInstitutionId) {

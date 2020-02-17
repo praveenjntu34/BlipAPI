@@ -57,10 +57,10 @@ public class InstitutionController {
 
 	@GetMapping
 	@RequestMapping(method = RequestMethod.GET, value = "/institution/details")
-	public List<InstitutionResponse> getInstitutions(@@RequestParam("stateId") int stateId, @RequestParam("cityId") int cityId) {
+	public List<InstitutionResponse> getInstitutions(@RequestParam(value = "stateId", required = false) Integer stateId, @RequestParam(value = "cityId", required = false) Integer cityId,
+	@RequestParam(value = "pageNumber", required = false) Integer pageNumber , @RequestParam(value = "size", required = false) Integer size) {
 
-
-		List<InstitutionResponse> response = instituitionService.getAlInstitutions();
+		List<InstitutionResponse> response = instituitionService.getAlInstitutions(pageNumber,size, cityId);
 		for(int i = 0; i < response.size(); i++) {
 			List<Object[]> instructors = addressService.getAddressDetails(response.get(i).getAddressId());
 			List<AddressSetDto> exp = instructors.stream()
