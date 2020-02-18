@@ -13,6 +13,8 @@ import com.at2t.blip.service.BannerService;
 import io.swagger.annotations.Api;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @Api(value = "blip")
 public class BannerController {
@@ -40,6 +42,15 @@ public class BannerController {
 		};
 
 		return object;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/banner/{relTenantInstitutionId}")
+	public List<Banner> getBranches(@PathVariable int relTenantInstitutionId) {
+
+		List<Banner> banners = bannerService.getBanners(relTenantInstitutionId);
+
+		return banners;
+
 	}
 
 }

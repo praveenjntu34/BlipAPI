@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,6 +63,19 @@ public class BannerService {
 			System.out.println(e.getStackTrace());
 		}
 	}
+
+	@Transactional
+	public List<Banner> getBanners(int relTenantInstitutionId) {
+
+		try {
+			return bannerRepository.getBanners(relTenantInstitutionId);
+		}catch (Exception e) {
+			System.out.println(e.getStackTrace());
+			return null;
+		}
+
+	}
+
 	
 	@Transactional
 	public void deleteBanner(Integer bannerId) {

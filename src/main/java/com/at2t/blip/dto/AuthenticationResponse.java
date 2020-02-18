@@ -8,7 +8,7 @@ public class AuthenticationResponse {
     private String email;
     private String phoneNumber;
     private int personId;
-
+    private int relTenantInstitutionId;
 
     public AuthenticationResponse(String jwt) {
         this.jwt = jwt;
@@ -22,6 +22,14 @@ public class AuthenticationResponse {
         this.phoneNumber = phoneNumber;
         this.personId = personId;
         this.role = personTypeName;
+    }
+
+    public int getRelTenantInstitutionId() {
+        return relTenantInstitutionId;
+    }
+
+    public void setRelTenantInstitutionId(int relTenantInstitutionId) {
+        this.relTenantInstitutionId = relTenantInstitutionId;
     }
 
     public String getJwt() {

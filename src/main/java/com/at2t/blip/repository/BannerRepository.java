@@ -1,5 +1,6 @@
 package com.at2t.blip.repository;
 
+import com.at2t.blip.dao.Post;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -8,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 import com.at2t.blip.dao.Banner;
 import com.at2t.blip.dto.BannerDto;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public interface BannerRepository extends CrudRepository<Banner, Integer> {
 
@@ -19,6 +22,9 @@ public interface BannerRepository extends CrudRepository<Banner, Integer> {
 	@Modifying
 	@Query(value = "Delete from Banner where BannerId=:bannerId", nativeQuery = true)
 	public void deleteBanner(@Param("bannerId") int bannerId);
+
+	@Query("SELECT b FROM Banner b WHERE relTenantInstitutionId= :relTenantInstitutionId")
+	List<Banner> getBanners(int relTenantInstitutionId);
 
 	@Modifying
 	@Transactional

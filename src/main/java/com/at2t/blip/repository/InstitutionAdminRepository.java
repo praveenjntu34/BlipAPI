@@ -36,4 +36,7 @@ public interface InstitutionAdminRepository extends CrudRepository<InstitutionAd
 
 	@Query(value = "SELECT ia FROM InstitutionAdmin ia WHERE relTenantInstitutionId = :relTenantInstitutionId")
 	Optional<InstitutionAdmin> findByRelTenantInstitutionId(int relTenantInstitutionId);
+
+	@Query(value = "SELECT ia FROM InstitutionAdmin ia WHERE PersonId = :personId")
+	Optional<InstitutionAdmin> findByPersonId(int personId);
 }
