@@ -4,6 +4,7 @@ import com.at2t.blip.dao.*;
 import com.at2t.blip.dto.*;
 import com.at2t.blip.service.AddressService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,18 +62,25 @@ public class InstitutionController {
 	@RequestParam(value = "pageNumber", required = false) Integer pageNumber , @RequestParam(value = "size", required = false) Integer size) {
 
 		List<InstitutionResponse> response = instituitionService.getAlInstitutions(pageNumber,size, cityId);
-		for(int i = 0; i < response.size(); i++) {
-			List<Object[]> instructors = addressService.getAddressDetails(response.get(i).getAddressId());
-			List<AddressSetDto> exp = instructors.stream()
-					.map(o -> new AddressSetDto((String) o[0], (String) o[1]))
-					.collect(Collectors.toList());
-			response.get(i).setStateName(exp.get(0).getStateName());
-			response.get(i).setCityName(exp.get(0).getCityName());
+		if(response == null){
+			List<InstitutionResponse> res = new ArrayList<>();
+			InstitutionResponse ins = new InstitutionResponse();
+			ins.setCount(0);
+			res.add(ins);
+			return res;
+		} else {
+			for(int i = 0; i < response.size(); i++) {
+				List<Object[]> instructors = addressService.getAddressDetails(response.get(i).getAddressId());
+				List<AddressSetDto> exp = instructors.stream()
+						.map(o -> new AddressSetDto((String) o[0], (String) o[1]))
+						.collect(Collectors.toList());
+				response.get(i).setStateName(exp.get(0).getStateName());
+				response.get(i).setCityName(exp.get(0).getCityName());
 
+			}
+
+			return response;
 		}
-
-		return response;
-
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/institution/details")

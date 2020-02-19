@@ -17,6 +17,8 @@ public class InstitutionResponse {
         this.addressId = addressId;
     }
 
+    public InstitutionResponse() {
+    }
 
     public void createRes() {
 

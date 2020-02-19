@@ -1,5 +1,14 @@
 package com.at2t.blip.controller;
 
+import com.at2t.blip.dao.Child;
+import com.at2t.blip.dao.LoginCredential;
+import com.at2t.blip.dao.Parent;
+import com.at2t.blip.dao.Person;
+import com.at2t.blip.dto.LoginCredentialDto;
+import com.at2t.blip.dto.ParentRequestDto;
+import com.at2t.blip.service.ChildService;
+import com.at2t.blip.service.InstituitionService;
+import com.at2t.blip.util.RandomPasswordGenerator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +30,46 @@ public class ParentController {
 	ParentService parentService;
 
 	@Autowired
+	ChildService childService;
+
+	@Autowired
+	InstituitionService instituitionService;
+	@Autowired
+	RandomPasswordGenerator randomPasswordGenerator;
+	@Autowired
 	ModelMapper modelMapper;
 
-	@RequestMapping(value = "/addParent", method = RequestMethod.POST)
-	public String addParent(@RequestBody ParentDto parentDto) {
-		parentService.addParent(parentDto);
-		return "Add Parent";
+	@RequestMapping(value = "/parent", method = RequestMethod.POST)
+	public Child addParent(@RequestBody ParentRequestDto parentDto) {
+		Person person = new Person();
+		person.setFirstName(parentDto.getParentOneFirstName());
+		person.setLastName(parentDto.getParentOneLastName());
+		person.setGender('M');
+		person.setPersonTypeId(4);
+
+		Person personObj = instituitionService.addPerson(person);
+		LoginCredentialDto loginCredentialDto = new LoginCredentialDto();
+
+		loginCredentialDto.setPersonId(personObj.getPersonId());
+		loginCredentialDto.setEmail(parentDto.getEmail());
+		loginCredentialDto.setPhoneNumber(parentDto.getPhoneNumber());
+		loginCredentialDto.setPasscode(randomPasswordGenerator.getAlphaNumericString(12));
+		LoginCredential lc = instituitionService.addLoginCredential(loginCredentialDto);
+
+		Parent parent = new Parent();
+		parent.setPersonId(personObj);
+		parent.setSecondaryPhoneNumber(parentDto.getSecondaryPhoneNumber());
+		parent.setRelTenantInstitutionId(parentDto.getRelTenantInstitutionId());
+
+		Parent parentResponse = parentService.addParent(parent);
+		Child child = new Child();
+		child.setAdmissionId(parentDto.getAdmissionNumber());
+		child.setChildrenName(parentDto.getChildrenName());
+		child.setSectionId(parentDto.getSectionId());
+		child.setParent(parentResponse);
+		return childService.addChild(child);
+
+//		return "Add Parent";
 	}
 
 	@RequestMapping(value = "/deleteParent", method = RequestMethod.POST)

@@ -2,6 +2,7 @@ package com.at2t.blip.service;
 
 import javax.transaction.Transactional;
 
+import com.at2t.blip.dao.Parent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,8 @@ public class ParentService {
 	ParentRepository parentRepository;
 
 	@Transactional
-	public void addParent(ParentDto parentDto) {
-		parentRepository.addParent(parentDto.getSecondaryPhoneNumber(), parentDto.getPersonId(),
-				parentDto.getRelTenantInstitutionId());
+	public Parent addParent(Parent parent) {
+		return parentRepository.save(parent);
 	}
 
 	@Transactional

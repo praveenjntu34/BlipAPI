@@ -111,15 +111,20 @@ public class InstituitionService {
 	@Transactional
 	public List<InstitutionResponse> getAlInstitutions(Integer page, Integer size, Integer cityId) {
 
-		if(cityId == null) {
-			double count = instituitionRepository.getCount();
-			Page<InstitutionResponse> res = instituitionRepository.getAllInstitutions(PageRequest.of(page, size));
-			res.getContent().get(0).setCount(count);
-			return res.getContent();
-		} else {
-			Page<InstitutionResponse> res = instituitionRepository.getAllInstitutionsByCity(PageRequest.of(page, size), cityId);
-			return res.getContent();
+		try {
+			if(cityId == null) {
+				double count = instituitionRepository.getCount();
+				Page<InstitutionResponse> res = instituitionRepository.getAllInstitutions(PageRequest.of(page, size));
+				res.getContent().get(0).setCount(count);
+				return res.getContent();
+			} else {
+				Page<InstitutionResponse> res = instituitionRepository.getAllInstitutionsByCity(PageRequest.of(page, size), cityId);
+				return res.getContent();
+			}
+		} catch (Exception e) {
+			return null;
 		}
+
 	}
 
 	@Transactional
