@@ -1,5 +1,7 @@
 package com.at2t.blip.dao;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -49,6 +51,7 @@ public class Address {
 	}
 
 	@OneToOne(mappedBy="address")
+	@JsonBackReference
 	private RelTenantInstitution relTenantInstitution;
 
 	public int getAddressId() {

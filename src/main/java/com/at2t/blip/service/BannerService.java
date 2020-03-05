@@ -64,6 +64,18 @@ public class BannerService {
 		}
 	}
 
+	public void deleteBanner(int bannerId) {
+
+		try {
+			Banner banner = new Banner();
+			banner.setBannerId(bannerId);
+			bannerRepository.delete(banner);
+
+		} catch(Exception e) {
+			System.out.println(e.getStackTrace());
+		}
+	}
+
 	@Transactional
 	public List<Banner> getBanners(int relTenantInstitutionId) {
 

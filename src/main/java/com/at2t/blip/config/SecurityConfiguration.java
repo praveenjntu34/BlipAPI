@@ -60,6 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/institution/pc").permitAll()
                 .antMatchers("/check-email").permitAll()
                 .antMatchers("/parent").permitAll()
+                .antMatchers("delete-banner/**").permitAll()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

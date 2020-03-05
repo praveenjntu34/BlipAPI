@@ -1,5 +1,6 @@
 package com.at2t.blip.dao;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.extern.apachecommons.CommonsLog;
 
 import javax.persistence.*;
@@ -55,6 +56,7 @@ public class InstitutionDisplayPicture {
     private byte[] pictureStream;
 
     @OneToOne(mappedBy="institutionDisplayPicture")
+    @JsonBackReference
     private Institution institution;
 
     public InstitutionDisplayPicture(String fileType, byte[] pictureStream) {

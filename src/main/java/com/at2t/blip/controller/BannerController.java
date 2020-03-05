@@ -43,9 +43,20 @@ public class BannerController {
 
 		return object;
 	}
+	
+	@RequestMapping(value = "/delete-banner/{bannerId}", method = RequestMethod.DELETE)
+	public Object deleteBanner(@PathVariable int bannerId) {
+
+		bannerService.deleteBanner(bannerId);
+		Object object = new Object() {
+			public String response = "Deleted Banner succesfully";
+		};
+
+		return object;
+	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/banner/{relTenantInstitutionId}")
-	public List<Banner> getBranches(@PathVariable int relTenantInstitutionId) {
+	public List<Banner> getBanners(@PathVariable int relTenantInstitutionId) {
 
 		List<Banner> banners = bannerService.getBanners(relTenantInstitutionId);
 
