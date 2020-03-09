@@ -25,4 +25,10 @@ public class LoginCredentialService {
     }
 
 
+    @Transactional
+    public void changePassword(String email, String password) {
+         loginCredentialRepository.changepassword(email, password);
+    }
+
+
 }

@@ -27,6 +27,11 @@ public interface LoginCredentialRepository extends CrudRepository<LoginCredentia
 	@Query(value = "update LoginCredential set email=:email,phoneNumber=:phoneNumber where LoginCredentialId=:loginCredentialId", nativeQuery = true)
 	public void updateLoginCrendentials(@Param("email") String email, @Param("phoneNumber") String phoneNumber, @Param("loginCredentialId") int loginCredentialId);
 
+	@Modifying
+	@Transactional
+	@Query(value = "update LoginCredential set passcode=:passcode where email=:email", nativeQuery = true)
+	public void changepassword(@Param("email") String email, @Param("passcode") String passcode);
+
 
 	@Query("SELECT lc FROM LoginCredential lc WHERE PersonId= :personId")
 	Optional<LoginCredential> getPersonDetails(int personId);
