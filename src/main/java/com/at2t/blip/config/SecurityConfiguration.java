@@ -62,6 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/parent").permitAll()
                 .antMatchers("delete-banner/**").permitAll()
                 .antMatchers("change-password/**").permitAll()
+                .antMatchers("mobile-api/**").permitAll()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
