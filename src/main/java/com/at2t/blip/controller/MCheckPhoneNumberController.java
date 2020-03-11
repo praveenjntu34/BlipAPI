@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "blip")
 public class MCheckPhoneNumberController {
 
-    @RequestMapping(method = RequestMethod.POST, value = "/institution/details")
+    @RequestMapping(method = RequestMethod.POST, value = "/check-phone")
     public InstitutionDetailsResponse checkWhetherParentExists(@RequestBody InstitutionDto institutionDto) {
 
         return null;
