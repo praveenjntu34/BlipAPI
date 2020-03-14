@@ -13,9 +13,8 @@ import java.util.Optional;
 
 public interface InstructorRepository extends CrudRepository<Instructor, Integer> {
 
-	@Modifying
-	@Query(value = "INSERT INTO Instructor(PersonId,Designation,RelTenantInstitutionId,SectionId) VALUES(:personId,:designation,:relTenantInstitutionId, :sectionId)", nativeQuery = true)
-	public void addInstructor(@Param("personId") int personId, @Param("designation") String designation, @Param("relTenantInstitutionId") int relTenantInstitutionId, @Param("sectionId") int sectionId);
+	@Query(value = "INSERT INTO Instructor(PersonId,Designation,RelTenantInstitutionId,SectionId) OUTPUT inserted.InstructorId  VALUES(:personId,:designation,:relTenantInstitutionId, :sectionId)", nativeQuery = true)
+	public int addInstructor(@Param("personId") int personId, @Param("designation") String designation, @Param("relTenantInstitutionId") int relTenantInstitutionId, @Param("sectionId") int sectionId);
 
 	@Modifying
 	@Query(value = "Delete from Instructor where InstructorId=:instructorId", nativeQuery = true)
