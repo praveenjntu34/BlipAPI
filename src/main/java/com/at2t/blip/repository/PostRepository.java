@@ -1,13 +1,16 @@
 package com.at2t.blip.repository;
 
 import java.sql.Timestamp;
+import java.util.List;
 
+import com.at2t.blip.dao.Section;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.at2t.blip.dao.Post;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface PostRepository extends CrudRepository<Post, Integer> {
 
@@ -20,6 +23,16 @@ public interface PostRepository extends CrudRepository<Post, Integer> {
 	@Modifying
 	@Query(value = "Delete from Post where PostId=:postId", nativeQuery = true)
 	public void deletePost(@Param("postId") int postId);
+
+	@Query("SELECT p FROM Post p WHERE relTenantInstitutionId= :relTenantInstitutionId")
+	List<Post> getPosts(int relTenantInstitutionId);
+
+
+	@Modifying
+	@Transactional
+	@Query(value = "update Post set PostText=:postText,Title=:title,SectionId=:sectionId,RelTenantInstitutionId=:relTenantInstitutionId where PostId=:postId", nativeQuery = true)
+	public void updatePostDetails(@Param("postText") String postText, @Param("title") String title,
+						   @Param("sectionId") int sectionId,@Param("relTenantInstitutionId") int relTenantInstitutionId, @Param("postId") int postId);
 
 	@Modifying
 	@Query(value = "update Post set PostText=:postText,PostTypeId=:postTypeId,SectionId=:sectionId,AttachmentStreamId=:attachmentStreamId,AuditCreatedBy=:auditCreatedBy,AuditCreatedDate=:auditCreatedDate where PostId=:postId", nativeQuery = true)

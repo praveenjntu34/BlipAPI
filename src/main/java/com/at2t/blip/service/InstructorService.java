@@ -22,8 +22,8 @@ public class InstructorService {
 	InstructorRepository instructorRepository;
 
 	@Transactional
-	public void addInstructor(InstructorDto instructorDto) {
-		 instructorRepository.addInstructor(instructorDto.getPersonId(),instructorDto.getDesignation(),instructorDto.getRelTenantInstitutionId(), instructorDto.getSectionId());
+	public int addInstructor(InstructorDto instructorDto) {
+		 return instructorRepository.addInstructor(instructorDto.getPersonId(),instructorDto.getDesignation(),instructorDto.getRelTenantInstitutionId(), instructorDto.getSectionId());
 	}
 
 	@Transactional

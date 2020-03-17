@@ -51,9 +51,10 @@ public class InstructorController {
 		instituitionService.addLoginCredential(loginCredentialDto);
 
 		instructorDto.setPersonId(personObj.getPersonId());
-		instructorService.addInstructor(instructorDto);
+		int id = instructorService.addInstructor(instructorDto);
 		Object object = new Object() {
 			public String response = "Added Instructor succesfully";
+			public int instructorId = id;
 		};
 		return object;
 	}

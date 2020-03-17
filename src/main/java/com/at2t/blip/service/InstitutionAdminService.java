@@ -19,4 +19,6 @@ public class InstitutionAdminService {
         return institutionAdminRepository.findByRelTenantInstitutionId(relTenantInstitutionId);
     }
 
+
+
 }

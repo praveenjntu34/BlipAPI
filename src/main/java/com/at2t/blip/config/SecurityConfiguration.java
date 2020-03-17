@@ -16,8 +16,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.sql.DataSource;
+import java.util.Arrays;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -32,31 +36,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
-
-
-
-        //For custom schema
-        /*    .usersByUsernameQuery("select Email as username, PassCode as password, 1 as enabled"
-                    + "from LoginCredential"
-                    + "where Email = ?" )
-            .authoritiesByUsernameQuery(" select lc.Email as username, pt.PersonTypeName as authority"
-                    + "from LoginCredential lc"
-                    + "join Person p on lc.PersonId = p.PersonId"
-                    + "join PersonType pt on p.PersonId = pr.PersonId"
-                    + "where Email = ?");*/
-
-        //For Default H2 Schema
-                /*.withDefaultSchema()
-                .withUser(
-                        User.withUsername("admin")
-                        .password("pass")
-                        .roles("ADMIN")
-                )
-                .withUser(
-                        User.withUsername("user")
-                                .password("pass")
-                                .roles("USER")
-                );*/
     }
 
     @Override
@@ -77,8 +56,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/institution/ins-details/**").permitAll()
                 .antMatchers("/institution/**").permitAll()
                 .antMatchers("/instructor/**").permitAll()
-
-                .anyRequest().authenticated()
+                .antMatchers("/post").permitAll()
+                .antMatchers("/institution/pc").permitAll()
+                .antMatchers("/check-email").permitAll()
+                .antMatchers("/parent").permitAll()
+                .antMatchers("delete-banner/**").permitAll()
+                .antMatchers("change-password/**").permitAll()
+                .antMatchers("mobile-api/**").permitAll()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
@@ -95,6 +79,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return NoOpPasswordEncoder.getInstance();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Override

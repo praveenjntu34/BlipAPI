@@ -2,18 +2,10 @@ package com.at2t.blip.dao;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "Post")
@@ -24,26 +16,39 @@ public class Post {
 	@Column(name = "PostId")
 	private int postId;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PostTypeId", referencedColumnName = "PostTypeId")
-	@MapsId
-	@JsonIgnore
-	private PostType postType;
+	@Column(name = "Title")
+	private String title;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "SectionId", referencedColumnName = "SectionId")
-	@MapsId
 	@JsonIgnore
 	private Section section;
 
 	@Column(name = "PostText")
 	private String postText;
 
+	@Column(name = "RelTenantInstitutionId")
+	private int relTenantInstitutionId;
+
+	@Lob
 	@Column(name = "AttachmentStreamId")
-	private String attachmentStreamId;
+	private byte[] AttachmentStreamId;
+
 
 	@Column(name = "AuditCreatedBy")
 	private int auditCreatedBy;
+
+
+	public Post() {
+	}
+
+	public byte[] getAttachmentStreamId() {
+		return AttachmentStreamId;
+	}
+
+	public void setAttachmentStreamId(byte[] attachmentStreamId) {
+		AttachmentStreamId = attachmentStreamId;
+	}
 
 	@Column(name = "AuditCreatedDate")
 	private Timestamp auditCreatedDate;
@@ -54,12 +59,19 @@ public class Post {
 	@Column(name = "AuditModifiedDate")
 	Timestamp auditModifiedDate;
 
-	public int getPostId() {
-		return postId;
+	public Post(String title, Section section, String postText, int relTenantInstitutionId) {
+		this.title = title;
+		this.section = section;
+		this.postText = postText;
+		this.relTenantInstitutionId = relTenantInstitutionId;
 	}
 
-	public PostType getPostType() {
-		return postType;
+	public Post(byte[] attachmentStreamId) {
+		AttachmentStreamId = attachmentStreamId;
+	}
+
+	public int getPostId() {
+		return postId;
 	}
 
 	public Section getSection() {
@@ -70,9 +82,6 @@ public class Post {
 		return postText;
 	}
 
-	public String getAttachmentStreamId() {
-		return attachmentStreamId;
-	}
 
 	public int getAuditCreatedBy() {
 		return auditCreatedBy;
@@ -94,9 +103,6 @@ public class Post {
 		this.postId = postId;
 	}
 
-	public void setPostType(PostType postType) {
-		this.postType = postType;
-	}
 
 	public void setSection(Section section) {
 		this.section = section;
@@ -106,9 +112,6 @@ public class Post {
 		this.postText = postText;
 	}
 
-	public void setAttachmentStreamId(String attachmentStreamId) {
-		this.attachmentStreamId = attachmentStreamId;
-	}
 
 	public void setAuditCreatedBy(int auditCreatedBy) {
 		this.auditCreatedBy = auditCreatedBy;
@@ -126,4 +129,11 @@ public class Post {
 		this.auditModifiedDate = auditModifiedDate;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }

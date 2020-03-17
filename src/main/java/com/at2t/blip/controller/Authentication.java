@@ -1,10 +1,17 @@
 package com.at2t.blip.controller;
 
+import com.at2t.blip.dao.InstitutionAdmin;
+import com.at2t.blip.dao.LoginCredential;
 import com.at2t.blip.dto.AuthenticationRequest;
 import com.at2t.blip.dto.AuthenticationResponse;
+import com.at2t.blip.dto.InstructorResponseDto;
+import com.at2t.blip.dto.LoginDetailsDto;
+import com.at2t.blip.repository.InstitutionAdminRepository;
+import com.at2t.blip.repository.LoginCredentialRepository;
 import com.at2t.blip.security.BlipUserDetails;
 import com.at2t.blip.security.BlipUserDetailsService;
 import com.at2t.blip.util.JwtUtil;
+import com.at2t.blip.util.RandomPasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +19,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class Authentication {
@@ -21,6 +31,12 @@ public class Authentication {
 
     @Autowired
     private BlipUserDetailsService blipUserDetailsService;
+
+    @Autowired
+    LoginCredentialRepository loginCredentialRepository;
+
+    @Autowired
+    InstitutionAdminRepository institutionAdminRepository;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -37,9 +53,29 @@ public class Authentication {
         }
 
         final UserDetails userDetails = blipUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        final String jwt = jwtUtil.generateToken(userDetails);
+        List<Object[]> login = loginCredentialRepository.getLogin(authenticationRequest.getUsername());
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+
+        //LC.Email, LC.PhoneNumber, P.PersonId, P.FirstName, P.LastName, PT.PersonTypeId, PT.PersonTypeName
+
+        List<LoginDetailsDto> exp = login.stream()
+                .map(o -> new LoginDetailsDto((String) o[0], (String) o[1], (int) o[2], (String) o[3], (String) o[4],
+                        (int) o[5], (String) o[6]))
+                .collect(Collectors.toList());
+        final String jwt = jwtUtil.generateToken(userDetails, exp.get(0));
+        LoginDetailsDto loginResponse = exp.get(0);
+
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse(jwt, loginResponse.getEmail(), loginResponse.getFirstName(), loginResponse.getLastName(),
+                loginResponse.getPhoneNumber(), loginResponse.getPersonTypeName(),loginResponse.getPersonId());
+
+        if(exp.get(0).getPersonTypeName().equals("InstitutionAdmin")) {
+             InstitutionAdmin institutionAdmin = institutionAdminRepository.findByPersonId(exp.get(0).getPersonId()).get();
+             authenticationResponse.setRelTenantInstitutionId(institutionAdmin.getRelTenantInstitution().getRelTenantInstitutionId());
+        }
+
+
+
+        return ResponseEntity.ok(authenticationResponse);
     }
 
 }

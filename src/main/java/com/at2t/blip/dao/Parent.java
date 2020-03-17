@@ -21,51 +21,49 @@ public class Parent {
 	@Column(name = "ParentId")
 	private int parentId;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "personId", referencedColumnName = "PersonId")
-	@MapsId
-	@JsonIgnore
 	private Person personId;
 
 	@Column(name = "SecondaryPhoneNumber")
 	private String secondaryPhoneNumber;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "relTenantInstitutionId", referencedColumnName = "RelTenantInstitutionId")
-	@MapsId
-	@JsonIgnore
-	private RelTenantInstitution relTenantInstitutionId;
+	@Column(name = "RelTenantInstitutionId")
+	private int relTenantInstitutionId;
+
+
+	public Parent() {
+	}
 
 	public int getParentId() {
 		return parentId;
-	}
-
-	public Person getPersonId() {
-		return personId;
-	}
-
-	public String getSecondaryPhoneNumber() {
-		return secondaryPhoneNumber;
-	}
-
-	public RelTenantInstitution getRelTenantInstitutionId() {
-		return relTenantInstitutionId;
 	}
 
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
 
+	public Person getPersonId() {
+		return personId;
+	}
+
 	public void setPersonId(Person personId) {
 		this.personId = personId;
+	}
+
+	public String getSecondaryPhoneNumber() {
+		return secondaryPhoneNumber;
 	}
 
 	public void setSecondaryPhoneNumber(String secondaryPhoneNumber) {
 		this.secondaryPhoneNumber = secondaryPhoneNumber;
 	}
 
-	public void setRelTenantInstitutionId(RelTenantInstitution relTenantInstitutionId) {
-		this.relTenantInstitutionId = relTenantInstitutionId;
+	public int getRelTenantInstitutionId() {
+		return relTenantInstitutionId;
 	}
 
+	public void setRelTenantInstitutionId(int relTenantInstitutionId) {
+		this.relTenantInstitutionId = relTenantInstitutionId;
+	}
 }

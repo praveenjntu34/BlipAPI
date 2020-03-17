@@ -7,6 +7,9 @@ import com.at2t.blip.dao.*;
 import com.at2t.blip.dto.*;
 import com.at2t.blip.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +41,11 @@ public class InstituitionService {
 	}
 
 	@Transactional
+	public Institution updateInstituition(Institution instituition) {
+		return instituitionRepository.save(instituition);
+	}
+
+	@Transactional
 	public Tenant addTenant(Tenant tenant) {
 		return tenantRepository.save(tenant);
 	}
@@ -52,10 +60,17 @@ public class InstituitionService {
 
 	@Transactional
 	public void addPOCDetail(InstitutionAdminDto institutionAdminDto) {
+
 		System.out.println(institutionAdminDto.toString());
 		institutionAdminRepository.addInstitutionData(institutionAdminDto.getSecondaryPOCName(),
-		institutionAdminDto.getRelInstitutionId(), institutionAdminDto.getPersonId(),
-		institutionAdminDto.getSecondaryPOCEmail(), institutionAdminDto.getSecondaryPOCPhoneNumber());
+				institutionAdminDto.getRelInstitutionId(), institutionAdminDto.getPersonId(),
+				institutionAdminDto.getSecondaryPOCEmail(), institutionAdminDto.getSecondaryPOCPhoneNumber());
+	}
+	@Transactional
+	public void addPOCDetail(POCRequestDto pocRequestDto) {
+
+		institutionAdminRepository.updateAdmin(pocRequestDto.getSecondaryPOCFirstName() + " " + pocRequestDto.getSecondaryPOCLastName(),
+				pocRequestDto.getSecondaryPOCEmail(), pocRequestDto.getSecondaryPOCPhoneNumber(), pocRequestDto.getInstitutionAdminId());
 	}
 
 	@Transactional
@@ -74,9 +89,19 @@ public class InstituitionService {
 	}
 
 	@Transactional
-	public void addLoginCredential(LoginCredentialDto loginCredentialDto) {
-		loginCredentialRepository.addLoginCrendentials(loginCredentialDto.getPersonId(), loginCredentialDto.getEmail(),
-				loginCredentialDto.getPhoneNumber());
+	public LoginCredential addLoginCredential(LoginCredentialDto loginCredentialDto) {
+//		return loginResponse;
+
+		int id = loginCredentialRepository.addLoginCrendentials(loginCredentialDto.getPersonId(), loginCredentialDto.getEmail(),
+				loginCredentialDto.getPasscode(),loginCredentialDto.getPhoneNumber());
+		LoginCredential lc = loginCredentialRepository.findById(id).get();
+		return lc;
+	}
+
+	@Transactional
+	public void updateLoginCredential(LoginCredentialDto loginCredential) {
+		loginCredentialRepository.updateLoginCrendentials(loginCredential.getEmail(), loginCredential.getPhoneNumber(), loginCredential.getLoginCredentialId());
+
 	}
 
 	@Transactional
@@ -84,8 +109,22 @@ public class InstituitionService {
 		return displayPictureRepository.findById(pictureId);
 	}
 	@Transactional
-	public List<InstitutionResponse> getAlInstitutions() {
-		return instituitionRepository.getAllInstitutions();
+	public List<InstitutionResponse> getAlInstitutions(Integer page, Integer size, Integer cityId) {
+
+		try {
+			if(cityId == null) {
+				double count = instituitionRepository.getCount();
+				Page<InstitutionResponse> res = instituitionRepository.getAllInstitutions(PageRequest.of(page, size));
+				res.getContent().get(0).setCount(count);
+				return res.getContent();
+			} else {
+				Page<InstitutionResponse> res = instituitionRepository.getAllInstitutionsByCity(PageRequest.of(page, size), cityId);
+				return res.getContent();
+			}
+		} catch (Exception e) {
+			return null;
+		}
+
 	}
 
 	@Transactional
@@ -99,10 +138,10 @@ public class InstituitionService {
 		return loginCredentialRepository.getPersonDetails(personId);
 	}
 
-	@Transactional
-	public List<InstitutionResponse> getAlInstitutionsDetails() {
-		return instituitionRepository.getAllInstitutions();
-	}
+//	@Transactional
+//	public List<InstitutionResponse> getAlInstitutionsDetails() {
+//		return instituitionRepository.getAllInstitutions();
+//	}
 
 	@Transactional
 	public List<Branch> getBranch(int relTenantInstitutionId) {

@@ -1,5 +1,8 @@
 package com.at2t.blip.dao;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -37,10 +40,12 @@ public class Institution {
 	}
 
 	@OneToOne(mappedBy="institution")
+	@JsonBackReference
 	private RelTenantInstitution relTenantInstitution;
 
 	@OneToOne
 	@JoinColumn(name = "PictureId")
+	@JsonManagedReference
 	private InstitutionDisplayPicture institutionDisplayPicture;
 
 	@Column(name = "Status")

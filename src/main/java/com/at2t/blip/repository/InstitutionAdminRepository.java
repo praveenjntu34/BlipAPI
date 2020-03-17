@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at2t.blip.dao.InstitutionAdmin;
@@ -19,6 +20,12 @@ public interface InstitutionAdminRepository extends CrudRepository<InstitutionAd
 			@Param("SecondaryPOCEmail") String secondaryPOCEmail,
 			@Param("SecondaryPOCPhoneNumber") String secondaryPOCPhoneNumber);
 
+	@Modifying
+	@Transactional
+	@Query(value = "update InstitutionAdmin set secondaryPOCName=:secondaryPOCName,secondaryPOCEmail=:secondaryPOCEmail, secondaryPOCPhoneNumber=:secondaryPOCPhoneNumber where InstitutionAdminId=:institutionAdminId", nativeQuery = true)
+	public void updateAdmin(@Param("secondaryPOCName") String secondaryPOCName, @Param("secondaryPOCEmail") String secondaryPOCEmail, @Param("secondaryPOCPhoneNumber") String secondaryPOCPhoneNumber,  @Param("institutionAdminId") int InstitutionAdminId);
+
+
 	@Query(value = "INSERT INTO Branch(BranchName,RelTenantInstitutionId) OUTPUT inserted.BranchId VALUES(:BranchName,:RelTenantInstitutionId)", nativeQuery = true)
 	public int addBranch(@Param("BranchName") String branchName,
 							   @Param("RelTenantInstitutionId") int relTenantInstitutionId);
@@ -29,4 +36,7 @@ public interface InstitutionAdminRepository extends CrudRepository<InstitutionAd
 
 	@Query(value = "SELECT ia FROM InstitutionAdmin ia WHERE relTenantInstitutionId = :relTenantInstitutionId")
 	Optional<InstitutionAdmin> findByRelTenantInstitutionId(int relTenantInstitutionId);
+
+	@Query(value = "SELECT ia FROM InstitutionAdmin ia WHERE PersonId = :personId")
+	Optional<InstitutionAdmin> findByPersonId(int personId);
 }

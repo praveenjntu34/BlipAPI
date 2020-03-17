@@ -22,6 +22,6 @@ public class StateService {
 
     @Transactional
     public List<City> getCity(int id) {
-        return cityRepository.findCityAndState(2);
+        return cityRepository.findCityAndState(id);
     }
 }

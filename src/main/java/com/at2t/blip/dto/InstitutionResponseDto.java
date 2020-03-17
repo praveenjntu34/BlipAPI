@@ -9,7 +9,9 @@ public class InstitutionResponseDto {
     private String website;
     private String address1;
     private String remarks;
-
+    private  int stateId;
+    private int pictureId;
+    private int addressId;
     public String getRemarks() {
         return remarks;
     }
@@ -27,6 +29,14 @@ public class InstitutionResponseDto {
         this.relTenantInstitutionId = relTenantInstitutionId;
     }
 
+    public int getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(int stateId) {
+        this.stateId = stateId;
+    }
+
     private String address2;
     private String stateName;
     private String cityName;
@@ -41,6 +51,21 @@ public class InstitutionResponseDto {
 
     private byte[] pictureStream;
 
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
+
+    public int getPictureId() {
+        return pictureId;
+    }
+
+    public void setPictureId(int pictureId) {
+        this.pictureId = pictureId;
+    }
 
     public int getInstitutionId() {
         return institutionId;
@@ -52,6 +77,14 @@ public class InstitutionResponseDto {
 
     public int getInstitutionTypeName() {
         return institutionTypeId;
+    }
+
+    public int getInstitutionTypeId() {
+        return institutionTypeId;
+    }
+
+    public void setInstitutionTypeId(int institutionTypeId) {
+        this.institutionTypeId = institutionTypeId;
     }
 
     public void setInstitutionTypeName(int institutionTypeName) {
@@ -125,7 +158,8 @@ public class InstitutionResponseDto {
 
 
 
-    public InstitutionResponseDto( int institutionId,int institutionTypeId,int relTenantInstitutionId, String institutionName, String email, String website, String address1, String address2,int cityId,String remarks,  byte[] pictureStream
+    public InstitutionResponseDto( int institutionId,int institutionTypeId,int relTenantInstitutionId, String institutionName, String email,
+                                   String website, String address1, String address2,int cityId,int stateId, String remarks,  byte[] pictureStream, int pictureId, int addressId
                                  ) {
         this.institutionId = institutionId;
         this.institutionName = institutionName;
@@ -136,8 +170,11 @@ public class InstitutionResponseDto {
         this.address1 = address1;
         this.address2 = address2;
         this.cityId = cityId;
+        this.stateId = stateId;
         this.remarks = remarks;
         this.pictureStream = pictureStream;
+        this.pictureId = pictureId;
+        this.addressId = addressId;
     }
 
 

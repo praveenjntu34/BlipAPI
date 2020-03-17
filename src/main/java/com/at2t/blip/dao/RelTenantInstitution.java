@@ -1,5 +1,8 @@
 package com.at2t.blip.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,16 +26,19 @@ public class RelTenantInstitution {
 	@OneToOne
 	@JoinColumn(name = "InstitutionId", referencedColumnName = "InstitutionId")
 	@MapsId
+	@JsonManagedReference
 	private Institution institution;
 
 	@OneToOne
 	@JoinColumn(name = "TenantId")
 	@MapsId
+	@JsonManagedReference
 	private Tenant tenant;
 
 	@OneToOne
 	@JoinColumn(name = "AddressId")
 	@MapsId
+	@JsonManagedReference
 	private Address address;
 
 	@Column(name = "InstitutionTypeId")

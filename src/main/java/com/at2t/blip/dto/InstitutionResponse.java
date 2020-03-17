@@ -3,19 +3,41 @@ package com.at2t.blip.dto;
 public class InstitutionResponse {
     private int institutionId;
     private String institutionName;
-
+    private double count;
     public InstitutionResponse(int institutionId, String institutionName, byte[] pictureStream) {
         this.institutionId = institutionId;
         this.institutionName = institutionName;
         this.pictureStream = pictureStream;
     }
 
+    public InstitutionResponse(int institutionId, String institutionName, byte[] pictureStream, int addressId) {
+        this.institutionId = institutionId;
+        this.institutionName = institutionName;
+        this.pictureStream = pictureStream;
+        this.addressId = addressId;
+    }
+
+    public InstitutionResponse() {
+    }
+
+    public void createRes() {
+
+    }
     private byte[] pictureStream;
     private String cityName;
     private String stateName;
+    private int addressId;
 
     public int getInstitutionId() {
         return institutionId;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public void setInstitutionId(int institutionId) {
@@ -40,6 +62,14 @@ public class InstitutionResponse {
 
     public String getCityName() {
         return cityName;
+    }
+
+    public double getCount() {
+        return count;
+    }
+
+    public void setCount(double count) {
+        this.count = count;
     }
 
     public void setCityName(String cityName) {

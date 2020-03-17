@@ -22,48 +22,79 @@ public class Banner {
 	@Column(name = "BannerId")
 	private int bannerId;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "relTenantInstitutionId", referencedColumnName = "RelTenantInstitutionId")
-	@MapsId
-	@JsonIgnore
-	private RelTenantInstitution relTenantInstitutionId;
+	@Column
+	private int relTenantInstitutionId;
 
-	@Column(name = "BannerName")
-	private String BannerName;
+	@Column(name = "Title")
+	private String title;
 
-	@Column(name = "BannerStreamId")
-	private String bannerStreamId;
+	@Column(name = "BannerStream")
+	private byte[] bannerStream;
+
+	@Column(name = "SecondaryBanner")
+	private byte[] secondaryBanner;
+
+	@Column(name = "ShortDescription")
+	private String shortDescription;
+
+	public Banner() {
+	}
+
+	public Banner(byte[] bannerStream) {
+		this.bannerStream = bannerStream;
+	}
+
+	public Banner(int relTenantInstitutionId, String title, String shortDescription) {
+		this.relTenantInstitutionId = relTenantInstitutionId;
+		this.title = title;
+		this.shortDescription = shortDescription;
+	}
 
 	public int getBannerId() {
 		return bannerId;
-	}
-
-	public RelTenantInstitution getRelTenantInstitutionId() {
-		return relTenantInstitutionId;
-	}
-
-	public String getBannerName() {
-		return BannerName;
-	}
-
-	public String getBannerStreamId() {
-		return bannerStreamId;
 	}
 
 	public void setBannerId(int bannerId) {
 		this.bannerId = bannerId;
 	}
 
-	public void setRelTenantInstitutionId(RelTenantInstitution relTenantInstitutionId) {
+	public int getRelTenantInstitutionId() {
+		return relTenantInstitutionId;
+	}
+
+	public void setRelTenantInstitutionId(int relTenantInstitutionId) {
 		this.relTenantInstitutionId = relTenantInstitutionId;
 	}
 
-	public void setBannerName(String bannerName) {
-		BannerName = bannerName;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setBannerStreamId(String bannerStreamId) {
-		this.bannerStreamId = bannerStreamId;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
+	public byte[] getBannerStream() {
+		return bannerStream;
+	}
+
+	public void setBannerStream(byte[] bannerStream) {
+		this.bannerStream = bannerStream;
+	}
+
+	public byte[] getSecondaryBanner() {
+		return secondaryBanner;
+	}
+
+	public void setSecondaryBanner(byte[] secondaryBanner) {
+		this.secondaryBanner = secondaryBanner;
+	}
+
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
 }

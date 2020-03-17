@@ -23,6 +23,7 @@ public class InstitutionFileController {
         InstitutionDisplayPicture displayPicture = dBfileUtils.storeFile(file);
         Object object = new Object() {
             public int pictureId = displayPicture.getPictureId();
+            public byte [] pictureStream = displayPicture.getPictureStream();
         };
         return object;
     }

@@ -9,6 +9,8 @@ import org.springframework.data.repository.CrudRepository;
 import com.at2t.blip.dao.RelTenantInstitution;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface RelTenantInstitutionRepository extends JpaRepository<RelTenantInstitution, Integer> {
 
     @Modifying
@@ -17,6 +19,9 @@ public interface RelTenantInstitutionRepository extends JpaRepository<RelTenantI
 
     @Query(value = "SELECT * FROM ReltenantInstitution WHERE InstitutionId=:id", nativeQuery = true)
     public RelTenantInstitution findByTenantId(@Param("id") int id);
+
+    @Query(value = "SELECT * FROM ReltenantInstitution", nativeQuery = true)
+    public List<RelTenantInstitution> findAllInstitutions();
 
 
 //    public void getAllInstitutions();
