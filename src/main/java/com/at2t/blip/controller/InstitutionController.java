@@ -51,8 +51,8 @@ public class InstitutionController {
 				institutionDto.getInstitutionTypeId(), address);
 		System.out.println(relTenantInstitution);
 		relTenantInstitutionService.addInstituition(relTenantInstitution);
-		RelTenantInstitution rel = relTenantInstitutionService.getRelTenantInstitution(institution.getInstitutionId());
-		InstitutionDetailsResponse response = new InstitutionDetailsResponse(institution.getInstitutionId(), rel.getRelTenantInstitutionId(),institution.getStatus(), institution.getInstitutionName());
+		int rel = relTenantInstitutionService.getRelTenantInstitution(institution.getInstitutionId());
+		InstitutionDetailsResponse response = new InstitutionDetailsResponse(institution.getInstitutionId(), rel,institution.getStatus(), institution.getInstitutionName());
 		return response;
 	}
 
@@ -106,7 +106,7 @@ public class InstitutionController {
 		RelTenantInstitution relTenantInstitution = new RelTenantInstitution(institutionObject, tenant,
 				institutionDto.getInstitutionTypeId(), address);
 		relTenantInstitution.setRelTenantInstitutionId(institutionDto.getInstitutionId());
-		RelTenantInstitution rel = relTenantInstitutionService.getRelTenantInstitution(institutionObject.getInstitutionId());
+		int rel = relTenantInstitutionService.getRelTenantInstitution(institutionObject.getInstitutionId());
 
 
 		InstitutionDetailsResponse response = new InstitutionDetailsResponse(institutionObject.getInstitutionId(), 0,institutionObject.getStatus(), institutionObject.getInstitutionName());

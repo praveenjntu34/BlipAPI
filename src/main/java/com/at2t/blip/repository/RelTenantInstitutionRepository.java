@@ -1,6 +1,7 @@
 package com.at2t.blip.repository;
 
 
+import com.at2t.blip.dto.InstitutionDetailsResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,8 +18,8 @@ public interface RelTenantInstitutionRepository extends JpaRepository<RelTenantI
     @Query(value = "INSERT INTO ReltenantInstitution VALUES(:TenantId, :InstitutionId,:InstitutionTypeId, :AddressId)", nativeQuery = true)
     public void insertData(@Param("TenantId") int tenantId, @Param("InstitutionTypeId") int institutionTypeId, @Param("AddressId") int addressId, @Param("InstitutionId") int institutionId);
 
-    @Query(value = "SELECT * FROM ReltenantInstitution WHERE InstitutionId=:id", nativeQuery = true)
-    public RelTenantInstitution findByTenantId(@Param("id") int id);
+    @Query(value = "SELECT ReltenantInstitutionId FROM ReltenantInstitution WHERE InstitutionId=:id", nativeQuery = true)
+    public int findByTenantId(@Param("id") int id);
 
     @Query(value = "SELECT * FROM ReltenantInstitution", nativeQuery = true)
     public List<RelTenantInstitution> findAllInstitutions();
