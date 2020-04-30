@@ -11,16 +11,19 @@ import com.at2t.blip.service.InstituitionService;
 import com.at2t.blip.util.RandomPasswordGenerator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.at2t.blip.dto.BannerDto;
 import com.at2t.blip.dto.ParentDto;
 import com.at2t.blip.service.ParentService;
 
 import io.swagger.annotations.Api;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @Api(value = "blip")
@@ -40,12 +43,20 @@ public class ParentController {
 	ModelMapper modelMapper;
 
 	@RequestMapping(value = "/parent", method = RequestMethod.POST)
-	public Child addParent(@RequestBody ParentRequestDto parentDto) {
+	public Child addParent(@RequestBody ParentRequestDto parentDto){
 		Person person = new Person();
 		person.setFirstName(parentDto.getParentOneFirstName());
 		person.setLastName(parentDto.getParentOneLastName());
 		person.setGender('M');
 		person.setPersonTypeId(4);
+		try {
+			DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+			Date dateOfBirth = df.parse(parentDto.getDOB());
+			person.setDateOfBirth(dateOfBirth);
+		}
+		catch(ParseException e){
+			e.getMessage();
+		}
 
 		Person personObj = instituitionService.addPerson(person);
 		LoginCredentialDto loginCredentialDto = new LoginCredentialDto();
@@ -60,6 +71,8 @@ public class ParentController {
 		parent.setPersonId(personObj);
 		parent.setSecondaryPhoneNumber(parentDto.getSecondaryPhoneNumber());
 		parent.setRelTenantInstitutionId(parentDto.getRelTenantInstitutionId());
+		parent.setSecondaryParentName(parentDto.getSecondaryParentName());
+
 
 		Parent parentResponse = parentService.addParent(parent);
 		Child child = new Child();
@@ -82,6 +95,14 @@ public class ParentController {
 	public String updateParent(@RequestBody ParentDto parentDto) {
 		parentService.updateParent(parentDto);
 		return "Updated Parent";
+	}
+
+	@PostMapping("/parent/file")
+	public String readParentFromFile(@RequestParam("file")MultipartFile parentsFile) throws Exception {
+
+		boolean result = parentService.addParentsFromFile(parentsFile);
+		if(result == false) throw new Exception("Some error occurred");
+		return "Parent Details added to the DB";
 	}
 
 }

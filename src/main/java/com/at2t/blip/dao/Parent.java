@@ -31,6 +31,16 @@ public class Parent {
 	@Column(name = "RelTenantInstitutionId")
 	private int relTenantInstitutionId;
 
+	@Column(name = "SecondaryParentName")
+	private String secondaryParentName;
+
+	public String getSecondaryParentName() {
+		return secondaryParentName;
+	}
+
+	public void setSecondaryParentName(String secondaryParentName) {
+		this.secondaryParentName = secondaryParentName;
+	}
 
 	public Parent() {
 	}
