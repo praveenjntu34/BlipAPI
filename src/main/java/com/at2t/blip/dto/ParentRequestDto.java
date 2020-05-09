@@ -1,16 +1,50 @@
 package com.at2t.blip.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Date;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ParentRequestDto {
+    @JsonProperty("parentOneFirstName")
     private String parentOneFirstName;
+    @JsonProperty("parentOneLastName")
     private String parentOneLastName;
+    @JsonProperty("email")
     private String email;
+    @JsonProperty("phoneNumber")
     private String phoneNumber;
-    private String parentTwoName;
+    @JsonProperty("admissionNumber")
     private String admissionNumber;
+    @JsonProperty("secondaryPhoneNumber")
     private String secondaryPhoneNumber;
+    @JsonProperty("sectionId")
     private int sectionId;
+    @JsonProperty("relTenantInstitutionId")
     private int relTenantInstitutionId;
+    @JsonProperty("childrenName")
     private String childrenName;
+    @JsonProperty("secondaryParentName")
+    private String secondaryParentName;
+    @JsonProperty("DOB")
+    private String DOB;
+
+    public String getDOB() {
+        return DOB;
+    }
+
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
+    }
+
+    public String getSecondaryParentName() {
+        return secondaryParentName;
+    }
+
+    public void setSecondaryParentName(String secondaryParentName) {
+        this.secondaryParentName = secondaryParentName;
+    }
 
     public ParentRequestDto() {
     }
@@ -61,14 +95,6 @@ public class ParentRequestDto {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getParentTwoName() {
-        return parentTwoName;
-    }
-
-    public void setParentTwoName(String parentTwoName) {
-        this.parentTwoName = parentTwoName;
     }
 
     public String getAdmissionNumber() {
