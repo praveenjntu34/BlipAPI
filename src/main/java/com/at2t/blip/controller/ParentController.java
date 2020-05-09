@@ -145,4 +145,12 @@ public class ParentController {
 		return "Parent Details added to the DB";
 	}
 
+	@PostMapping("/parent/file")
+	public String readParentFromFile(@RequestParam("file")MultipartFile parentsFile) throws Exception {
+
+		boolean result = parentService.addParentsFromFile(parentsFile);
+		if(result == false) throw new Exception("Some error occurred");
+		return "Parent Details added to the DB";
+	}
+
 }
