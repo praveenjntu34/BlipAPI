@@ -7,6 +7,10 @@ import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ParentRequestDto {
+    private int parentId;
+    private int childId;
+    private int personId;
+    private int loginCredentialId;
     @JsonProperty("parentOneFirstName")
     private String parentOneFirstName;
     @JsonProperty("parentOneLastName")
@@ -47,6 +51,38 @@ public class ParentRequestDto {
     }
 
     public ParentRequestDto() {
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
+
+    public int getChildId() {
+        return childId;
+    }
+
+    public void setChildId(int childId) {
+        this.childId = childId;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
+
+    public int getLoginCredentialId() {
+        return loginCredentialId;
+    }
+
+    public void setLoginCredentialId(int loginCredentialId) {
+        this.loginCredentialId = loginCredentialId;
     }
 
     public String getParentOneFirstName() {

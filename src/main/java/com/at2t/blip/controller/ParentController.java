@@ -4,8 +4,7 @@ import com.at2t.blip.dao.Child;
 import com.at2t.blip.dao.LoginCredential;
 import com.at2t.blip.dao.Parent;
 import com.at2t.blip.dao.Person;
-import com.at2t.blip.dto.LoginCredentialDto;
-import com.at2t.blip.dto.ParentRequestDto;
+import com.at2t.blip.dto.*;
 import com.at2t.blip.service.ChildService;
 import com.at2t.blip.service.InstituitionService;
 import com.at2t.blip.util.RandomPasswordGenerator;
@@ -13,8 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.at2t.blip.dto.BannerDto;
-import com.at2t.blip.dto.ParentDto;
 import com.at2t.blip.service.ParentService;
 
 import io.swagger.annotations.Api;
@@ -24,6 +21,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Api(value = "blip")
@@ -41,6 +42,14 @@ public class ParentController {
 	RandomPasswordGenerator randomPasswordGenerator;
 	@Autowired
 	ModelMapper modelMapper;
+
+	@GetMapping
+	@RequestMapping(method = RequestMethod.GET, value = "/parent")
+	public List<ParentResponseDto> getInstitutions(@RequestParam(value = "relTenantInstitutionId", required = false) Integer relTenantInstitutionId) {
+		List<ParentResponseDto> parents = parentService.getAllParents(1,10, relTenantInstitutionId);
+		return parents;
+	}
+
 
 	@RequestMapping(value = "/parent", method = RequestMethod.POST)
 	public Child addParent(@RequestBody ParentRequestDto parentDto){
@@ -91,10 +100,49 @@ public class ParentController {
 		return "Delete parent";
 	}
 
-	@RequestMapping(value = "/updateParent", method = RequestMethod.POST)
-	public String updateParent(@RequestBody ParentDto parentDto) {
-		parentService.updateParent(parentDto);
-		return "Updated Parent";
+	@RequestMapping(value = "/update-parent", method = RequestMethod.POST)
+	public Child updateParent(@RequestBody ParentRequestDto parentDto) {
+
+		Person person = new Person();
+		person.setFirstName(parentDto.getParentOneFirstName());
+		person.setLastName(parentDto.getParentOneLastName());
+		person.setGender('M');
+		person.setPersonTypeId(4);
+		person.setPersonId(parentDto.getPersonId());
+
+		Person personObj = instituitionService.addPerson(person);
+		LoginCredentialDto loginCredentialDto = new LoginCredentialDto();
+
+		loginCredentialDto.setLoginCredentialId(parentDto.getLoginCredentialId());
+		loginCredentialDto.setEmail(parentDto.getEmail());
+		loginCredentialDto.setPhoneNumber(parentDto.getPhoneNumber());
+		instituitionService.updateLoginCredential(loginCredentialDto);
+
+
+		Parent parent = new Parent();
+		parent.setParentId(parentDto.getParentId());
+		parent.setSecondaryPhoneNumber(parentDto.getSecondaryPhoneNumber());
+		parent.setRelTenantInstitutionId(parentDto.getRelTenantInstitutionId());
+
+		Parent parentResponse = parentService.addParent(parent);
+
+		Child child = new Child();
+		child.setChildId(parentDto.getChildId());
+		child.setAdmissionId(parentDto.getAdmissionNumber());
+		child.setChildrenName(parentDto.getChildrenName());
+		child.setSectionId(parentDto.getSectionId());
+		return childService.addChild(child);
+
+//		parentService.updateParent(parentDto);
+//		return "Updated Parent";
+	}
+
+	@PostMapping("/parent/file")
+	public String readParentFromFile(@RequestParam("file")MultipartFile parentsFile) throws Exception {
+
+		boolean result = parentService.addParentsFromFile(parentsFile);
+		if(result == false) throw new Exception("Some error occurred");
+		return "Parent Details added to the DB";
 	}
 
 	@PostMapping("/parent/file")

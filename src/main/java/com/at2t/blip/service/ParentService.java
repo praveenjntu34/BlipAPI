@@ -6,6 +6,8 @@ import com.at2t.blip.controller.ParentController;
 import com.at2t.blip.dao.Child;
 import com.at2t.blip.dao.LoginCredential;
 import com.at2t.blip.dao.Parent;
+import com.at2t.blip.dto.InstitutionResponse;
+import com.at2t.blip.dto.ParentResponseDto;
 import com.at2t.blip.dao.Person;
 import com.at2t.blip.dto.LoginCredentialDto;
 import com.at2t.blip.dto.ParentRequestDto;
@@ -14,6 +16,8 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.at2t.blip.dto.ParentDto;
@@ -26,6 +30,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.List;
 
 @Service
@@ -58,6 +63,14 @@ public class ParentService {
 		parentRepository.updateParent(parentDto.getSecondaryPhoneNumber(), parentDto.getPersonId(),
 				parentDto.getRelTenantInstitutionId(), parentDto.getParentId());
 	}
+
+
+	public List<ParentResponseDto> getAllParents(Integer pageNo, Integer size, int relTenantInstitutionId) {
+		List<ParentResponseDto> res = parentRepository.getAllParents(relTenantInstitutionId);
+		return res;
+	}
+
+
 
 	@Transactional
 	public boolean addParentsFromFile(MultipartFile file) throws IOException {
