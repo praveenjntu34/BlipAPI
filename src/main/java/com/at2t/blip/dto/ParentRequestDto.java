@@ -1,6 +1,10 @@
 package com.at2t.blip.dto;
 
 public class ParentRequestDto {
+    private int parentId;
+    private int childId;
+    private int personId;
+    private int loginCredentialId;
     private String parentOneFirstName;
     private String parentOneLastName;
     private String email;
@@ -13,6 +17,38 @@ public class ParentRequestDto {
     private String childrenName;
 
     public ParentRequestDto() {
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
+
+    public int getChildId() {
+        return childId;
+    }
+
+    public void setChildId(int childId) {
+        this.childId = childId;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
+
+    public int getLoginCredentialId() {
+        return loginCredentialId;
+    }
+
+    public void setLoginCredentialId(int loginCredentialId) {
+        this.loginCredentialId = loginCredentialId;
     }
 
     public String getParentOneFirstName() {
