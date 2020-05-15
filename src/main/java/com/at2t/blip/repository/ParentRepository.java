@@ -23,13 +23,16 @@ public interface ParentRepository extends PagingAndSortingRepository<Parent, Int
 			@Param("personId") int personId, @Param("relTenantInstitutionId") int relTenantInstitutionId);
 
 	@Query(value = "\n" +
-			"SELECT new com.at2t.blip.dto.ParentResponseDto(C.childrenName, PR.firstName, PR.lastName, LC.email, LC.PhoneNumber) FROM Child C\n" +
+			"SELECT new com.at2t.blip.dto.ParentResponseDto(C.childId, PR.firstName, PR.lastName, LC.email, LC.PhoneNumber,\n" +
+			"PR.personId, LC.LoginCredentialId, P.parentId) FROM Child C\n" +
 			"JOIN C.parent P\n" +
 			"JOIN P.personId PR\n" +
 			"JOIN PR.loginCredential LC\n" +
 			"WHERE P.relTenantInstitutionId = :relTenantInstitutionId")
 	List<ParentResponseDto> getAllParents(@Param("relTenantInstitutionId") Integer relTenantInstitutionId);
 
+	@Query(nativeQuery = true)
+	List<ParentResponseDto> getSingleParent(@Param("childId") int childId);
 
 	@Modifying
 	@Query(value = "Delete from Parent where ParentId=:parentId", nativeQuery = true)

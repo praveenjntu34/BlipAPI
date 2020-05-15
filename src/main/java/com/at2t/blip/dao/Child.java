@@ -2,6 +2,7 @@ package com.at2t.blip.dao;
 
 import javax.persistence.*;
 
+import com.at2t.blip.dto.ParentResponseDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -9,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BranchId")
+    @Column(name = "ChildId")
     private int childId;
 
 

@@ -50,6 +50,13 @@ public class ParentController {
 		return parents;
 	}
 
+	@GetMapping
+	@RequestMapping(method = RequestMethod.GET, value = "/parent/single")
+	public List<ParentResponseDto> getSingleParent(@RequestParam(value = "childId", required = false) Integer childId) {
+		List<ParentResponseDto> parents = parentService.getSingleParents(1,10 , childId);
+		return parents;
+	}
+
 
 	@RequestMapping(value = "/parent", method = RequestMethod.POST)
 	public Child addParent(@RequestBody ParentRequestDto parentDto){
@@ -58,14 +65,14 @@ public class ParentController {
 		person.setLastName(parentDto.getParentOneLastName());
 		person.setGender('M');
 		person.setPersonTypeId(4);
-		try {
-			DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-			Date dateOfBirth = df.parse(parentDto.getDOB());
-			person.setDateOfBirth(dateOfBirth);
-		}
-		catch(ParseException e){
-			e.getMessage();
-		}
+//		try {
+//			DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+//			Date dateOfBirth = df.parse(parentDto.getDOB());
+//			person.setDateOfBirth(dateOfBirth);
+//		}
+//		catch(ParseException e){
+//			e.getMessage();
+//		}
 
 		Person personObj = instituitionService.addPerson(person);
 		LoginCredentialDto loginCredentialDto = new LoginCredentialDto();
@@ -94,11 +101,7 @@ public class ParentController {
 //		return "Add Parent";
 	}
 
-	@RequestMapping(value = "/deleteParent", method = RequestMethod.POST)
-	public String deleteParent(@RequestBody int parentId) {
-		parentService.deleteParent(parentId);
-		return "Delete parent";
-	}
+
 
 	@RequestMapping(value = "/update-parent", method = RequestMethod.POST)
 	public Child updateParent(@RequestBody ParentRequestDto parentDto) {
@@ -120,14 +123,16 @@ public class ParentController {
 
 
 		Parent parent = new Parent();
+		parent.setPersonId(personObj);
 		parent.setParentId(parentDto.getParentId());
 		parent.setSecondaryPhoneNumber(parentDto.getSecondaryPhoneNumber());
 		parent.setRelTenantInstitutionId(parentDto.getRelTenantInstitutionId());
-
+		parent.setSecondaryParentName(parentDto.getSecondaryParentName());
 		Parent parentResponse = parentService.addParent(parent);
 
 		Child child = new Child();
 		child.setChildId(parentDto.getChildId());
+		child.setParent(parent);
 		child.setAdmissionId(parentDto.getAdmissionNumber());
 		child.setChildrenName(parentDto.getChildrenName());
 		child.setSectionId(parentDto.getSectionId());
@@ -139,17 +144,15 @@ public class ParentController {
 
 	@PostMapping("/parent/file")
 	public String readParentFromFile(@RequestParam("file")MultipartFile parentsFile) throws Exception {
-
 		boolean result = parentService.addParentsFromFile(parentsFile);
 		if(result == false) throw new Exception("Some error occurred");
 		return "Parent Details added to the DB";
 	}
 
-	@PostMapping("/parent/file")
-	public String readParentFromFile(@RequestParam("file")MultipartFile parentsFile) throws Exception {
+	@PostMapping("/parent/delete")
+	public String deleteParent(@RequestBody DeleteParentDto deleteParentDto ) throws Exception {
 
-		boolean result = parentService.addParentsFromFile(parentsFile);
-		if(result == false) throw new Exception("Some error occurred");
+		parentService.deleteParent(deleteParentDto);
 		return "Parent Details added to the DB";
 	}
 

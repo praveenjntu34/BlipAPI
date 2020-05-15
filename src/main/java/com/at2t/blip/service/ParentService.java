@@ -6,11 +6,11 @@ import com.at2t.blip.controller.ParentController;
 import com.at2t.blip.dao.Child;
 import com.at2t.blip.dao.LoginCredential;
 import com.at2t.blip.dao.Parent;
-import com.at2t.blip.dto.InstitutionResponse;
-import com.at2t.blip.dto.ParentResponseDto;
+import com.at2t.blip.dto.*;
 import com.at2t.blip.dao.Person;
-import com.at2t.blip.dto.LoginCredentialDto;
-import com.at2t.blip.dto.ParentRequestDto;
+import com.at2t.blip.repository.ChildRepository;
+import com.at2t.blip.repository.LoginCredentialRepository;
+import com.at2t.blip.repository.PersonRepository;
 import com.at2t.blip.util.RandomPasswordGenerator;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
@@ -20,7 +20,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.at2t.blip.dto.ParentDto;
 import com.at2t.blip.repository.ParentRepository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,6 +45,12 @@ public class ParentService {
 	RandomPasswordGenerator randomPasswordGenerator;
 	@Autowired
 	ChildService childService;
+	@Autowired
+	LoginCredentialRepository loginCredentialRepository;
+	@Autowired
+	PersonRepository personRepository;
+	@Autowired
+	ChildRepository childRepository;
 
 
 	@Transactional
@@ -54,8 +59,12 @@ public class ParentService {
 	}
 
 	@Transactional
-	public void deleteParent(Integer parentId) {
-		parentRepository.deleteParent(parentId);
+	public void deleteParent(DeleteParentDto deleteParentDto) {
+
+		loginCredentialRepository.deleteById(deleteParentDto.getLoginCredentialId());
+		personRepository.deleteById(deleteParentDto.getPersonId());
+		childRepository.deleteById(deleteParentDto.getChildId());
+		parentRepository.deleteById(deleteParentDto.getParentId());
 	}
 
 	@Transactional
@@ -67,6 +76,11 @@ public class ParentService {
 
 	public List<ParentResponseDto> getAllParents(Integer pageNo, Integer size, int relTenantInstitutionId) {
 		List<ParentResponseDto> res = parentRepository.getAllParents(relTenantInstitutionId);
+		return res;
+	}
+
+	public List<ParentResponseDto> getSingleParents(Integer pageNo, Integer size, int childId) {
+		List<ParentResponseDto> res = parentRepository.getSingleParent(childId);
 		return res;
 	}
 
