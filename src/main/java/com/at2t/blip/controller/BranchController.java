@@ -11,6 +11,8 @@ import com.at2t.blip.service.InstituitionService;
 import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -55,6 +57,7 @@ public class BranchController {
 
     }
 
+
     private Branch convertToBranchEntity(BranchDto branchDto) {
 
 //        Branch branch = modelMapper.map(branchDto, Branch.class);
@@ -62,4 +65,12 @@ public class BranchController {
         branch.setBranchName(branchDto.getBranchName());
         return branch;
     }
+
+
+    @DeleteMapping("/institution/branch/{branchId}")
+    public ResponseEntity<String> deleteBranchAndAllSection( @PathVariable(name = "branchId") int deleteBranchId){
+       instituitionService.deleteBranch(deleteBranchId);
+       return new ResponseEntity<String>("Branch Deleted Successfully", HttpStatus.NO_CONTENT);
+    }
+
 }
