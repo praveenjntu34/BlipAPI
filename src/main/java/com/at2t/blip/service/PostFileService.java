@@ -81,4 +81,16 @@ public class PostFileService {
         }
 
     }
+
+    @Transactional
+    public List<Post> getPostsMobile(int sectionId) {
+
+        try {
+            return postRepository.getPostsMobile(sectionId);
+        }catch (Exception e) {
+            System.out.println(e.getStackTrace());
+            return null;
+        }
+
+    }
 }

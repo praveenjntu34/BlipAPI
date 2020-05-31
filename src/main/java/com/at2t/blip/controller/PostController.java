@@ -41,9 +41,18 @@ public class PostController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/post/{relTenantInstitutionId}")
-	public List<Post> getBranches(@PathVariable int relTenantInstitutionId) {
+	public List<Post> getPosts(@PathVariable int relTenantInstitutionId) {
 
 		List<Post> posts = postService.getPosts(relTenantInstitutionId);
+
+		return posts;
+
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/all-post/{sectionId}")
+	public List<Post> getPosytsMobile(@PathVariable int sectionId) {
+
+		List<Post> posts = postService.getPostsMobile(sectionId);
 
 		return posts;
 

@@ -27,6 +27,8 @@ public interface PostRepository extends CrudRepository<Post, Integer> {
 	@Query("SELECT p FROM Post p WHERE relTenantInstitutionId= :relTenantInstitutionId")
 	List<Post> getPosts(int relTenantInstitutionId);
 
+	@Query("SELECT p FROM Post p WHERE SectionId= :sectionId")
+	List<Post> getPostsMobile(int sectionId);
 
 	@Modifying
 	@Transactional
