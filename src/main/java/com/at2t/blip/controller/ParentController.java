@@ -45,8 +45,8 @@ public class ParentController {
 
 	@GetMapping
 	@RequestMapping(method = RequestMethod.GET, value = "/parent")
-	public List<ParentResponseDto> getInstitutions(@RequestParam(value = "relTenantInstitutionId", required = false) Integer relTenantInstitutionId) {
-		List<ParentResponseDto> parents = parentService.getAllParents(1,10, relTenantInstitutionId);
+	public ParentsPagesDto getInstitutions(@RequestParam(value = "relTenantInstitutionId", required = false) Integer relTenantInstitutionId, @RequestParam(value = "pageNumber", required = false) Integer pageNumber , @RequestParam(value = "size", required = false) Integer size) {
+		ParentsPagesDto parents = parentService.getAllParents(pageNumber,size, relTenantInstitutionId);
 		return parents;
 	}
 

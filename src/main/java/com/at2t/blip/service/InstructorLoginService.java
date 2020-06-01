@@ -19,6 +19,7 @@ public class InstructorLoginService {
 
         InstructorLoginResponse response = instructorRepository.loginInstructor(phoneNumber);
         if(response != null) {
+            response.setRole("Instructor");
             return response;
         } else {
             Object object = new Object() {

@@ -12,6 +12,7 @@ public class InstructorLoginResponse {
     private String firstName;
     private String lastName;
     private int relTenantInstitutionId;
+    private String role;
 
     public InstructorLoginResponse(int instructorId, int sectionId, String firstName, String lastName, int relTenantInstitutionId) {
         this.instructorId = instructorId;
