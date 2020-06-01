@@ -164,4 +164,9 @@ public class InstituitionService {
 	public void deleteBranch(int deleteBranchId) {
 		branchRepository.deleteById(deleteBranchId);
 	}
+
+	@Transactional
+	public void deleteSection(int sectionId) {
+		sectionRepository.deleteById(sectionId);
+	}
 }
