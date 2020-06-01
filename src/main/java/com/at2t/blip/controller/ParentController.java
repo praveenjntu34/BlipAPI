@@ -153,7 +153,7 @@ public class ParentController {
 	public String deleteParent(@RequestBody DeleteParentDto deleteParentDto ) throws Exception {
 
 		parentService.deleteParent(deleteParentDto);
-		return "Parent Details added to the DB";
+		return "Parent Details deleted from DB";
 	}
 
 }
