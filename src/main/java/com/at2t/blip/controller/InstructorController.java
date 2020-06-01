@@ -2,15 +2,12 @@ package com.at2t.blip.controller;
 
 import com.at2t.blip.dao.Instructor;
 import com.at2t.blip.dao.Person;
-import com.at2t.blip.dto.InstructorResponseDto;
-import com.at2t.blip.dto.LoginCredentialDto;
-import com.at2t.blip.dto.PersonDto;
+import com.at2t.blip.dto.*;
 import com.at2t.blip.service.InstituitionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.at2t.blip.dto.InstructorDto;
 import com.at2t.blip.service.InstructorService;
 
 import io.swagger.annotations.Api;
@@ -60,16 +57,16 @@ public class InstructorController {
 	}
 
 	@RequestMapping(value = "/instructor/{relTenantInstitutionId}", method = RequestMethod.GET)
-	public List<InstructorResponseDto> getInstructors(@PathVariable int relTenantInstitutionId) {
+	public InstructorPagesDto getInstructors(@PathVariable int relTenantInstitutionId, @RequestParam(value = "pageNumber", required = false) Integer pageNumber , @RequestParam(value = "size", required = false) Integer size) {
 
-		List<Object[]> instructors = instructorService.getInstructorDetails(relTenantInstitutionId);
-		List<InstructorResponseDto> exp = instructors.stream()
-				.map(o -> new InstructorResponseDto((int) o[0], (String) o[1], (String) o[2], (String) o[3], (String) o[4],
-						(String) o[5], (int) o[6], (int) o[7]))
-				.collect(Collectors.toList());
+		InstructorPagesDto instructors = instructorService.getInstructorDetails(relTenantInstitutionId, pageNumber,size);
+//		List<InstructorResponseDto> exp = instructors.stream()
+//				.map(o -> new InstructorResponseDto((int) o[0], (String) o[1], (String) o[2], (String) o[3], (String) o[4],
+//						(String) o[5], (int) o[6], (int) o[7]))
+//				.collect(Collectors.toList());
 
 
-		return exp;
+		return instructors;
 	}
 
 	@RequestMapping(value = "/deleteInstructor", method = RequestMethod.POST)

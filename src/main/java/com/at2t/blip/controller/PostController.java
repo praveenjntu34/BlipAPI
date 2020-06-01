@@ -46,6 +46,7 @@ public class PostController {
 
 	}
 
+
 	@RequestMapping(method = RequestMethod.GET, value = "/all-post/{sectionId}")
 	public List<Post> getPosytsMobile(@PathVariable int sectionId) {
 
@@ -61,10 +62,13 @@ public class PostController {
 //		return "Delete Post";
 //	}
 //
-//	@RequestMapping(value = "/updatePost", method = RequestMethod.POST)
-//	public String updatePost(@RequestBody PostDto postDto) {
+
+	@RequestMapping(value = "/updatePost", method = RequestMethod.POST)
+	public String updatePost(@RequestBody PostDto postDto) {
+
+
 //		postService.updatePost(postDto);
-//		return "Updated Post";
-//	}
+		return "Updated Post";
+	}
 
 }
