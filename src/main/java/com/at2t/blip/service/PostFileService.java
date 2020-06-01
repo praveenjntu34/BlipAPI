@@ -5,16 +5,20 @@ import com.at2t.blip.dao.Post;
 import com.at2t.blip.dao.Section;
 import com.at2t.blip.dto.PostDto;
 import com.at2t.blip.dto.PostRequestDto;
+import com.at2t.blip.dto.PostsDto;
 import com.at2t.blip.exception.FileStorageException;
 import com.at2t.blip.repository.PostRepository;
 import com.at2t.blip.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,10 +75,14 @@ public class PostFileService {
     }
 
     @Transactional
-    public List<Post> getPosts(int relTenantInstitutionId) {
+    public PostsDto getPosts(int relTenantInstitutionId, int pageNumber, int size) {
 
         try {
-            return postRepository.getPosts(relTenantInstitutionId);
+            Page<Post> posts =  postRepository.getPosts(relTenantInstitutionId, PageRequest.of(pageNumber,size));
+            PostsDto postDto = new PostsDto();
+            postDto.setPages(posts.getTotalPages());
+            postDto.setPostList(posts.getContent());
+            return postDto;
         }catch (Exception e) {
             System.out.println(e.getStackTrace());
             return null;

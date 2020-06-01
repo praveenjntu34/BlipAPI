@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.at2t.blip.dao.Section;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -25,7 +27,7 @@ public interface PostRepository extends CrudRepository<Post, Integer> {
 	public void deletePost(@Param("postId") int postId);
 
 	@Query("SELECT p FROM Post p WHERE relTenantInstitutionId= :relTenantInstitutionId")
-	List<Post> getPosts(int relTenantInstitutionId);
+	Page<Post> getPosts(int relTenantInstitutionId, Pageable pageable);
 
 	@Query("SELECT p FROM Post p WHERE SectionId= :sectionId")
 	List<Post> getPostsMobile(int sectionId);
