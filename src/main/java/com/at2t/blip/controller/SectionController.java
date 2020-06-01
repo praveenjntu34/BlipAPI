@@ -5,6 +5,8 @@ import com.at2t.blip.dto.SectionDto;
 import com.at2t.blip.service.InstituitionService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,5 +31,11 @@ public class SectionController {
     @GetMapping
     public List<Section> getSections(@PathVariable int branchId) {
         return instituitionService.getSections(branchId);
+    }
+
+    @DeleteMapping("{sectionId}")
+    public ResponseEntity deleteSection(@PathVariable("sectionId") int sectionId){
+        instituitionService.deleteSection(sectionId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
