@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MethodSecurity {
 
-    @GetMapping("parent")
+    @GetMapping("/security")
     @Secured("ROLE_USER")
     public String getUsername(){
         return "ddd";

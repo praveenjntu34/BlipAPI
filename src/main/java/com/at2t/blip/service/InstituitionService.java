@@ -159,4 +159,9 @@ public class InstituitionService {
 	public Optional<RelTenantInstitution> getReltenantInstitution(int relTenantInstitutionId){
 		return relTenantInstitutionRepository.findById(relTenantInstitutionId);
 	}
+
+	@Transactional
+	public void deleteBranch(int deleteBranchId) {
+		branchRepository.deleteById(deleteBranchId);
+	}
 }

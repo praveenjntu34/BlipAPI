@@ -1,19 +1,43 @@
 package com.at2t.blip.dao;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import com.at2t.blip.dto.ParentResponseDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Parent")
+@SqlResultSetMapping(
+		name="childMapping",
+		classes={
+				@ConstructorResult(
+						targetClass= ParentResponseDto.class,
+						columns={
+								@ColumnResult(name="firstName"),
+								@ColumnResult(name="lastName"),
+								@ColumnResult(name="email"),
+								@ColumnResult(name="PhoneNumber"),
+								@ColumnResult(name="SecondaryParentname"),
+								@ColumnResult(name="AdmissionId"),
+								@ColumnResult(name="SecondaryPhoneNumber"),
+								@ColumnResult(name="childrenName"),
+								@ColumnResult(name="SectionId"),
+								@ColumnResult(name="BranchId"),
+								@ColumnResult(name="personId"),
+								@ColumnResult(name="LoginCredentialId"),
+								@ColumnResult(name="ParentId"),
+								@ColumnResult(name="ChildId"),
+						}
+				)
+		}
+)
+@NamedNativeQuery(name="Parent.getSingleParent", query="SELECT PR.firstName, PR.lastName, LC.email, LC.PhoneNumber, P.SecondaryParentname, C.AdmissionId, P.SecondaryPhoneNumber, C.childrenName, S.SectionId, S.BranchId,\n" +
+		"PR.personId, LC.LoginCredentialId, P.ParentId, C.ChildId FROM Child C\n" +
+		"JOIN Parent P ON P.parentId  = C.parentId\n" +
+		"JOIN Person PR ON P.personId = PR.personId \n" +
+		"JOIN LoginCredential LC ON LC.PersonId = PR.PersonId \n" +
+		"JOIN Section S ON S.sectionId = C.sectionId\n" +
+		"WHERE C.childId = :childId", resultSetMapping="childMapping")
 public class Parent {
 
 	@Id
@@ -31,6 +55,16 @@ public class Parent {
 	@Column(name = "RelTenantInstitutionId")
 	private int relTenantInstitutionId;
 
+	@Column(name = "SecondaryParentName")
+	private String secondaryParentName;
+
+	public String getSecondaryParentName() {
+		return secondaryParentName;
+	}
+
+	public void setSecondaryParentName(String secondaryParentName) {
+		this.secondaryParentName = secondaryParentName;
+	}
 
 	public Parent() {
 	}

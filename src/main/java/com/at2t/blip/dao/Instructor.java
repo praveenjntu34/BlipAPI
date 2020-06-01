@@ -33,12 +33,9 @@ public class Instructor {
 	@Column(name = "RelTenantInstitutionId")
 	private int relTenantInstitutionId;
 
-
 	@JoinColumn(name = "sectionId", referencedColumnName = "SectionId")
 	@OneToOne
 	private Section section;
-
-
 
 	public int getRelTenantInstitutionId() {
 		return relTenantInstitutionId;
