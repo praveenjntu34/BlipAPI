@@ -15,6 +15,6 @@ import java.util.List;
 
 public interface ChildRepository extends CrudRepository<Child, Integer> {
 
-    @Query(value = "select * from Child where parentId = :parentId;", nativeQuery = true)
+    @Query(value = "select * from Child where parentId = :parentId", nativeQuery = true)
     List<Child> findAllByParentId(@Param("parentId") int parentId);
 }

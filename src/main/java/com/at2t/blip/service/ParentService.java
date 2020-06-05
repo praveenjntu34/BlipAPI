@@ -63,10 +63,11 @@ public class ParentService {
 	public void deleteParent(DeleteParentDto deleteParentDto) {
 
 		loginCredentialRepository.deleteById(deleteParentDto.getLoginCredentialId());
-		personRepository.deleteById(deleteParentDto.getPersonId());
 		List<Child> children = childRepository.findAllByParentId(deleteParentDto.getParentId());
 		childRepository.deleteAll(children);
 		parentRepository.deleteById(deleteParentDto.getParentId());
+		personRepository.deleteById(deleteParentDto.getPersonId());
+
 	}
 
 	@Transactional
