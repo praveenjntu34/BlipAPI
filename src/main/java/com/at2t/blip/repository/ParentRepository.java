@@ -29,7 +29,7 @@ public interface ParentRepository extends PagingAndSortingRepository<Parent, Int
 			"JOIN P.personId PR\n" +
 			"JOIN PR.loginCredential LC\n" +
 			"WHERE P.relTenantInstitutionId = :relTenantInstitutionId")
-	List<ParentResponseDto> getAllParents(@Param("relTenantInstitutionId") Integer relTenantInstitutionId);
+	Page<ParentResponseDto> getAllParents(@Param("relTenantInstitutionId") Integer relTenantInstitutionId, Pageable pageable);
 
 	@Query(nativeQuery = true)
 	List<ParentResponseDto> getSingleParent(@Param("childId") int childId);

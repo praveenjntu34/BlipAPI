@@ -3,16 +3,13 @@ package com.at2t.blip.controller;
 import com.at2t.blip.dao.Branch;
 import com.at2t.blip.dao.Post;
 import com.at2t.blip.dao.Section;
-import com.at2t.blip.dto.BranchResponseDto;
-import com.at2t.blip.dto.InstitutionDto;
-import com.at2t.blip.dto.PostRequestDto;
+import com.at2t.blip.dto.*;
 import com.at2t.blip.service.PostFileService;
 import org.hibernate.validator.constraints.NotBlank;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.at2t.blip.dto.PostDto;
 import com.at2t.blip.service.PostService;
 
 import io.swagger.annotations.Api;
@@ -41,9 +38,19 @@ public class PostController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/post/{relTenantInstitutionId}")
-	public List<Post> getBranches(@PathVariable int relTenantInstitutionId) {
+	public PostsDto getPosts(@PathVariable int relTenantInstitutionId, @RequestParam(value = "pageNumber", required = false) Integer pageNumber , @RequestParam(value = "size", required = false) Integer size) {
 
-		List<Post> posts = postService.getPosts(relTenantInstitutionId);
+		PostsDto posts = postService.getPosts(relTenantInstitutionId, pageNumber, size);
+
+		return posts;
+
+	}
+
+
+	@RequestMapping(method = RequestMethod.GET, value = "/all-post/{sectionId}")
+	public List<Post> getPosytsMobile(@PathVariable int sectionId) {
+
+		List<Post> posts = postService.getPostsMobile(sectionId);
 
 		return posts;
 
@@ -55,10 +62,13 @@ public class PostController {
 //		return "Delete Post";
 //	}
 //
-//	@RequestMapping(value = "/updatePost", method = RequestMethod.POST)
-//	public String updatePost(@RequestBody PostDto postDto) {
+
+	@RequestMapping(value = "/updatePost", method = RequestMethod.POST)
+	public String updatePost(@RequestBody PostDto postDto) {
+
+
 //		postService.updatePost(postDto);
-//		return "Updated Post";
-//	}
+		return "Updated Post";
+	}
 
 }
