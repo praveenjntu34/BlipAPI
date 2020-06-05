@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.List;
@@ -63,7 +64,8 @@ public class ParentService {
 
 		loginCredentialRepository.deleteById(deleteParentDto.getLoginCredentialId());
 		personRepository.deleteById(deleteParentDto.getPersonId());
-		childRepository.deleteById(deleteParentDto.getChildId());
+		List<Child> children = childRepository.findAllByParentId(deleteParentDto.getParentId());
+		childRepository.deleteAll(children);
 		parentRepository.deleteById(deleteParentDto.getParentId());
 	}
 
@@ -144,5 +146,24 @@ public class ParentService {
 	}
 
 
-
+	@Transactional
+	public void editParent(UpdateParentDto updateParentDto){
+		LoginCredential lc = loginCredentialRepository.findById(updateParentDto.getLoginCredentialId()).get();
+		lc.setEmail(updateParentDto.getEmail());
+		lc.setPhoneNumber(updateParentDto.getPhoneNumber());
+		lc.setLoginCredentialId(updateParentDto.getLoginCredentialId());
+		Person person = personRepository.findById(updateParentDto.getPersonId()).get();
+		person.setFirstName(updateParentDto.getParentOneFirstName());
+		person.setLoginCredential(lc);
+		person.setLastName(updateParentDto.getParentOneLastName());
+		person.setPersonId(updateParentDto.getPersonId());
+		lc.setPerson(person);
+		Parent parent = parentRepository.findById(updateParentDto.getParentId()).get();
+		parent.setSecondaryParentName(updateParentDto.getSecondaryParentName());
+		parent.setSecondaryPhoneNumber(updateParentDto.getSecondaryPhoneNumber());
+		parent.setParentId(updateParentDto.getParentId());
+		loginCredentialRepository.save(lc);
+		personRepository.save(person);
+		parentRepository.save(parent);
+	}
 }

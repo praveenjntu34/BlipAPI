@@ -144,13 +144,13 @@ public class Person {
 //        this.personType = personType;
 //    }
 
-//	public LoginCredential getLoginCredential() {
-//		return loginCredential;
-//	}
-//
-//	public void setLoginCredential(LoginCredential loginCredential) {
-//		this.loginCredential = loginCredential;
-//	}
+	public LoginCredential getLoginCredential() {
+		return loginCredential;
+	}
+
+	public void setLoginCredential(LoginCredential loginCredential) {
+		this.loginCredential = loginCredential;
+	}
 
 	public int getPersonTypeId() {
 		return personTypeId;
