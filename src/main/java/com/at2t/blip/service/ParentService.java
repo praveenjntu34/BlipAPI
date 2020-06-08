@@ -77,9 +77,12 @@ public class ParentService {
 	}
 
 
-	public List<ParentResponseDto> getAllParents(Integer pageNo, Integer size, int relTenantInstitutionId) {
-		List<ParentResponseDto> res = parentRepository.getAllParents(relTenantInstitutionId);
-		return res;
+	public ParentsPagesDto getAllParents(Integer pageNo, Integer size, int relTenantInstitutionId) {
+		Page<ParentResponseDto> res = parentRepository.getAllParents(relTenantInstitutionId, PageRequest.of(pageNo,size));
+		ParentsPagesDto parentsPagesDto = new ParentsPagesDto();
+		parentsPagesDto.setParents(res.getContent());
+		parentsPagesDto.setPages(res.getTotalPages());
+		return parentsPagesDto;
 	}
 
 	public List<ParentResponseDto> getSingleParents(Integer pageNo, Integer size, int childId) {
