@@ -70,15 +70,21 @@ public class InstructorController {
 	}
 
 	@RequestMapping(value = "/deleteInstructor", method = RequestMethod.POST)
-	public String addInstructor(@RequestBody int instructorId) {
+	public String deleteInstructor(@RequestBody int instructorId) {
 		instructorService.deleteInstructor(instructorId);
-		return "Delete Instructor";
+		return "Deleted Instructor with id : "+ instructorId;
 	}
 
 	@RequestMapping(value = "/updateInstructor", method = RequestMethod.POST)
 	public String updateInstructor(@RequestBody InstructorDto instructorDto) {
 		instructorService.updateInstructor(instructorDto);
 		return "Updated Instructor";
+	}
+
+	@PutMapping("/editInstructor")
+	public String editInstructor(@RequestBody  InstructorDto instructorDto){
+		instructorService.editInstructor(instructorDto);
+		return "Updated instructor";
 	}
 
 }

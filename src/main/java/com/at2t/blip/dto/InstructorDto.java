@@ -11,8 +11,18 @@ public class InstructorDto {
 	private int personId;
 	private String designation;
 	private String phoneNumber;
+	private int loginCredentialId;
+
 	private int sectionId;
 	private int relTenantInstitutionId;
+
+	public int getLoginCredentialId() {
+		return loginCredentialId;
+	}
+
+	public void setLoginCredentialId(int loginCredentialId) {
+		this.loginCredentialId = loginCredentialId;
+	}
 
 	public void setPersonId(int personId) {
 		this.personId = personId;

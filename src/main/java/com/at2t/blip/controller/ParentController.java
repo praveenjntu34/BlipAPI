@@ -149,11 +149,19 @@ public class ParentController {
 		return "Parent Details added to the DB";
 	}
 
-	@PostMapping("/parent/delete")
+	@DeleteMapping("/parent/delete")
 	public String deleteParent(@RequestBody DeleteParentDto deleteParentDto ) throws Exception {
 
 		parentService.deleteParent(deleteParentDto);
-		return "Parent Details deleted from DB";
+		return "Parent Details deleted";
 	}
+
+	@PutMapping("/parent/edit")
+	public String editParent(@RequestBody UpdateParentDto updateParentDto){
+		parentService.editParent(updateParentDto);
+		return "Parent details successfully updated.";
+	}
+
+
 
 }
