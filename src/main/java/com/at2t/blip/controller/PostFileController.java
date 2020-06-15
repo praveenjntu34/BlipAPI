@@ -23,8 +23,6 @@ public class PostFileController {
 
     @RequestMapping(value = "/post-file", method = RequestMethod.POST)
     public Post addPost(@RequestParam("file") MultipartFile file) {
-
-
         Post post = postService.storePostFile(file);
         return  post;
     }
