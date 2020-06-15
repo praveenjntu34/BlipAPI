@@ -25,20 +25,14 @@ public class RelTenantInstitution {
 
 	@OneToOne
 	@JoinColumn(name = "InstitutionId", referencedColumnName = "InstitutionId")
-	@MapsId
-	@JsonManagedReference
 	private Institution institution;
 
 	@OneToOne
 	@JoinColumn(name = "TenantId")
-	@MapsId
-	@JsonManagedReference
 	private Tenant tenant;
 
 	@OneToOne
 	@JoinColumn(name = "AddressId")
-	@MapsId
-	@JsonManagedReference
 	private Address address;
 
 	@Column(name = "InstitutionTypeId")

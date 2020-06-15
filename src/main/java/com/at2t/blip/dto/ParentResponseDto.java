@@ -56,4 +56,15 @@ public class ParentResponseDto {
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
+
+    public ParentResponseDto(int childId, String firstName, String lastName, String email, String phoneNumber, int personId, int loginCredentialId, int parentId, int id) {
+        this.firstName = firstName;
+        this.childId = childId;
+        this.personId = personId;
+        this.loginCredentialId =loginCredentialId;
+        this.parentId =parentId;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
 }

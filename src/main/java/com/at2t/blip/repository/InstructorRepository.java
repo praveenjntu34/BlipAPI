@@ -30,7 +30,7 @@ public interface InstructorRepository extends CrudRepository<Instructor, Integer
 	public void updateInstructor(@Param("personId") int personId, @Param("sectionId") int sectionId,
 			@Param("instructorId") int instructorId);
 
-	@Query(value = "SELECT new com.at2t.blip.dto.InstructorResponseDto(I.instructorId, I.designation, P.firstName, P.lastName, L.email, L.PhoneNumber, I.relTenantInstitutionId, S.sectionId) FROM Instructor I\n " +
+	@Query(value = "SELECT new com.at2t.blip.dto.InstructorResponseDto(I.instructorId, I.designation, P.firstName, P.lastName, L.email, L.PhoneNumber, I.relTenantInstitutionId, S.sectionId, L.LoginCredentialId, P.personId, S.branchId) FROM Instructor I\n " +
 			"JOIN I.person P\n" +
 			"JOIN I.section S\n" +
 			"JOIN P.loginCredential L\n" +

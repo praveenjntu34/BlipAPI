@@ -24,7 +24,6 @@ public class Tenant {
 	}
 
 	@OneToOne(mappedBy = "tenant")
-	@JsonBackReference
 	private RelTenantInstitution relTenantInstitution;
 
 	public int getTenantId() {
