@@ -17,6 +17,33 @@ public class InstructorResponseDto {
     private String designation;
     private int relTenantInstitutionId;
     private int sectionId;
+    private int personId;
+    private int loginCredentialId;
+    private int branchId;
+
+    public int getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
+
+    public int getLoginCredentialId() {
+        return loginCredentialId;
+    }
+
+    public void setLoginCredentialId(int loginCredentialId) {
+        this.loginCredentialId = loginCredentialId;
+    }
 
     public int getInstructorId() {
         return instructorId;
@@ -82,7 +109,10 @@ public class InstructorResponseDto {
         this.sectionId = sectionId;
     }
 
-    public InstructorResponseDto(int instructorId, String designation, String firstName, String lastName, String email, String phoneNumber, int relTenantInstitutionId, int sectionId) {
+    public InstructorResponseDto(int instructorId, String designation, String firstName,
+                                 String lastName, String email, String phoneNumber,
+                                 int relTenantInstitutionId, int sectionId,
+                                 int loginCredentialId, int personId, int branchId) {
         this.instructorId = instructorId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -91,5 +121,8 @@ public class InstructorResponseDto {
         this.designation = designation;
         this.relTenantInstitutionId = relTenantInstitutionId;
         this.sectionId = sectionId;
+        this.loginCredentialId = loginCredentialId;
+        this.personId = personId;
+        this.branchId = branchId;
     }
 }

@@ -129,7 +129,7 @@ public class InstituitionService {
 
 	@Transactional
 	public InstitutionResponseDto getInstitutionDetails(int id) {
-		return instituitionRepository.getInstitutionalDetails(id);
+		return relTenantInstitutionRepository.getInstitutionalDetails(id);
 	}
 
 

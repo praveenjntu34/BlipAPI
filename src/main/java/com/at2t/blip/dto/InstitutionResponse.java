@@ -1,17 +1,17 @@
 package com.at2t.blip.dto;
 
 public class InstitutionResponse {
-    private int institutionId;
+    private int relTenantInstitutionId;
     private String institutionName;
     private double count;
-    public InstitutionResponse(int institutionId, String institutionName, byte[] pictureStream) {
-        this.institutionId = institutionId;
+    public InstitutionResponse(int relTenantInstitutionId, String institutionName, byte[] pictureStream) {
+        this.relTenantInstitutionId = relTenantInstitutionId;
         this.institutionName = institutionName;
         this.pictureStream = pictureStream;
     }
 
-    public InstitutionResponse(int institutionId, String institutionName, byte[] pictureStream, int addressId) {
-        this.institutionId = institutionId;
+    public InstitutionResponse(int relTenantInstitutionId, String institutionName, byte[] pictureStream, int addressId) {
+        this.relTenantInstitutionId = relTenantInstitutionId;
         this.institutionName = institutionName;
         this.pictureStream = pictureStream;
         this.addressId = addressId;
@@ -28,9 +28,6 @@ public class InstitutionResponse {
     private String stateName;
     private int addressId;
 
-    public int getInstitutionId() {
-        return institutionId;
-    }
 
     public int getAddressId() {
         return addressId;
@@ -40,8 +37,12 @@ public class InstitutionResponse {
         this.addressId = addressId;
     }
 
-    public void setInstitutionId(int institutionId) {
-        this.institutionId = institutionId;
+    public int getRelTenantInstitutionId() {
+        return relTenantInstitutionId;
+    }
+
+    public void setRelTenantInstitutionId(int relTenantInstitutionId) {
+        this.relTenantInstitutionId = relTenantInstitutionId;
     }
 
     public String getInstitutionName() {
@@ -104,8 +105,8 @@ public class InstitutionResponse {
     private String recentStatus;
 
 
-    public InstitutionResponse(int institutionId, byte[] pictureStream, String cityName, String stateName, String countryName) {
-        this.institutionId = institutionId;
+    public InstitutionResponse(int relTenantInstitutionId, byte[] pictureStream, String cityName, String stateName, String countryName) {
+        this.relTenantInstitutionId = relTenantInstitutionId;
         this.pictureStream = pictureStream;
         this.cityName = cityName;
         this.stateName = stateName;

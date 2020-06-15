@@ -82,9 +82,12 @@ public class InstructorController {
 	}
 
 	@PutMapping("/editInstructor")
-	public String editInstructor(@RequestBody  InstructorDto instructorDto){
+	public Object editInstructor(@RequestBody  InstructorDto instructorDto){
 		instructorService.editInstructor(instructorDto);
-		return "Updated instructor";
+		Object object = new Object() {
+			public String response = "Updated instructor";
+		};
+		return object;
 	}
 
 }

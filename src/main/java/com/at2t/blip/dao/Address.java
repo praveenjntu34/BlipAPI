@@ -51,7 +51,6 @@ public class Address {
 	}
 
 	@OneToOne(mappedBy="address")
-	@JsonBackReference
 	private RelTenantInstitution relTenantInstitution;
 
 	public int getAddressId() {

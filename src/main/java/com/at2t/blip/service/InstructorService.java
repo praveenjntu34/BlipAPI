@@ -72,24 +72,27 @@ public class InstructorService {
 	@Transactional
 	public void editInstructor(InstructorDto instructorDto) {
 
+
+		Person person = personRepository.findById(instructorDto.getPersonId()).get();
+		person.setFirstName(instructorDto.getFirstname());
+		person.setLastName(instructorDto.getLastname());
+		personRepository.save(person);
+
+
 		LoginCredential loginCredential = loginCredentialRepository.
 				findById(instructorDto.getLoginCredentialId()).get();
 		loginCredential.setEmail(instructorDto.getEmail());
 		loginCredential.setPhoneNumber(instructorDto.getPhoneNumber());
-		Person person = personRepository.findById(instructorDto.getPersonId()).get();
-		person.setFirstName(instructorDto.getFirstname());
-		person.setLastName(instructorDto.getLastname());
-		person.setLoginCredential(loginCredential);
-		loginCredential.setPerson(person);
+		loginCredentialRepository.save(loginCredential);
+		
 		Instructor instructor = instructorRepository.findById(instructorDto.getInstructorId()).get();
 		instructor.setDesignation(instructorDto.getDesignation());
 		instructor.setInstructorId(instructorDto.getInstructorId());
 		Section section = sectionRepository.findById(instructorDto.getSectionId()).get();
 		instructor.setSection(section);
-		instructor.setPerson(person);
 		instructorRepository.save(instructor);
-		personRepository.save(person);
-		loginCredentialRepository.save(loginCredential);
+
+
 
 	}
 }
