@@ -6,6 +6,7 @@ import com.at2t.blip.dao.Section;
 import com.at2t.blip.dto.PostDto;
 import com.at2t.blip.dto.PostRequestDto;
 import com.at2t.blip.dto.PostsDto;
+import com.at2t.blip.dto.UpdatePostDto;
 import com.at2t.blip.exception.FileStorageException;
 import com.at2t.blip.repository.PostRepository;
 import com.at2t.blip.repository.SectionRepository;
@@ -74,6 +75,42 @@ public class PostFileService {
         }
     }
 
+    public Object update(UpdatePostDto postDto) {
+
+        try {
+            Section section = sectionRepository.findById(postDto.getSectionId()).get();
+
+            Post post = new Post(postDto.getTitle(),  postDto.getMessage());
+            post.setPostId(postDto.getPostId());
+            post.setSection(section);
+            post.setRelTenantInstitutionId(postDto.getRelTenantInstitutionId());
+            post.setAttachmentStreamId(postDto.getAttachmentStreamId());
+            postRepository.save(post);
+            Object object = new Object() {
+                public String response = "Post updated";
+            };
+            return object;
+
+        } catch(Exception e) {
+            System.out.println(e.getStackTrace());
+            return null;
+        }
+    }
+
+    public Object delete(int postId) {
+
+        try {
+           postRepository.deleteById(postId);
+
+            Object object = new Object() {
+                public String response = "Post deleted";
+            };
+            return object;
+        } catch(Exception e) {
+            System.out.println(e.getStackTrace());
+            return null;
+        }
+    }
     @Transactional
     public PostsDto getPosts(int relTenantInstitutionId, int pageNumber, int size) {
 
