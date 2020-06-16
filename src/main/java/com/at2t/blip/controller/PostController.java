@@ -56,19 +56,18 @@ public class PostController {
 
 	}
 
-//	@RequestMapping(value = "/deletePost", method = RequestMethod.POST)
-//	public String deletePost(@RequestBody int postId) {
-//		postService.deletePost(postId);
-//		return "Delete Post";
-//	}
-//
+	@RequestMapping(value = "/deletePost/{postId}", method = RequestMethod.DELETE)
+	public Object deletePost(@PathVariable("postId") int postId) {
+		return postService.delete(postId);
 
-	@RequestMapping(value = "/updatePost", method = RequestMethod.POST)
-	public String updatePost(@RequestBody PostDto postDto) {
+	}
 
 
-//		postService.updatePost(postDto);
-		return "Updated Post";
+	@RequestMapping(value = "/updatePost", method = RequestMethod.PUT)
+	public Object updatePost(@RequestBody UpdatePostDto postDto) {
+
+
+		return postService.update(postDto);
 	}
 
 }
