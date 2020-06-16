@@ -59,7 +59,7 @@ public class InstructorService {
 	}
 	@Transactional
 	public void deleteInstructor(Integer instructorId) {
-		instructorRepository.deleteInstructor(instructorId);
+		instructorRepository.deleteById(instructorId);
 	}
 
 	@Transactional

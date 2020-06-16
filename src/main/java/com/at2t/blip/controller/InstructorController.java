@@ -69,10 +69,13 @@ public class InstructorController {
 		return instructors;
 	}
 
-	@RequestMapping(value = "/deleteInstructor", method = RequestMethod.POST)
-	public String deleteInstructor(@RequestBody int instructorId) {
+	@RequestMapping(value = "/deleteInstructor/{instructorId}", method = RequestMethod.DELETE)
+	public Object deleteInstructor(@PathVariable int instructorId) {
 		instructorService.deleteInstructor(instructorId);
-		return "Deleted Instructor with id : "+ instructorId;
+		Object object = new Object() {
+			public String response = "Deleted instructor";
+		};
+		return object;
 	}
 
 	@RequestMapping(value = "/updateInstructor", method = RequestMethod.POST)
