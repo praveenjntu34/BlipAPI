@@ -20,7 +20,7 @@ public class RelTenantInstitutionService {
 	}
 
 	@Transactional
-	public RelTenantInstitution getRelTenantInstitution(int institutionId) {
-		return relTenantInstitutionRepository.findByTenantId(institutionId);
+	public int getRelTenantInstitution(int institutionId) {
+		return relTenantInstitutionRepository.findByRelTenantId(institutionId);
 	}
 }

@@ -40,7 +40,6 @@ public class Institution {
 	}
 
 	@OneToOne(mappedBy="institution")
-	@JsonBackReference
 	private RelTenantInstitution relTenantInstitution;
 
 	@OneToOne

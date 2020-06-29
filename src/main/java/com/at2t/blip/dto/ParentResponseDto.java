@@ -18,7 +18,7 @@ public class ParentResponseDto {
     private int branchId;
     private String secondaryParentName;
     private String AdmissionId;
-    private String SecondaryPhoneNUmber;
+    private String secondaryPhoneNUmber;
     private int childId;
     private int personId;
     private int loginCredentialId;
@@ -37,7 +37,7 @@ public class ParentResponseDto {
         this.secondaryParentName = secondaryParentName;
         this.AdmissionId = AdmissionId;
         this.branchId = BranchId;
-        this.SecondaryPhoneNUmber = SecondaryPhoneNUmber;
+        this.secondaryPhoneNUmber = SecondaryPhoneNUmber;
         this.sectionId = sectionId;
         this.childrenName = childrenName;
         this.personId = personId;
@@ -54,6 +54,19 @@ public class ParentResponseDto {
         this.parentId =parentId;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
+    public ParentResponseDto(int childId, String firstName, String lastName, String email, String phoneNumber, int personId, int loginCredentialId, int parentId, String secondaryParentName, String secondaryPhoneNumber) {
+        this.firstName = firstName;
+        this.childId = childId;
+        this.personId = personId;
+        this.loginCredentialId =loginCredentialId;
+        this.parentId =parentId;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.secondaryParentName = secondaryParentName;
+        this.secondaryPhoneNUmber = secondaryPhoneNumber;
         this.email = email;
     }
 }

@@ -69,10 +69,13 @@ public class InstructorController {
 		return instructors;
 	}
 
-	@RequestMapping(value = "/deleteInstructor", method = RequestMethod.POST)
-	public String deleteInstructor(@RequestBody int instructorId) {
+	@RequestMapping(value = "/deleteInstructor/{instructorId}", method = RequestMethod.DELETE)
+	public Object deleteInstructor(@PathVariable int instructorId) {
 		instructorService.deleteInstructor(instructorId);
-		return "Deleted Instructor with id : "+ instructorId;
+		Object object = new Object() {
+			public String response = "Deleted instructor";
+		};
+		return object;
 	}
 
 	@RequestMapping(value = "/updateInstructor", method = RequestMethod.POST)
@@ -82,9 +85,12 @@ public class InstructorController {
 	}
 
 	@PutMapping("/editInstructor")
-	public String editInstructor(@RequestBody  InstructorDto instructorDto){
+	public Object editInstructor(@RequestBody  InstructorDto instructorDto){
 		instructorService.editInstructor(instructorDto);
-		return "Updated instructor";
+		Object object = new Object() {
+			public String response = "Updated instructor";
+		};
+		return object;
 	}
 
 }

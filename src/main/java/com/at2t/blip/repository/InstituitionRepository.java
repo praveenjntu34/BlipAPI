@@ -17,7 +17,7 @@ import java.util.Optional;
 public interface InstituitionRepository extends CrudRepository<Institution, Integer> {
 
     @Query(value = "\n" +
-            "SELECT new com.at2t.blip.dto.InstitutionResponse(I.institutionId, I.institutionName, IDP.pictureStream, AD.addressId) FROM Institution I\n" +
+            "SELECT new com.at2t.blip.dto.InstitutionResponse(RI.relTenantInstitutionId, I.institutionName, IDP.pictureStream, AD.addressId) FROM Institution I\n" +
             "JOIN I.relTenantInstitution RI\n" +
             "JOIN I.institutionDisplayPicture IDP\n" +
             "JOIN RI.address AD")
@@ -27,7 +27,7 @@ public interface InstituitionRepository extends CrudRepository<Institution, Inte
     int getCount();
 
     @Query(value = "\n" +
-            "SELECT new com.at2t.blip.dto.InstitutionResponse(I.institutionId, I.institutionName, IDP.pictureStream, AD.addressId) FROM Institution I\n" +
+            "SELECT new com.at2t.blip.dto.InstitutionResponse(RI.relTenantInstitutionId, I.institutionName, IDP.pictureStream, AD.addressId) FROM Institution I\n" +
             "JOIN I.relTenantInstitution RI\n" +
             "JOIN I.institutionDisplayPicture IDP\n" +
             "JOIN RI.address AD\n" +
