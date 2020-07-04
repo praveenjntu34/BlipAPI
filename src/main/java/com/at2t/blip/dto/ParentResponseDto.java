@@ -57,7 +57,7 @@ public class ParentResponseDto {
         this.email = email;
     }
 
-    public ParentResponseDto(int childId, String firstName, String lastName, String email, String phoneNumber, int personId, int loginCredentialId, int parentId, String secondaryParentName, String secondaryPhoneNumber) {
+    public ParentResponseDto(int childId, String firstName, String lastName, String email, String phoneNumber, int personId, int loginCredentialId, int parentId, String secondaryParentName, String secondaryPhoneNumber, String AdmissionId) {
         this.firstName = firstName;
         this.childId = childId;
         this.personId = personId;
@@ -68,5 +68,6 @@ public class ParentResponseDto {
         this.secondaryParentName = secondaryParentName;
         this.secondaryPhoneNUmber = secondaryPhoneNumber;
         this.email = email;
+        this.AdmissionId = AdmissionId;
     }
 }
