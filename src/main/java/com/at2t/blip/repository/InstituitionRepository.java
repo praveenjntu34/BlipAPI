@@ -34,7 +34,11 @@ public interface InstituitionRepository extends CrudRepository<Institution, Inte
             "WHERE AD.cityId = :cityId")
     Page<InstitutionResponse> getAllInstitutionsByCity(Pageable pageable, @Param("cityId") Integer cityId);
 
-    @Query("SELECT new com.at2t.blip.dto.InstitutionResponseDto(I.institutionId,RI.institutionTypeID,RI.relTenantInstitutionId, I.institutionName,  I.email, I.website,  AD.address1,  AD.address2,AD.cityId,AD.stateId,I.remarks,  IDP.pictureStream, IDP.pictureId, AD.addressId) \n" +
+    @Query("SELECT new com.at2t.blip.dto.InstitutionResponseDto(" +
+            "I.institutionId,RI.institutionTypeID,RI.relTenantInstitutionId," +
+            " I.institutionName,  I.email, I.website,  AD.address1,  AD.address2,AD.cityId," +
+            "AD.stateId, I.remark1, I.remark2, I.remark3, I.remark4,  " +
+            "IDP.pictureStream, IDP.pictureId, AD.addressId) \n" +
             "FROM RelTenantInstitution RI\n" +
             "JOIN RI.institution I\n" +
             "JOIN RI.address AD\n" +
@@ -48,4 +52,12 @@ public interface InstituitionRepository extends CrudRepository<Institution, Inte
             "JOIN I.institutionDisplayPicture IDP\n" +
             "JOIN RI.address AD")
     List<InstitutionResponse> getAllInstitutionsDetails();
+
+    @Query(value = "\n" +
+            "SELECT new com.at2t.blip.dto.InstitutionResponse(RI.relTenantInstitutionId, I.institutionName, IDP.pictureStream, AD.addressId) FROM Institution I\n" +
+            "JOIN I.relTenantInstitution RI\n" +
+            "JOIN I.institutionDisplayPicture IDP\n" +
+            "JOIN RI.address AD\n" +
+            "WHERE AD.pincode like %:pincode%")
+    Page<InstitutionResponse> getAllInstitutionsByPincode(Pageable pageable, @Param("pincode") String pincode);
 }

@@ -24,11 +24,17 @@ public class Address {
 	@Column(name = "StateId")
 	private int stateId;
 
-	public Address() {
-	}
+	@Column(name = "Pincode")
+	private String pincode;
 
 	@Column(name = "CountryId")
 	private int countryId;
+
+	@OneToOne(mappedBy="address")
+	private RelTenantInstitution relTenantInstitution;
+
+	public Address() {
+	}
 
 	public Address(String address1, String address2, int cityId, int stateId, int countryId, String pincode) {
 		this.address1 = address1;
@@ -39,9 +45,6 @@ public class Address {
 		this.pincode = pincode;
 	}
 
-	@Column(name = "Pincode")
-	private String pincode;
-
 	public RelTenantInstitution getRelTenantInstitution() {
 		return relTenantInstitution;
 	}
@@ -49,9 +52,6 @@ public class Address {
 	public void setRelTenantInstitution(RelTenantInstitution relTenantInstitution) {
 		this.relTenantInstitution = relTenantInstitution;
 	}
-
-	@OneToOne(mappedBy="address")
-	private RelTenantInstitution relTenantInstitution;
 
 	public int getAddressId() {
 		return addressId;

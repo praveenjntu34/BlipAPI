@@ -2,9 +2,11 @@ package com.at2t.blip.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "RelTenantInstitution")
 public class RelTenantInstitution {
@@ -13,15 +15,6 @@ public class RelTenantInstitution {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "RelTenantInstitutionId")
 	private int relTenantInstitutionId;
-
-
-	public Institution getInstitution() {
-		return institution;
-	}
-
-	public void setInstitution(Institution institution) {
-		this.institution = institution;
-	}
 
 	@OneToOne
 	@JoinColumn(name = "InstitutionId", referencedColumnName = "InstitutionId")
@@ -37,6 +30,14 @@ public class RelTenantInstitution {
 
 	@Column(name = "InstitutionTypeId")
 	private int institutionTypeID;
+
+	public Institution getInstitution() {
+		return institution;
+	}
+
+	public void setInstitution(Institution institution) {
+		this.institution = institution;
+	}
 
 	public int getInstitutionTypeID() {
 		return institutionTypeID;
@@ -72,7 +73,6 @@ public class RelTenantInstitution {
 	public void setRelTenantInstitutionId(int relTenantInstitutionId) {
 		this.relTenantInstitutionId = relTenantInstitutionId;
 	}
-
 
 	public Tenant getTenant() {
 		return tenant;

@@ -3,7 +3,9 @@ package com.at2t.blip.dto;
 import com.at2t.blip.dao.Address;
 import com.at2t.blip.dao.InstitutionType;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
+@Data
 public class InstitutionDto {
     @ApiModelProperty(position = 1)
     private String institutionName;
@@ -24,13 +26,64 @@ public class InstitutionDto {
     @ApiModelProperty(position = 9)
     private int countryId;
     @ApiModelProperty(position = 10)
-    private String remarks;
+    private String remark1;
     @ApiModelProperty(position = 11)
-    private Boolean status;
+    private String remark2;
     @ApiModelProperty(position = 12)
-    private int institutionId;
+    private String remark3;
     @ApiModelProperty(position = 13)
+    private String remark4;
+    @ApiModelProperty(position = 14)
+    private Boolean status;
+    @ApiModelProperty(position = 15)
+    private int institutionId;
+    @ApiModelProperty(position = 16)
     private int addressId;
+    @ApiModelProperty(position = 17)
+    private String pincode;
+    @ApiModelProperty(position = 18)
+    private int pictureId;
+
+    public String getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+    }
+
+    public String getRemark1() {
+        return remark1;
+    }
+
+    public void setRemark1(String remark1) {
+        this.remark1 = remark1;
+    }
+
+    public String getRemark2() {
+        return remark2;
+    }
+
+    public void setRemark2(String remark2) {
+        this.remark2 = remark2;
+    }
+
+    public String getRemark3() {
+        return remark3;
+    }
+
+    public void setRemark3(String remark3) {
+        this.remark3 = remark3;
+    }
+
+    public String getRemark4() {
+        return remark4;
+    }
+
+    public void setRemark4(String remark4) {
+        this.remark4 = remark4;
+    }
+
     public int getInstitutionId() {
         return institutionId;
     }
@@ -46,9 +99,6 @@ public class InstitutionDto {
     public void setPictureId(int pictureId) {
         this.pictureId = pictureId;
     }
-
-    @ApiModelProperty(position = 12)
-    private int pictureId;
 
     public String getInstitutionName() {
         return institutionName;
@@ -128,14 +178,6 @@ public class InstitutionDto {
 
     public void setCountryId(int countryId) {
         this.countryId = countryId;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
     }
 
     public Boolean getStatus() {

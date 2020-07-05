@@ -109,16 +109,23 @@ public class InstituitionService {
 		return displayPictureRepository.findById(pictureId);
 	}
 	@Transactional
-	public List<InstitutionResponse> getAlInstitutions(Integer page, Integer size, Integer cityId) {
+	public List<InstitutionResponse> getAlInstitutions(Integer page, Integer size, Integer cityId, String pincode) {
 
 		try {
-			if(cityId == null) {
-				double count = instituitionRepository.getCount();
-				Page<InstitutionResponse> res = instituitionRepository.getAllInstitutions(PageRequest.of(page, size));
-				res.getContent().get(0).setCount(count);
-				return res.getContent();
-			} else {
-				Page<InstitutionResponse> res = instituitionRepository.getAllInstitutionsByCity(PageRequest.of(page, size), cityId);
+			if(pincode == null) {
+
+				if (cityId == null) {
+					double count = instituitionRepository.getCount();
+					Page<InstitutionResponse> res = instituitionRepository.getAllInstitutions(PageRequest.of(page, size));
+					res.getContent().get(0).setCount(count);
+					return res.getContent();
+				} else {
+					Page<InstitutionResponse> res = instituitionRepository.getAllInstitutionsByCity(PageRequest.of(page, size), cityId);
+					return res.getContent();
+				}
+			}
+			else {
+				Page<InstitutionResponse> res = instituitionRepository.getAllInstitutionsByPincode(PageRequest.of(page, size), pincode);
 				return res.getContent();
 			}
 		} catch (Exception e) {
