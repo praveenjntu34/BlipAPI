@@ -59,9 +59,10 @@ public class InstitutionController {
 	@GetMapping
 	@RequestMapping(method = RequestMethod.GET, value = "/institution/details")
 	public List<InstitutionResponse> getInstitutions(@RequestParam(value = "stateId", required = false) Integer stateId, @RequestParam(value = "cityId", required = false) Integer cityId,
-	@RequestParam(value = "pageNumber", required = false) Integer pageNumber , @RequestParam(value = "size", required = false) Integer size) {
+	@RequestParam(value = "pageNumber", required = false) Integer pageNumber , @RequestParam(value = "size", required = false) Integer size,
+	@RequestParam(value = "pincode", required = false) String pincode) {
 
-		List<InstitutionResponse> response = instituitionService.getAlInstitutions(pageNumber,size, cityId);
+		List<InstitutionResponse> response = instituitionService.getAlInstitutions(pageNumber,size, cityId, pincode);
 		if(response == null){
 			List<InstitutionResponse> res = new ArrayList<>();
 			InstitutionResponse ins = new InstitutionResponse();

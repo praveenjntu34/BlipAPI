@@ -24,7 +24,12 @@ public interface RelTenantInstitutionRepository extends JpaRepository<RelTenantI
     @Query(value = "SELECT * FROM ReltenantInstitution", nativeQuery = true)
     public List<RelTenantInstitution> findAllInstitutions();
 
-    @Query("SELECT new com.at2t.blip.dto.InstitutionResponseDto(I.institutionId,RI.institutionTypeID,RI.relTenantInstitutionId, I.institutionName,  I.email, I.website,  AD.address1,  AD.address2,AD.cityId,AD.stateId,I.remarks,  IDP.pictureStream, IDP.pictureId, AD.addressId) \n" +
+    @Query("SELECT new com.at2t.blip.dto." +
+            "InstitutionResponseDto(I.institutionId,RI.institutionTypeID," +
+            "RI.relTenantInstitutionId, I.institutionName,  I.email, I.website,  " +
+            "AD.address1,  AD.address2,AD.cityId,AD.stateId, I.remark1, " +
+            "I.remark2, I.remark3, I.remark4,  IDP.pictureStream, " +
+            "IDP.pictureId, AD.addressId) \n" +
             "FROM RelTenantInstitution RI\n" +
             "JOIN RI.institution I\n" +
             "JOIN RI.address AD\n" +
