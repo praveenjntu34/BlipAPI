@@ -170,4 +170,15 @@ public class ParentService {
 		personRepository.save(person);
 		parentRepository.save(parent);
 	}
+
+	public List<ParentResponseDto> searchByAdmissionId(String admissionId) {
+		try {
+			List<ParentResponseDto> result = parentRepository.getParentsByAdmissionId(admissionId);
+			return result;
+		}
+		catch(Exception e){
+			System.out.print(e.getMessage());
+			return null;
+		}
+	}
 }
