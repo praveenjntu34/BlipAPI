@@ -105,6 +105,15 @@ public class InstituitionService {
 	}
 
 	@Transactional
+	public List<SimpleListDto> getSimpleList() {
+
+		List<SimpleListDto> res =relTenantInstitutionRepository.getSimpleList();
+
+		return res;
+	}
+
+
+	@Transactional
 	public  Optional<InstitutionDisplayPicture> getPicture(int pictureId) {
 		return displayPictureRepository.findById(pictureId);
 	}
@@ -136,7 +145,13 @@ public class InstituitionService {
 
 	@Transactional
 	public InstitutionResponseDto getInstitutionDetails(int id) {
-		return relTenantInstitutionRepository.getInstitutionalDetails(id);
+		try {
+			InstitutionResponseDto institutionResponseDto = relTenantInstitutionRepository.getInstitutionalDetails(id);
+			return institutionResponseDto;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 
