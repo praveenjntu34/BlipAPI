@@ -11,6 +11,7 @@ public class ParentRequestDto {
     private int childId;
     private int personId;
     private int loginCredentialId;
+    private Boolean enabled;
     @JsonProperty("parentOneFirstName")
     private String parentOneFirstName;
     @JsonProperty("parentOneLastName")
@@ -115,6 +116,14 @@ public class ParentRequestDto {
 
     public void setParentOneLastName(String parentOneLastName) {
         this.parentOneLastName = parentOneLastName;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getEmail() {

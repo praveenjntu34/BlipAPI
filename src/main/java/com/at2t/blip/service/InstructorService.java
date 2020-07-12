@@ -45,15 +45,18 @@ public class InstructorService {
 
 	@Transactional
 	public int addInstructor(InstructorDto instructorDto) {
-		 return instructorRepository.addInstructor(instructorDto.getPersonId(),instructorDto.getDesignation(),instructorDto.getRelTenantInstitutionId(), instructorDto.getSectionId());
+		instructorDto.setEnabled(true);
+		 return instructorRepository.addInstructor(instructorDto.getPersonId(),instructorDto.getDesignation(),instructorDto.getRelTenantInstitutionId(), instructorDto.getSectionId(), instructorDto.getEnabled(), instructorDto.getImage());
 	}
 
 	@Transactional
 	public InstructorPagesDto getInstructorDetails(int relTenantInstitutionId, int pageNumber, int size) {
+
 		Page<InstructorResponseDto> res = instructorRepository.getInstructorDetails(relTenantInstitutionId, PageRequest.of(pageNumber,size));
 		InstructorPagesDto instructorPagesDto = new InstructorPagesDto();
 		instructorPagesDto.setInstructors(res.getContent());
 		instructorPagesDto.setPages(res.getTotalPages());
+
 
 		return instructorPagesDto;
 
@@ -89,6 +92,8 @@ public class InstructorService {
 		Instructor instructor = instructorRepository.findById(instructorDto.getInstructorId()).get();
 		instructor.setDesignation(instructorDto.getDesignation());
 		instructor.setInstructorId(instructorDto.getInstructorId());
+		instructor.setEnabled(instructorDto.getEnabled());
+		instructor.setImage(instructorDto.getImage());
 		Section section = sectionRepository.findById(instructorDto.getSectionId()).get();
 		instructor.setSection(section);
 		instructorRepository.save(instructor);

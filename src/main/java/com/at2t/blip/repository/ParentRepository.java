@@ -24,7 +24,7 @@ public interface ParentRepository extends PagingAndSortingRepository<Parent, Int
 
 	@Query(value = "\n" +
 			"SELECT new com.at2t.blip.dto.ParentResponseDto(C.childId, PR.firstName, PR.lastName, LC.email, LC.PhoneNumber,\n" +
-			"PR.personId, LC.LoginCredentialId, P.parentId, P.secondaryParentName, P.secondaryPhoneNumber, C.admissionId, C.childrenName) FROM Child C\n" +
+			"PR.personId, LC.LoginCredentialId, P.parentId, P.secondaryParentName, P.secondaryPhoneNumber, C.admissionId, C.childrenName, C.enabled) FROM Child C\n" +
 			"JOIN C.parent P\n" +
 			"JOIN P.personId PR\n" +
 			"JOIN PR.loginCredential LC\n" +

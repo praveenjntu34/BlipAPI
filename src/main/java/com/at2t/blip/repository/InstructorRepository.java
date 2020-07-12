@@ -18,8 +18,10 @@ import java.util.Optional;
 
 public interface InstructorRepository extends CrudRepository<Instructor, Integer> {
 
-	@Query(value = "INSERT INTO Instructor(PersonId,Designation,RelTenantInstitutionId,SectionId) OUTPUT inserted.InstructorId  VALUES(:personId,:designation,:relTenantInstitutionId, :sectionId)", nativeQuery = true)
-	public int addInstructor(@Param("personId") int personId, @Param("designation") String designation, @Param("relTenantInstitutionId") int relTenantInstitutionId, @Param("sectionId") int sectionId);
+	@Query(value = "INSERT INTO Instructor(PersonId,Designation,RelTenantInstitutionId,SectionId, Enabled, Image) OUTPUT inserted.InstructorId  VALUES(:personId,:designation,:relTenantInstitutionId, :sectionId, :enabled, :image)", nativeQuery = true)
+	public int addInstructor(@Param("personId") int personId, @Param("designation") String designation,
+							 @Param("relTenantInstitutionId") int relTenantInstitutionId, @Param("sectionId") int sectionId,
+							 @Param("enabled") Boolean enabled, @Param("image") String image);
 
 	@Modifying
 	@Query(value = "Delete from Instructor where InstructorId=:instructorId", nativeQuery = true)
@@ -30,7 +32,9 @@ public interface InstructorRepository extends CrudRepository<Instructor, Integer
 	public void updateInstructor(@Param("personId") int personId, @Param("sectionId") int sectionId,
 			@Param("instructorId") int instructorId);
 
-	@Query(value = "SELECT new com.at2t.blip.dto.InstructorResponseDto(I.instructorId, I.designation, P.firstName, P.lastName, L.email, L.PhoneNumber, I.relTenantInstitutionId, S.sectionId, L.LoginCredentialId, P.personId, S.branchId) FROM Instructor I\n " +
+	@Query(value = "SELECT new com.at2t.blip.dto.InstructorResponseDto(I.instructorId, I.designation, P.firstName, " +
+			"P.lastName, L.email, L.PhoneNumber, I.relTenantInstitutionId, S.sectionId, L.LoginCredentialId, " +
+			"P.personId, S.branchId, I.enabled, I.image) FROM Instructor I\n " +
 			"JOIN I.person P\n" +
 			"JOIN I.section S\n" +
 			"JOIN P.loginCredential L\n" +

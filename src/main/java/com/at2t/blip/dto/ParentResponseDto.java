@@ -23,6 +23,8 @@ public class ParentResponseDto {
     private int personId;
     private int loginCredentialId;
     private int parentId;
+    private Boolean enabled;
+
 //
 //    @NamedNativeQuery(name="Parent.getSingleParent", query="SELECT PR.firstName, PR.lastName, LC.email, LC.PhoneNumber, " +
 //            "P.SecondaryParentname, C.AdmissionId, P.SecondaryPhoneNumber, C.childrenName, S.SectionId, S.BranchId,\n" +
@@ -70,7 +72,7 @@ public class ParentResponseDto {
         this.email = email;
         this.AdmissionId = AdmissionId;
     }
-    public ParentResponseDto(int childId, String firstName, String lastName, String email, String phoneNumber, int personId, int loginCredentialId, int parentId, String secondaryParentName, String secondaryPhoneNumber, String AdmissionId, String childrenName) {
+    public ParentResponseDto(int childId, String firstName, String lastName, String email, String phoneNumber, int personId, int loginCredentialId, int parentId, String secondaryParentName, String secondaryPhoneNumber, String AdmissionId, String childrenName, Boolean enabled) {
         this.firstName = firstName;
         this.childId = childId;
         this.personId = personId;
@@ -83,5 +85,6 @@ public class ParentResponseDto {
         this.email = email;
         this.AdmissionId = AdmissionId;
         this.childrenName = childrenName;
+        this.enabled = enabled;
     }
 }
