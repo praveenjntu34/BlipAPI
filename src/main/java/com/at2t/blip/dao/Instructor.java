@@ -13,9 +13,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Instructor")
+@Getter
+@Setter
 public class Instructor {
 
 	@Id
@@ -37,42 +41,11 @@ public class Instructor {
 	@OneToOne
 	private Section section;
 
-	public int getRelTenantInstitutionId() {
-		return relTenantInstitutionId;
-	}
+	@Column(name="Enabled")
+	private Boolean enabled;
 
-	public void setRelTenantInstitutionId(int relTenantInstitutionId) {
-		this.relTenantInstitutionId = relTenantInstitutionId;
-	}
-	public int getInstructorId() {
-		return instructorId;
-	}
+	@Column(name="Image")
+	private String image;
 
-	public Person getPerson() {
-		return person;
-	}
 
-	public Section getSection() {
-		return section;
-	}
-
-	public void setSection(Section section) {
-		this.section = section;
-	}
-
-	public void setInstructorId(int instructorId) {
-		this.instructorId = instructorId;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-
-	public String getDesignation() {
-		return designation;
-	}
-
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
 }

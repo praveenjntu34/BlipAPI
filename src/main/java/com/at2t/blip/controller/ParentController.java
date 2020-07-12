@@ -132,6 +132,7 @@ public class ParentController {
 
 		Child child = new Child();
 		child.setChildId(parentDto.getChildId());
+		child.setEnabled(parentDto.getEnabled());
 		child.setParent(parent);
 		child.setAdmissionId(parentDto.getAdmissionNumber());
 		child.setChildrenName(parentDto.getChildrenName());

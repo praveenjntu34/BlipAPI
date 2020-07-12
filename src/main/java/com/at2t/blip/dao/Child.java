@@ -4,9 +4,13 @@ import javax.persistence.*;
 
 import com.at2t.blip.dto.ParentResponseDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Child")
+@Getter
+@Setter
 public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,46 +33,9 @@ public class Child {
     @Column(name="SectionId")
     private int sectionId;
 
+    @Column(name="Enabled")
+    private Boolean enabled;
+
     public Child() {
-    }
-
-    public int getChildId() {
-        return childId;
-    }
-
-    public void setChildId(int childId) {
-        this.childId = childId;
-    }
-
-    public Parent getParent() {
-        return parent;
-    }
-
-    public void setParent(Parent parent) {
-        this.parent = parent;
-    }
-
-    public String getChildrenName() {
-        return childrenName;
-    }
-
-    public void setChildrenName(String childrenName) {
-        this.childrenName = childrenName;
-    }
-
-    public String getAdmissionId() {
-        return admissionId;
-    }
-
-    public void setAdmissionId(String admissionId) {
-        this.admissionId = admissionId;
-    }
-
-    public int getSectionId() {
-        return sectionId;
-    }
-
-    public void setSectionId(int sectionId) {
-        this.sectionId = sectionId;
     }
 }
