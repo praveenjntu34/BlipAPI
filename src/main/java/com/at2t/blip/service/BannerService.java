@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import com.at2t.blip.dao.Banner;
 import com.at2t.blip.dao.Post;
 import com.at2t.blip.dao.Section;
+import com.at2t.blip.dto.MultipleBannersDto;
 import com.at2t.blip.dto.PostRequestDto;
 import com.at2t.blip.exception.FileStorageException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,17 +48,22 @@ public class BannerService {
 		}
 	}
 
-	public void storeBanner(BannerDto bannerDto) {
+	public void storeBanner(MultipleBannersDto bannerDto, MultipartFile file) {
 
 		try {
 
-			Banner banner = new Banner(bannerDto.getRelTenantInstitutionId(), bannerDto.getTitle(), bannerDto.getShortDescription());
-
-			if(bannerDto.getBannerId() == 0) {
+			for (int i = 0; i < bannerDto.getRelTenantInstitutionId().length; i++) {
+				Banner banner = new Banner(bannerDto.getRelTenantInstitutionId()[i], bannerDto.getTitle(), bannerDto.getShortDescription());
+				banner.setAuditCreatedBy(bannerDto.getAuditCreatedBy());
+				banner.setBannerStream(file.getBytes());
 				bannerRepository.save(banner);
-			} else {
-				bannerRepository.updateBanner(bannerDto.getRelTenantInstitutionId(), bannerDto.getTitle(), bannerDto.getShortDescription(), bannerDto.getBannerId());
 			}
+
+//			if(bannerDto.getBannerId() == 0) {
+//				bannerRepository.save(banner);
+//			} else {
+//				bannerRepository.updateBanner(bannerDto.getRelTenantInstitutionId(), bannerDto.getTitle(), bannerDto.getShortDescription(), bannerDto.getBannerId());
+//			}
 
 		} catch(Exception e) {
 			System.out.println(e.getStackTrace());
@@ -76,11 +82,21 @@ public class BannerService {
 		}
 	}
 
-	@Transactional
-	public List<Banner> getBanners(int relTenantInstitutionId) {
+	public List<Banner> getBanners(int relTenantInstitutionId, int audit) {
 
 		try {
-			return bannerRepository.getBanners(relTenantInstitutionId);
+			return bannerRepository.getBanners(relTenantInstitutionId, audit);
+		}catch (Exception e) {
+			System.out.println(e.getStackTrace());
+			return null;
+		}
+
+	}
+
+	public List<Banner> getBannersForInstitution(int relTenantInstitutionId) {
+
+		try {
+			return bannerRepository.getBannersForInstitution(relTenantInstitutionId);
 		}catch (Exception e) {
 			System.out.println(e.getStackTrace());
 			return null;

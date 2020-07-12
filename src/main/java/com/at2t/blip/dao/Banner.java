@@ -12,9 +12,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Banner")
+@Getter
+@Setter
 public class Banner {
 
 	@Id
@@ -37,6 +41,9 @@ public class Banner {
 	@Column(name = "ShortDescription")
 	private String shortDescription;
 
+	@Column(name = "AuditCreatedBy")
+	private Integer auditCreatedBy;
+
 	public Banner() {
 	}
 
@@ -50,51 +57,5 @@ public class Banner {
 		this.shortDescription = shortDescription;
 	}
 
-	public int getBannerId() {
-		return bannerId;
-	}
 
-	public void setBannerId(int bannerId) {
-		this.bannerId = bannerId;
-	}
-
-	public int getRelTenantInstitutionId() {
-		return relTenantInstitutionId;
-	}
-
-	public void setRelTenantInstitutionId(int relTenantInstitutionId) {
-		this.relTenantInstitutionId = relTenantInstitutionId;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public byte[] getBannerStream() {
-		return bannerStream;
-	}
-
-	public void setBannerStream(byte[] bannerStream) {
-		this.bannerStream = bannerStream;
-	}
-
-	public byte[] getSecondaryBanner() {
-		return secondaryBanner;
-	}
-
-	public void setSecondaryBanner(byte[] secondaryBanner) {
-		this.secondaryBanner = secondaryBanner;
-	}
-
-	public String getShortDescription() {
-		return shortDescription;
-	}
-
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
-	}
 }

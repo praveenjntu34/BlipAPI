@@ -70,4 +70,18 @@ public class ParentResponseDto {
         this.email = email;
         this.AdmissionId = AdmissionId;
     }
+    public ParentResponseDto(int childId, String firstName, String lastName, String email, String phoneNumber, int personId, int loginCredentialId, int parentId, String secondaryParentName, String secondaryPhoneNumber, String AdmissionId, String childrenName) {
+        this.firstName = firstName;
+        this.childId = childId;
+        this.personId = personId;
+        this.loginCredentialId =loginCredentialId;
+        this.parentId =parentId;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.secondaryParentName = secondaryParentName;
+        this.secondaryPhoneNUmber = secondaryPhoneNumber;
+        this.email = email;
+        this.AdmissionId = AdmissionId;
+        this.childrenName = childrenName;
+    }
 }

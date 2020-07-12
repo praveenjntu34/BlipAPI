@@ -23,8 +23,12 @@ public interface BannerRepository extends CrudRepository<Banner, Integer> {
 	@Query(value = "Delete from Banner where BannerId=:bannerId", nativeQuery = true)
 	public void deleteBanner(@Param("bannerId") int bannerId);
 
-	@Query("SELECT b FROM Banner b WHERE relTenantInstitutionId= :relTenantInstitutionId")
-	List<Banner> getBanners(int relTenantInstitutionId);
+	@Query("SELECT b FROM Banner b WHERE relTenantInstitutionId= :relTenantInstitutionId OR auditCreatedBy = :audit")
+	List<Banner> getBanners(int relTenantInstitutionId, int audit);
+
+
+	@Query("SELECT b FROM Banner b WHERE relTenantInstitutionId= :relTenantInstitutionId OR relTenantInstitutionId = 0")
+	List<Banner> getBannersForInstitution(int relTenantInstitutionId);
 
 	@Modifying
 	@Transactional

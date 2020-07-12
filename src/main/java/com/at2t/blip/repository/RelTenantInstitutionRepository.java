@@ -2,6 +2,7 @@ package com.at2t.blip.repository;
 
 
 import com.at2t.blip.dto.InstitutionResponseDto;
+import com.at2t.blip.dto.SimpleListDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -37,6 +38,12 @@ public interface RelTenantInstitutionRepository extends JpaRepository<RelTenantI
             "WHERE RI.relTenantInstitutionId = :relTenantInstitutionId")
     InstitutionResponseDto getInstitutionalDetails(@Param("relTenantInstitutionId") int id);
 
+
+    @Query("SELECT new com.at2t.blip.dto." +
+            "SimpleListDto(RI.relTenantInstitutionId, I.institutionName)\n" +
+            "FROM RelTenantInstitution RI \n" +
+            "JOIN RI.institution I")
+    List<SimpleListDto> getSimpleList();
 
 
 //    public void getAllInstitutions();
