@@ -165,6 +165,12 @@ public class ParentController {
 		return "Parent details successfully updated.";
 	}
 
+	@GetMapping("/parent/search")
+	public List<ParentResponseDto> searchUserByAdmissionId(@RequestParam(value = "admissionId") String admissionId){
+		List<ParentResponseDto> res = parentService.searchByAdmissionId(admissionId);
+		return res;
+	}
+
 
 
 }
