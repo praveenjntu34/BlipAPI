@@ -44,4 +44,21 @@ public interface LoginCredentialRepository extends CrudRepository<LoginCredentia
 			"JOIN PersonType PT ON PT.PersonTypeId = P.PersonTypeId\n" +
 			"WHERE LC.Email= :email", nativeQuery = true)
 	List<Object[]>  getLogin(String email);
+
+	@Query(value = "SELECT PR.ParentId, C.SectionId, PR.RelTenantInstitutionId, P.FirstName, P.LastName from LoginCredential LC\n" +
+			"join Person P on P.PersonId = LC.PersonId\n" +
+			"join Parent PR on PR.PersonId = P.PersonId\n" +
+			"join Child C ON C.ParentId = PR.ParentId\n" +
+			"WHERE LC.PhoneNumber =:phoneNumber", nativeQuery = true)
+	List<Object[]> getUserByPhoneNumber(String phoneNumber);
+
+
+	@Query(value = "SELECT PR.ParentId, C.SectionId, PR.RelTenantInstitutionId, P.FirstName," +
+			" P.LastName, PR.SecondaryPhoneNumber, PR.SecondaryParentName, C.ChildrenName, C.AdmissionId," +
+			" LC.email, LC.PhoneNumber, C.childId, P.personId from LoginCredential LC\n" +
+			"join Person P on P.PersonId = LC.PersonId\n" +
+			"join Parent PR on PR.PersonId = P.PersonId\n" +
+			"join Child C ON C.ParentId = PR.ParentId\n" +
+			"WHERE PR.ParentId =:parentId", nativeQuery = true)
+	List<Object[]> getParentProfile(int parentId);
 }

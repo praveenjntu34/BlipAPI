@@ -2,6 +2,7 @@ package com.at2t.blip.controller;
 
 import com.at2t.blip.dao.*;
 import com.at2t.blip.dto.*;
+import com.at2t.blip.repository.RelTenantInstitutionRepository;
 import com.at2t.blip.service.AddressService;
 
 import java.util.ArrayList;
@@ -33,6 +34,9 @@ public class InstitutionController {
 
 	@Autowired
 	ModelMapper modelMapper;
+
+	@Autowired
+	RelTenantInstitutionRepository relTenantInstitutionRepository;
 
 	@RequestMapping(method = RequestMethod.POST, value = "/institution/details")
 	public InstitutionDetailsResponse addInstitution(@RequestBody InstitutionDto institutionDto) {
@@ -107,8 +111,9 @@ public class InstitutionController {
 		RelTenantInstitution relTenantInstitution = new RelTenantInstitution(institutionObject, tenant,
 				institutionDto.getInstitutionTypeId(), address);
 		relTenantInstitution.setRelTenantInstitutionId(institutionDto.getInstitutionId());
+		relTenantInstitution.setInstitutionTypeID(institutionDto.getInstitutionTypeId());
 		int rel = relTenantInstitutionService.getRelTenantInstitution(institutionObject.getInstitutionId());
-
+		relTenantInstitutionRepository.save(relTenantInstitution);
 
 		InstitutionDetailsResponse response = new InstitutionDetailsResponse(institutionObject.getInstitutionId(), 0,institutionObject.getStatus(), institutionObject.getInstitutionName());
 		return response;

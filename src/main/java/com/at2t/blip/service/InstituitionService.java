@@ -35,6 +35,10 @@ public class InstituitionService {
 	@Autowired
 	RelTenantInstitutionRepository relTenantInstitutionRepository;
 
+	@Autowired
+	InstitutionTypeRepository institutionTypeRepository;
+
+
 	@Transactional
 	public Institution addInstituition(Institution instituition) {
 		return instituitionRepository.save(instituition);
@@ -147,6 +151,9 @@ public class InstituitionService {
 	public InstitutionResponseDto getInstitutionDetails(int id) {
 		try {
 			InstitutionResponseDto institutionResponseDto = relTenantInstitutionRepository.getInstitutionalDetails(id);
+
+			InstitutionType iType = institutionTypeRepository.findById(institutionResponseDto.getInstitutionTypeId()).get();
+			institutionResponseDto.setInstitutionTypeName(iType.getInstitutionTypeName());
 			return institutionResponseDto;
 		} catch (Exception e) {
 			e.printStackTrace();

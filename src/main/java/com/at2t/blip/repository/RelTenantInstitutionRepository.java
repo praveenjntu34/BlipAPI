@@ -30,7 +30,7 @@ public interface RelTenantInstitutionRepository extends JpaRepository<RelTenantI
             "RI.relTenantInstitutionId, I.institutionName,  I.email, I.website,  " +
             "AD.address1,  AD.address2,AD.cityId,AD.stateId, I.remark1, " +
             "I.remark2, I.remark3, I.remark4,  IDP.pictureStream, " +
-            "IDP.pictureId, AD.addressId) \n" +
+            "IDP.pictureId, AD.addressId, AD.pincode) \n" +
             "FROM RelTenantInstitution RI\n" +
             "JOIN RI.institution I\n" +
             "JOIN RI.address AD\n" +

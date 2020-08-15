@@ -19,7 +19,7 @@ public class LoginCredential {
     private String PasswordSalt;
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "personId")
     private Person person;
 

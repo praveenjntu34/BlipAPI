@@ -51,4 +51,6 @@ public interface ParentRepository extends PagingAndSortingRepository<Parent, Int
 			"JOIN PR.loginCredential LC\n" +
 			"WHERE C.admissionId like %:admissionId%")
 	 List<ParentResponseDto> getParentsByAdmissionId(@Param("admissionId") String admissionId);
+
+
 }
